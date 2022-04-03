@@ -40,13 +40,14 @@ List newList(void){
 	return(L);
 }
 
-void freeList(List* pL){
-	List* delete = pL->front;
-	while(delete != NULL && *delete != NULL){
-		List temp = delete->next;
-		free(delete);
-		*delete = NULL;
-		freeList(&temp);
+void freeList(List pL){
+	Node delete = pL->front->next;
+	free(pL->front);
+	pL->front = NULL;
+	while(delete != NULL){
+		Node temp = delete->next;
+		free(&delete);
+		delete = temp;
 	}
 }
 
@@ -138,21 +139,20 @@ void clear(List L){
 		printf("List Error: calling clear() on NULL List reference\n");
 		exit(EXIT_FAILURE);
 	}
-	List* del = L->front;
+	Node del = L->front;
 	while(del != NULL){
-		List temp = del->next;
-		free(del);
-		del = NULL;
+		Node temp = del->next;
+		free(&del);
 		del = temp;
 	}
 }
 
 void set(List L, int x){
-	if(List L == NULL){
+	if(L == NULL){
 		printf("List Error: calling set() on NULL List reference\n");
 		exit(EXIT_FAILURE);
 	}
-	if(!(List->length > 0)){
+	if(!(L->length > 0)) {
 		printf("List Error: calling set() on empty List reference\n");
 		exit(EXIT_FAILURE);
 	}
@@ -160,7 +160,7 @@ void set(List L, int x){
 		printf("List Error: calling set() with invalid  List reference\n");
 		exit(EXIT_FAILURE);
 	}
-	A->curser->data = x;
+	L->curser->data = x;
 }
 
 void moveFront(List L){
@@ -192,7 +192,7 @@ void movePrev(List L){
 	}
 	if(length(L)> 0){
 		L->index--;
-		L->curser = L->prev;
+		L->curser = L->curser->prev;
 	}
 }
 
@@ -203,7 +203,7 @@ void moveNext(List L){
 	}
 	if(length(L) > 0){
 		L->index++;
-		L->curser = L->next;
+		L->curser = L->curser->next;
 	}
 }
 
@@ -212,9 +212,8 @@ void prepend(List L, int x){
 		printf("List Error: calling prepend() on NULL List reference\n");
 		exit(EXIT_FAILURE);
 	}
-	List new = newList();
-	new->curser->data = x;
-
+	Node new = malloc(sizeof(NodeObj));
+	new->data = x;
 	new->next = L->front;
 	new->prev = NULL;
 	L->front = new;
@@ -227,16 +226,16 @@ void append(List L, int x){
 		exit(EXIT_FAILURE);
 	}
 
-	List new = newList();
-	new->curser->data = x;
+	Node new = malloc(sizeof(NodeObj));
+	new->data = x;
 
-	if(isEmpty(L)){
-		L->front = L->back = N;
+	if(L->length == 0){
+		L->front = L->back = new;
 	}
 	else{
-		N->prev = L->back;
-		L->back->next = N;
-		L->back = N;
+		new->prev = L->back;
+		L->back->next = new;
+		L->back = new;
 	}
 	L->length++;
 }
@@ -246,15 +245,17 @@ void insertBefore(List L, int x){
 		printf("List Error: calling Enqueue() on NULL List reference");
 		exit(EXIT_FAILURE);
 	}
-	if(L->prev = NULL){
-		List new = newList(x);
+	if(L->curser->prev = NULL){
+		Node new = malloc(sizeof(NodeObj));
+		new->data = x;
 		L->curser->prev = new;
 	}
 	if(length(L) > 0 && index(L) > 0){
 		L->curser->prev = NULL;
 		L->curser->prev->next = NULL;
 
-		List new = newList(x);
+		Node new = malloc(sizeof(NodeObj));
+		new->data = x;
 
 		L->curser->prev->next = new;
 		L->curser->prev = new;
@@ -266,8 +267,9 @@ void insertAfter(List L, int x){
 		printf("List Error: calling Enqueue() on NULL List reference");
 		exit(EXIT_FAILURE);
 	}
-	if(L->next = NULL){
-		List new = newList(x);
+	if(L->curser->next = NULL){
+		List new = malloc(sizeof(NodeObj));
+		new->data = x;
 		L->curser->next = new;
 	}
 	if(length(L) > 0 && index(L) > 0){
@@ -286,7 +288,7 @@ void deleteFront(List L){
 		printf("List Error: calling Dequeue() on NULL List reference");
 		exit(EXIT_FAILURE);
 	}
-	if(isEmpty(L)){
+	if(L->length == 0){
 		printf("List Error: calling Dequeue() on empty List");
 		exit(EXIT_FAILURE);
 	}
