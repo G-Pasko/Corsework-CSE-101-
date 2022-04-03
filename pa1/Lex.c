@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <string.h>
-#include <stdio.h>
-#include <unistd.h>
+//#include <unistd.h>
+#include <stdlib.h>
+#include "List.h"
 
 
-int main(int argc, char argv[]){
+int main(int argc, char* argv[]){
 	if(argc != 3){
 		fprintf(stderr, "Incorrect number of files provided\n");
-		exit(0);
+		return 0;
 	}
 	char buff[512];
 	int lines = 0;
@@ -17,12 +18,13 @@ int main(int argc, char argv[]){
 		lines ++;
 	}
 	rewind(input);
-	char** words = (char *)calloc(lines, sizeof(char));
+	char** words = (char **)calloc(lines, sizeof(char));
 	int i = 0;
 	while((fgets(buff, 512, input) != NULL)){
 		words[i] = buff;
 		i++;
 	}
+
 
 
 	fclose(input);

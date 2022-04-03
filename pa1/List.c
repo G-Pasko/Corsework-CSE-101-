@@ -4,81 +4,55 @@
 * List.c 
 * Creating list ADTS, Constructors, and Destructors
 *********************************************************************************/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include "List.h"
 //Structs
+extern char* strdup(const char*);
+
 
 typedef struct NodeObj{
 	int data;
-	struct NodeObj* Prev;
-	struct NodeObj* Next;
+	struct NodeObj* prev;
+	struct NodeObj* next;
 }NodeObj;
 
 typedef NodeObj* Node;
 
 typedef struct ListObj{
 	int length;
-	int index = -1;
-	Node Back;
-	Node Front;
-	Node Current;
+	int index;				//position of curser
+	Node back;
+	Node front;
+	Node curser;
 }ListObj;
 
 // Constructors and Destructors
 
 // newNode()
 // Returns reference to new Node object. Initializes next and data fields.
-Node newNode(int data){
-	Node N = malloc(sizeof(NodeObj));
-	N->data = data;
-	N->next = NULL;
-	return(N);
-}
-
-void freeNode(Node* pN){
-	if(pN != NULL && *pN != NULL){
-		free(*pN);
-		*pN = NULL;
-	}
-}
-
-List newList(){
-	List L;
-	L = malloc(sizeof(ListObj));
-	L->Front = L->Back = NULL;
-	L->length = 0;
+List newList(void){
+	List L = malloc(sizeof(ListObj));
+	L->back = L->front = L->curser = NULL;
+	int length = 0;
+	int index = -1;
 	return(L);
 }
 
 void freeList(List* pL){
-	if(pL != NULL && *pL != NULL){
-		while(!isEmpty(*pL)){
-			Dequeue(*pL);
-		}
-		free(*pL);
-		*pL = NULL;
+	List* delete = pL->front;
+	while(delete != NULL && *delete != NULL){
+		List temp = delete->next;
+		free(delete);
+		*delete = NULL;
+		freeList(&temp);
 	}
 }
+
 
 //Access Functions
-
-int getFront(List L){
-	if(L == NULL){
-		printf("List Error: calling getFront() on NULL List reference\n");
-		exit(EXIT_FAILURE);
-	}
-
-	if(isEmpty(L)){
-		printf("List Error: calling getFront() on empty List\n");
-		exit(EXIT_FAILURE);
-	}
-	return(L->Front->data);
-}
-
-int getLength(List L){
+int length(List L){
 	if(L == NULL){
 		printf("List Error: calling getLength() on NULL List reference");
 		exit(EXIT_FAILURE);
@@ -86,35 +60,228 @@ int getLength(List L){
 	return(L->length);
 }
 
-bool isEmpty(List L){
+int index(List L){
 	if(L == NULL){
-		printf("List error: calling isEmpty() on NULL List reference");
+		printf("List Error: calling index() on NULL List reference\n");
 		exit(EXIT_FAILURE);
 	}
-	return(L->length == 0);
+	return(L->index);
 }
+
+int front(List L){
+	if(L == NULL){
+		printf("List Error: calling front() on NULL List reference\n");
+		exit(EXIT_FAILURE);
+	}
+
+	if(L->length == 0){
+		printf("List Error: calling front() on empty List\n");
+		exit(EXIT_FAILURE);
+	}
+	return(L->front->data);
+}
+
+int back(List L){
+	if(L == NULL){
+		printf("List Error: calling back() on NULL List reference\n");
+		exit(EXIT_FAILURE);
+	}
+
+	if(L->length == 0){
+		printf("List Error: calling back() on empty List\n");
+		exit(EXIT_FAILURE);
+	}
+	return(L->back->data);
+}
+
+int get(List L){
+	if(L == NULL){
+		printf("List Error: calling get() on NULL List reference\n");
+		exit(EXIT_FAILURE);
+	}
+	if(!(length(L) > 0 && index(L) > 0)){
+		printf("List Error: calling get() on an empty List reference\n");
+		exit(EXIT_FAILURE);
+	}
+	return(L->curser->data);
+}
+
+bool equals(List A, List B){
+	bool eq = 0;
+	Node N = NULL;
+
+
+	Node M = NULL;
+
+	if(A == NULL || B == NULL){
+		printf("List Error: calling equals() on NULL List reference\n");
+		exit(EXIT_FAILURE);
+	}
+
+	eq = (A->length == B->length);
+	N = A->front;
+	M = B->front;
+	while(eq && N->data == M->data){
+		eq = (N->data == M->data);
+		N = N->next;
+		M = M->next;
+	}
+	return eq;
+}
+
+
 
 //Manipulation procedures
 
-void Enqueue(List L, int data){
+void clear(List L){
+	if(L == NULL){
+		printf("List Error: calling clear() on NULL List reference\n");
+		exit(EXIT_FAILURE);
+	}
+	List* del = L->front;
+	while(del != NULL){
+		List temp = del->next;
+		free(del);
+		del = NULL;
+		del = temp;
+	}
+}
+
+void set(List L, int x){
+	if(List L == NULL){
+		printf("List Error: calling set() on NULL List reference\n");
+		exit(EXIT_FAILURE);
+	}
+	if(!(List->length > 0)){
+		printf("List Error: calling set() on empty List reference\n");
+		exit(EXIT_FAILURE);
+	}
+	if(!(index(L)) >=0){
+		printf("List Error: calling set() with invalid  List reference\n");
+		exit(EXIT_FAILURE);
+	}
+	A->curser->data = x;
+}
+
+void moveFront(List L){
+	if(L == NULL){
+		printf("List Error: calling moveFront() on NULL List reference\n");
+		exit(EXIT_FAILURE);
+	}
+	if(length(L) > 0){
+		L->index = 0;
+		L->curser = L->front;
+	}
+}
+
+void moveBack(List L){
+	if(L == NULL){
+		printf("List Error: calling moveBack() on NULL List reference\n");
+		exit(EXIT_FAILURE);
+	}
+	if(length(L) > 0){
+		L->index = L->length - 1;
+		L->curser = L->back;
+	}
+}
+
+void movePrev(List L){
+	if(L == NULL){
+		printf("List Error: calling movePrev() on NULL List reference\n");
+		exit(EXIT_FAILURE);
+	}
+	if(length(L)> 0){
+		L->index--;
+		L->curser = L->prev;
+	}
+}
+
+void moveNext(List L){
+	if(L == NULL){
+		printf("List Error: calling moveNext() on NULL List reference\n");
+		exit(EXIT_FAILURE);
+	}
+	if(length(L) > 0){
+		L->index++;
+		L->curser = L->next;
+	}
+}
+
+void prepend(List L, int x){
+	if(L == NULL){
+		printf("List Error: calling prepend() on NULL List reference\n");
+		exit(EXIT_FAILURE);
+	}
+	List new = newList();
+	new->curser->data = x;
+
+	new->next = L->front;
+	new->prev = NULL;
+	L->front = new;
+}
+
+
+void append(List L, int x){
 	if(L == NULL){
 		printf("List Error: calling Enqueue() on NULL List reference");
 		exit(EXIT_FAILURE);
 	}
 
-	Node N = newNode(data);
+	List new = newList();
+	new->curser->data = x;
 
 	if(isEmpty(L)){
-		L->Front = L->Back = N;
+		L->front = L->back = N;
 	}
 	else{
-		L->Back->Next = N;
-		L->Back = N;
+		N->prev = L->back;
+		L->back->next = N;
+		L->back = N;
 	}
 	L->length++;
 }
 
-void Dequeue(List L){
+void insertBefore(List L, int x){
+	if(L == NULL){
+		printf("List Error: calling Enqueue() on NULL List reference");
+		exit(EXIT_FAILURE);
+	}
+	if(L->prev = NULL){
+		List new = newList(x);
+		L->curser->prev = new;
+	}
+	if(length(L) > 0 && index(L) > 0){
+		L->curser->prev = NULL;
+		L->curser->prev->next = NULL;
+
+		List new = newList(x);
+
+		L->curser->prev->next = new;
+		L->curser->prev = new;
+	}
+}
+
+void insertAfter(List L, int x){
+	if(L == NULL){
+		printf("List Error: calling Enqueue() on NULL List reference");
+		exit(EXIT_FAILURE);
+	}
+	if(L->next = NULL){
+		List new = newList(x);
+		L->curser->next = new;
+	}
+	if(length(L) > 0 && index(L) > 0){
+		L->curser->next = NULL;
+		L->curser->next->prev = NULL;
+
+		List new = newList(x);
+
+		L->curser->next->prev = new;
+		L->curser->next = new;
+	}
+}
+
+void deleteFront(List L){
 	if(L == NULL){
 		printf("List Error: calling Dequeue() on NULL List reference");
 		exit(EXIT_FAILURE);
@@ -123,7 +290,7 @@ void Dequeue(List L){
 		printf("List Error: calling Dequeue() on empty List");
 		exit(EXIT_FAILURE);
 	}
-	N = L->Frot;
+	N = L->front;
 	if(getLength(L) > 1){
 		L->Front = L->Front->Next;
 	}
@@ -134,6 +301,48 @@ void Dequeue(List L){
 	freeNode(&N);
 }
 
+
+
 //Other Functions
 
+void printList(List L){
+	if(L == NULL){
+		printf("List Error: calling printList() on NULL List reference");
+		exit(EXIT_FAILURE);
+	}
 
+	Node N = NULL;
+
+	for(N = L->Front; N != NULL; N = N->Next){
+		printf("%d ", N->Next);
+	}
+	printf("\n");
+}
+
+List copyList(List L){
+
+}
+
+/*
+bool equals(List A, List B){
+
+	if(A == NULL || B == NULL){
+		printf("List Error: calling equlas() on NULL List reference");
+		exit(EXIT_FAILURE);
+	}
+
+	bool eq = 0;
+	Node N = NULL;
+	Node M = NULL;
+
+	eq = (A->length == B->length);
+	N = A->Front;
+	M = B->Front;
+	while(eq && N!=NULL){
+		eq = (N->data == M->data);
+		N = N->Next;
+		M = M->Next;
+	}
+	return eq;
+}
+*/
