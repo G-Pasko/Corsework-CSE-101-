@@ -41,13 +41,11 @@ List newList(void){
 }
 
 void freeList(List pL){
-	Node delete = pL->front->next;
-	free(pL->front);
-	pL->front = NULL;
-	while(delete != NULL){
-		Node temp = delete->next;
-		free(&delete);
-		delete = temp;
+	Node temp = pL->front->next;
+	deleteFront(pL);
+	if(temp != NULL){
+		pL->front = temp;
+		freeList(pL);
 	}
 }
 
