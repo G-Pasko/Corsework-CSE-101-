@@ -325,27 +325,3 @@ void printList(FILE* out, List L){
 List copyList(List L){
 
 }
-
-/*
-bool equals(List A, List B){
-
-	if(A == NULL || B == NULL){
-		printf("List Error: calling equlas() on NULL List reference");
-		exit(EXIT_FAILURE);
-	}
-
-	bool eq = 0;
-	Node N = NULL;
-	Node M = NULL;
-
-	eq = (A->length == B->length);
-	N = A->Front;
-	M = B->Front;
-	while(eq && N!=NULL){
-		eq = (N->data == M->data);
-		N = N->Next;
-		M = M->Next;
-	}
-	return eq;
-}
-*/
