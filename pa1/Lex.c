@@ -24,7 +24,11 @@ int main(int argc, char* argv[]){
 		words[i] = buff;
 		i++;
 	}
-
+	int length = i;
+	
+	for(i = 0; i < length; i++){
+		fprintf(output, "%s", words[i]);
+	}
 
 
 	fclose(input);
