@@ -14,10 +14,10 @@ Lex : Lex.o List.o
 Lex.o : Lex.c List.h
 	gcc -std=c17 -Wall -c Lex.c
 
-ListClient: ListClient.o List.o
+ListTest: ListTest.o List.o
 	gcc -std=c17 -Wall -o ListTest ListTest.o List.o
 
-ListClient.o : ListClient.c List.h
+ListTest.o : ListTest.c List.h
 	gcc -std=c17 -Wall -c ListTest.c
 
 List.o : List.c List.h
