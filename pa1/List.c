@@ -107,7 +107,7 @@ int get(List L){
 		exit(EXIT_FAILURE);
 	}
 	//printf("%d\n", L->front->data);
-	//printf("%d\n", L->curser->data);
+	printf("%d\n", L->curser->data);
 	return(L->curser->data);
 }
 
