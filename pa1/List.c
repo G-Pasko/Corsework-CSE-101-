@@ -342,12 +342,15 @@ void deleteFront(List L){
 	Node N = L->front;
 	if(length(L) > 1){
 		L->front = L->front->next;
+		L->front->prev = NULL;
 	}
 	else{
-		L->front = L->back = NULL;
+		L->front = L->back = L->curser = NULL;
+		L->index = -1;
 	}
 	L->length--;
 	free(N);
+	N = NULL;
 }
 
 void delete(List L){
