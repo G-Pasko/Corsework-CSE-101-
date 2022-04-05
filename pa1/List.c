@@ -374,8 +374,8 @@ void delete(List L){
 		L->back->next = NULL;
 	}
 	else{
-		Node left = L->curser->next;
-		Node right = L->curser->prev;
+		Node left = L->curser->prev;
+		Node right = L->curser->next;
 
 		free(&(L->curser));
 		left->next = right;
