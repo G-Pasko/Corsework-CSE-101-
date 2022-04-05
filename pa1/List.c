@@ -347,5 +347,7 @@ void printList(FILE* out, List L){
 }
 
 List copyList(List L){
-
+	List copy = (List)malloc(sizeof(ListObj));
+	copy = L;
+	return(copy);
 }
