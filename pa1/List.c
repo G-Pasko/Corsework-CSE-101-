@@ -363,13 +363,13 @@ void delete(List L){
 	}
 	if(L->curser == L->front){
 		Node temp = L->front->next;
-		free(&(L->front));
+		free(L->front);
 		L->front = temp;
 		L->front->prev = NULL;
 	}
 	else if(L->curser ==  L->back){
 		Node temp = L->back->prev;
-		free(&(L->back));
+		free(L->back);
 		L->back = temp;
 		L->back->next = NULL;
 	}
@@ -377,7 +377,7 @@ void delete(List L){
 		Node left = L->curser->prev;
 		Node right = L->curser->next;
 
-		free(&(L->curser));
+		free(L->curser);
 		left->next = right;
 		right->prev = left;
 	}
