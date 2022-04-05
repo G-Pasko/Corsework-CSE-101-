@@ -223,6 +223,7 @@ void prepend(List L, int x){
 		new->prev = NULL;
 		L->front = new;
 	}
+	L->length++;
 }
 
 
