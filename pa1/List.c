@@ -215,6 +215,7 @@ void prepend(List L, int x){
 	new->data = x;
 	if(length(L) == 0){
 		L->front = L->back = new;
+		new->prev = new->next = NULL;
 
 	}
 	else{
