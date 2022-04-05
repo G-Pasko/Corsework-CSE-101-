@@ -142,11 +142,8 @@ void clear(List L){
 		printf("List Error: calling clear() on NULL List reference\n");
 		exit(EXIT_FAILURE);
 	}
-	Node del = L->front;
-	while(del != NULL){
-		Node temp = del->next;
-		free(del);
-		del = temp;
+	while(length(L) != 0){
+		deleteFront(L);
 	}
 }
 
