@@ -346,7 +346,7 @@ void deleteFront(List L){
 		L->front = L->back = NULL;
 	}
 	L->length--;
-	free(&N);
+	free(N);
 }
 
 void delete(List L){
