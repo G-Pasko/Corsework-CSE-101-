@@ -194,7 +194,11 @@ void movePrev(List L){
 		printf("List Error: calling movePrev() on NULL List reference\n");
 		exit(EXIT_FAILURE);
 	}
-	if(length(L)> 0){
+	if(index(L) == 0){
+		L->curser = NULL;
+		L->index = -1;
+	}
+	else if(length(L)> 0){
 		L->index--;
 		L->curser = L->curser->prev;
 	}
@@ -205,7 +209,11 @@ void moveNext(List L){
 		printf("List Error: calling moveNext() on NULL List reference\n");
 		exit(EXIT_FAILURE);
 	}
-	if(length(L) > 0){
+	if(index(L) == length(L) - 1){
+		L->curser = NULL;
+		L->index = -1;
+	}
+	else if(length(L) > 0){
 		L->index++;
 		L->curser = L->curser->next;
 	}
