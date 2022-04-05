@@ -297,11 +297,6 @@ void insertAfter(List L, int x){
 		printf("List Error: calling Enqueue() on NULL List reference");
 		exit(EXIT_FAILURE);
 	}
-	if(L->curser->next == NULL){
-		Node new = malloc(sizeof(NodeObj));
-		new->data = x;
-		L->curser->next = new;
-	}
 
 	if(L->length == 0){
 		printf("List Error: calling insertAfter() on empty List");
@@ -312,13 +307,29 @@ void insertAfter(List L, int x){
 		exit(EXIT_FAILURE);
 
 	}
-	L->curser->next = NULL;
-	L->curser->next->prev = NULL;
-	Node new = malloc(sizeof(NodeObj));
-	new->data = x;
 
-	L->curser->next->prev = new;
-	L->curser->next = new;
+
+	if(L->curser->next == NULL){
+		Node new = malloc(sizeof(NodeObj));
+		new->data = x;
+		L->curser->next = new;
+		new->prev = L->back;
+		L->back = new;
+		new->next = NULL;
+	}
+	else if(length(L) > 0 && index(L) > 0){
+		Node new = malloc(sizeof(NodeObj));
+		new->data = x;
+		new->next = L->curser->next;
+		L->curser->next->prev = new;
+		L->curser->next = new;
+		new->prev = L->curser;
+	}
+	//L->curser->next->prev = new;
+	//L->curser->next = new;
+	L->index --;
+	L->length++;
+
 }
 
 void deleteFront(List L){
