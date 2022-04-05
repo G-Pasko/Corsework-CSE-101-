@@ -13,7 +13,7 @@ extern char* strdup(const char*);
 
 
 typedef struct NodeObj{
-	int data;
+	ListElement data;
 	struct NodeObj* prev;
 	struct NodeObj* next;
 }NodeObj;
