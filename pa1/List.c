@@ -229,6 +229,8 @@ void append(List L, int x){
 
 	if(L->length == 0){
 		L->front = L->back = new;
+		new->prev = NULL;
+		new->next = NULL;
 	}
 	else{
 		new->prev = L->back;
