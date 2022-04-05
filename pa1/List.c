@@ -361,14 +361,29 @@ void delete(List L){
 		printf("List Error: calling Dequeue() on empty List");
 		exit(EXIT_FAILURE);
 	}
-	Node left = L->curser->next;
-	Node right = L->curser->prev;
+	if(L->curser == L->front){
+		Node temp = L->front->next;
+		free(&(L->front));
+		L->front = temp;
+		L->front->prev = NULL;
+	}
+	else if(L->curser ==  L->back){
+		Node temp = L->back->prev;
+		free(&(L->back));
+		L->back = temp;
+		L->back->next = NULL;
+	}
+	else{
+		Node left = L->curser->next;
+		Node right = L->curser->prev;
 
-	free(&(L->curser));
-	L->index = -1;
+		free(&(L->curser));
+		left->next = right;
+		right->prev = left;
+	}
+	L->length --;
 	L->curser = NULL;
-	left->next = right;
-	right->prev = left;
+	L->index = -1;
 
 }
 
