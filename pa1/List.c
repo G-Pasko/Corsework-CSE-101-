@@ -102,7 +102,7 @@ int get(List L){
 		printf("List Error: calling get() on an empty List reference\n");
 		exit(EXIT_FAILURE);
 	}
-	if(!(index(L) > 0)){
+	if(index(L) < 0){
 		printf("List Error: calling get() on a list with an undefined index reference\n");
 		exit(EXIT_FAILURE);
 	}
