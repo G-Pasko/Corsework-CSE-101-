@@ -210,11 +210,19 @@ void prepend(List L, int x){
 		printf("List Error: calling prepend() on NULL List reference\n");
 		exit(EXIT_FAILURE);
 	}
+
 	Node new = malloc(sizeof(NodeObj));
 	new->data = x;
-	new->next = L->front;
-	new->prev = NULL;
-	L->front = new;
+	if(length(L) == 0){
+		L->front = L->back = new;
+
+	}
+	else{
+		new->next = L->front;
+		L->front->prev = new;
+		new->prev = NULL;
+		L->front = new;
+	}
 }
 
 
