@@ -113,9 +113,8 @@ int get(List L){
 
 bool equals(List A, List B){
 	bool eq = 0;
+
 	Node N = NULL;
-
-
 	Node M = NULL;
 
 	if(A == NULL || B == NULL){
@@ -126,7 +125,7 @@ bool equals(List A, List B){
 	eq = (A->length == B->length);
 	N = A->front;
 	M = B->front;
-	while(eq && N->data == M->data){
+	while(eq && M != NULL){
 		eq = (N->data == M->data);
 		N = N->next;
 		M = M->next;
