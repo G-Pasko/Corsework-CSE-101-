@@ -40,13 +40,14 @@ List newList(void){
 	return(L);
 }
 
-void freeList(List pL){
-	Node temp = pL->front->next;
-	deleteFront(pL);
-	if(temp != NULL){
-		pL->front = temp;
-		freeList(pL);
+void freeList(List* pL){
+	if(L == NULL){
+		printf("List Error: calling freeList() on NULL List reference");
+		exit(EXIT_FAILURE);
 	}
+	clear(L);
+	free(*pL);
+	*pL = NULL;
 }
 
 
