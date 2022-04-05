@@ -145,7 +145,7 @@ void clear(List L){
 	Node del = L->front;
 	while(del != NULL){
 		Node temp = del->next;
-		free(&del);
+		free(del);
 		del = temp;
 	}
 }
