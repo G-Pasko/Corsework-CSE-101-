@@ -224,6 +224,9 @@ void prepend(List L, int x){
 		new->prev = NULL;
 		L->front = new;
 	}
+	if(index != -1){
+		index ++;
+	}
 	L->length++;
 }
 

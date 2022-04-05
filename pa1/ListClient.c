@@ -18,11 +18,11 @@ int main(int argc, char* argv[]){
       append(A,i);
       prepend(B,i);
    }
-
+   
    printList(stdout,A); 
    printf("\n");
    printList(stdout,B); 
-   printf("\n");/*
+   printf("\n");
    for(moveFront(A); index(A)>=0; moveNext(A)){
       printf("%d ", get(A));
    }
