@@ -270,25 +270,32 @@ void insertAfter(List L, int x){
 		new->data = x;
 		L->curser->next = new;
 	}
-	if(length(L) > 0 && index(L) > 0){
-		L->curser->next = NULL;
-		L->curser->next->prev = NULL;
 
-		Node new = malloc(sizeof(NodeObj));
-		new->data = x;
-
-		L->curser->next->prev = new;
-		L->curser->next = new;
+	if(L->length == 0){
+		printf("List Error: calling insertAfter() on empty List");
+		exit(EXIT_FAILURE);
 	}
+	if(index(L) < 0){
+		printf("List Error: calling insertAfter() on undefined index");
+		exit(EXIT_FAILURE);
+
+	}
+	L->curser->next = NULL;
+	L->curser->next->prev = NULL;
+	Node new = malloc(sizeof(NodeObj));
+	new->data = x;
+
+	L->curser->next->prev = new;
+	L->curser->next = new;
 }
 
 void deleteFront(List L){
 	if(L == NULL){
-		printf("List Error: calling Dequeue() on NULL List reference");
+		printf("List Error: calling deleteFront() on NULL List reference");
 		exit(EXIT_FAILURE);
 	}
 	if(L->length == 0){
-		printf("List Error: calling Dequeue() on empty List");
+		printf("List Error: calling deleteFront() on empty List");
 		exit(EXIT_FAILURE);
 	}
 	Node N = L->front;
@@ -302,6 +309,25 @@ void deleteFront(List L){
 	free(&N);
 }
 
+void delete(List L){
+	if(L == NULL){
+		printf("List Error: calling Dequeue() on NULL List reference");
+		exit(EXIT_FAILURE);
+	}
+	if(L->length == 0){
+		printf("List Error: calling Dequeue() on empty List");
+		exit(EXIT_FAILURE);
+	}
+	Node left = L->curser->next;
+	Node right = L->curser->prev;
+
+	free(&(L->curser));
+	L->index = -1;
+	L->curser = NULL;
+	left->next = right;
+	right->prev = left;
+
+}
 
 
 //Other Functions
