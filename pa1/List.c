@@ -41,7 +41,7 @@ List newList(void){
 }
 
 void freeList(List* pL){
-	if(pL == NULL){
+	if(*pL == NULL){
 		printf("List Error: calling freeList() on NULL List reference");
 		exit(EXIT_FAILURE);
 	}
