@@ -98,7 +98,7 @@ int get(List L){
 		printf("List Error: calling get() on NULL List reference\n");
 		exit(EXIT_FAILURE);
 	}
-	if(!(length(L) > 0 && index(L) > 0)){
+	if(!(length(L) > 0 && index(L) >= 0)){
 		printf("List Error: calling get() on an empty List reference\n");
 		exit(EXIT_FAILURE);
 	}
