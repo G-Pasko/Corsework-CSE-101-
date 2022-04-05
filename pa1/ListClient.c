@@ -21,7 +21,7 @@ int main(int argc, char* argv[]){
 
    printList(stdout,A); 
    printf("\n");
-   printList(stdout,B); 
+   //printList(stdout,B); 
    printf("\n");/*
    for(moveFront(A); index(A)>=0; moveNext(A)){
       printf("%d ", get(A));
