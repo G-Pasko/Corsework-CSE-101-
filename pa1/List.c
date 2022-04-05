@@ -35,8 +35,8 @@ typedef struct ListObj{
 List newList(void){
 	List L = malloc(sizeof(ListObj));
 	L->back = L->front = L->curser = NULL;
-	int length = 0;
-	int index = -1;
+	L->length = 0;
+	L->index = -1;
 	return(L);
 }
 
