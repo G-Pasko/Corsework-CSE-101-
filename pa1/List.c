@@ -106,6 +106,8 @@ int get(List L){
 		printf("List Error: calling get() on a list with an undefined index reference\n");
 		exit(EXIT_FAILURE);
 	}
+	printf("%d\n", L->front->data);
+	printf("%d\n", L->curser->data);
 	return(L->curser->data);
 }
 
