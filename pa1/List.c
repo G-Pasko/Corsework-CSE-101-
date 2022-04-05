@@ -343,9 +343,8 @@ void printList(FILE* out, List L){
 	Node N = NULL;
 
 	for(N = L->front; N != NULL; N = N->next){
-		fprintf(out, "%d ", N->next->data);
+		fprintf(out, "%d ", N->data);
 	}
-	printf("\n");
 }
 
 List copyList(List L){
