@@ -275,17 +275,21 @@ void insertBefore(List L, int x){
 		Node new = malloc(sizeof(NodeObj));
 		new->data = x;
 		L->curser->prev = new;
+		new->next = L->front;
+		L->front = new;
+		new->prev = NULL;
 	}
-	if(length(L) > 0 && index(L) > 0){
-		L->curser->prev = NULL;
-		L->curser->prev->next = NULL;
-
+	else if(length(L) > 0 && index(L) > 0){
 		Node new = malloc(sizeof(NodeObj));
 		new->data = x;
-
+		new->prev = L->curser->prev;
 		L->curser->prev->next = new;
 		L->curser->prev = new;
+		new->next = L->curser;
+
 	}
+	L->index ++;
+	L->length ++;
 }
 
 void insertAfter(List L, int x){
