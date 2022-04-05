@@ -18,8 +18,8 @@ int main(int argc, char* argv[]){
       append(A,i);
       //prepend(B,i);
    }
-}
-   /*
+
+   
    printList(stdout,A); 
    printf("\n");
    printList(stdout,B); 
