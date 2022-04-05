@@ -227,7 +227,7 @@ void append(List L, int x){
 	Node new = malloc(sizeof(NodeObj));
 	new->data = x;
 
-	if(L->length == 0){
+	if(length(L) == 0){
 		L->front = L->back = new;
 		new->prev = NULL;
 		new->next = NULL;
