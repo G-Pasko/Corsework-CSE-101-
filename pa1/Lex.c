@@ -26,7 +26,6 @@ int main(int argc, char* argv[]){
 		i++;
 	}
 	int length = i;
-	printf("%s", words[3]);
 	/*
 	for(i = 0; i < length; i++){
 		printf("%s", words[i]);
