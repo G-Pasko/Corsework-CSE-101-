@@ -22,7 +22,7 @@ int main(int argc, char* argv[]){
 	char** words = (char **)calloc(lines, sizeof(char));
 	int i = 0;
 	char buff2[512];
-	while(fgets(buff2, 512, input) != NULL){
+	while((fgets(buff2, 512, input) != NULL)){
 		words[i] = strdup(buff2);
 		i++;
 	}
