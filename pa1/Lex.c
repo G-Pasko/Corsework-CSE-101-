@@ -23,7 +23,6 @@ int main(int argc, char* argv[]){
 	int i = 0;
 	while((fgets(buff2, 512, input) != NULL)){
 		words[i] = buff2;
-		printf("%s", words[i]);
 		i++;
 	}
 	int length = i;
@@ -32,7 +31,7 @@ int main(int argc, char* argv[]){
 		printf("%s", words[i]);
 	}*/
 	for(i = 0; i < length; i++){
-		fprintf(output, "%s", words[i]);
+		printf(output, "%s", words[i]);
 	}
 
 
