@@ -19,7 +19,7 @@ int main(int argc, char* argv[]){
 		lines ++;
 	}
 	rewind(input);
-	char** words = (char **)calloc(lines, sizeof(char));
+	char** words = (char **)calloc(lines, sizeof(char*));
 	int i = 0;
 	char buff2[512];
 	while((fgets(buff2, 512, input) != NULL)){
