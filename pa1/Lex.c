@@ -38,7 +38,7 @@ int main(int argc, char* argv[]){
 		moveFront(new);	
 		while(get(new) != back(new)){
 			if(strcmp(words[get(new)], words[j]) < 0){
-				insertBefore(L, j);
+				insertBefore(new, j);
 				//append(L, j);
 			}
 			else{
