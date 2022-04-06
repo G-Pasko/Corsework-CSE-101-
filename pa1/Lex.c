@@ -37,7 +37,7 @@ int main(int argc, char* argv[]){
 
 	for(int j = 1; i < length; j++){
 		moveFront(new);	
-		while(get(new) != NULL){
+		while(index(new) >= 0){
 			if(strcmp(words[get(new)], words[j]) < 0){
 				insertBefore(new, j);
 				append(new, j);
@@ -47,9 +47,7 @@ int main(int argc, char* argv[]){
 				moveNext(new);
 			}
 		}
-		if(index(new) < 0){
-			append(new, j);
-		}
+		append(new, j);
 	}
 
 	printList(stdout, new);
