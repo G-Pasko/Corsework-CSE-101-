@@ -18,14 +18,14 @@ int main(int argc, char* argv[]){
 		lines ++;
 	}
 	rewind(input);
-	char buff2[512];
 	char** words = (char **)calloc(lines, sizeof(char));
 	int i = 0;
-	while((fgets(buff2, 512, input) != NULL)){
-		words[i] = buff2;
+	while((fgets(buff, 512, input) != NULL)){
+		words[i] = buff;
 		i++;
 	}
 	int length = i;
+	printf("%s", words[3]);
 	/*
 	for(i = 0; i < length; i++){
 		printf("%s", words[i]);
