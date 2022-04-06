@@ -50,8 +50,8 @@ int main(int argc, char* argv[]){
 			append(new, j);
 		}
 	}
-	printList(new);
-	
+	printList(stdout, new);
+
 	printf("Words have been sorted\n");
 	moveFront(new);
 	for(i = 0; i < length; i++){
