@@ -26,7 +26,7 @@ int main(int argc, char* argv[]){
 		words[i] = strdup(buff2);
 		i++;
 	}
-	printf("%s\n", words[0]);
+	//printf("%s\n", words[0]);
 	int length = i;
 	/*
 	for(i = 0; i < length; i++){
@@ -50,6 +50,10 @@ int main(int argc, char* argv[]){
 			append(new, j);
 		}
 	}
+	for(i = 0; i < length; i++){
+		printf("%s", words[i]);
+	}
+
 	printf("Words have been sorted\n");
 	moveFront(new);
 	for(i = 0; i < length; i++){
