@@ -21,8 +21,9 @@ int main(int argc, char* argv[]){
 	rewind(input);
 	char** words = (char **)calloc(lines, sizeof(char));
 	int i = 0;
-	while(fgets(buff, 512, input) != NULL){
-		words[i] = strdup(buff);
+	char buff2[512];
+	while(fgets(buff2, 512, input) != NULL){
+		words[i] = strdup(buff2);
 		i++;
 	}
 	int length = i;
