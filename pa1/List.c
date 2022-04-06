@@ -46,9 +46,11 @@ void freeList(List* pL){
 		exit(EXIT_FAILURE);
 	}
 	clear(pL);
-	free(*pL);
-	*pL = NULL;
 	printf("Clear success\n");
+	free(*pL);
+	printf("Free success\n");
+	*pL = NULL;
+	
 	//clear(pL);
 	//free(*pL);
 	//*pL = NULL;
