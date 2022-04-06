@@ -37,13 +37,13 @@ int main(int argc, char* argv[]){
 
 	printf("%d\n", length);
 
-	for(int j = 1; i < length; j++){
+	for(int j = 1; j < length; j++){
 		moveFront(new);	
 		printf("For loop cycle: %d", j);
 		while(index(new) >= 0){
-			if(strcmp(words[get(new)], words[j]) < 0){
+			if(strcmp(words[get(new)], words[j]) <= 0){
 				insertBefore(new, j);
-				append(new, j);
+				//append(new, j);
 				printf("New number added before: %d", j);
 				break;
 			}
@@ -51,7 +51,10 @@ int main(int argc, char* argv[]){
 				moveNext(new);
 			}
 		}
-		append(new, j);
+		if(index(new) < 0){
+			append(new, j);
+		}
+
 		printf("New number added before: %d", j);
 	}
 
