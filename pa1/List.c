@@ -48,7 +48,7 @@ void freeList(List* pL){
 	clear(*pL);
 	//printf("Clear success\n");
 	free(*pL);
-	/printf("Free success\n");
+	//printf("Free success\n");
 	*pL = NULL;
 }
 
