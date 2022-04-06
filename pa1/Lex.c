@@ -53,6 +53,7 @@ int main(int argc, char* argv[]){
 	printf("Words have been sorted\n");
 	moveFront(new);
 	for(i = 0; i < length; i++){
+		printf("%d\n", i);
 		fprintf(output, "%s", words[get(new)]);
 		moveNext(new);
 	}
