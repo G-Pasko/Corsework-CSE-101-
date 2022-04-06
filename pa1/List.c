@@ -237,7 +237,7 @@ void prepend(List L, int x){
 		new->prev = NULL;
 		L->front = new;
 	}
-	if(index != -1){
+	if(index(L) != -1){
 		L->index ++;
 	}
 	L->length++;
