@@ -26,13 +26,14 @@ int main(int argc, char* argv[]){
 		words[i] = strdup(buff2);
 		i++;
 	}
+	printf("%s\n", words[0]);
 	int length = i;
 	/*
 	for(i = 0; i < length; i++){
 		printf("%s", words[i]);
 	}*/
 	for(i = 0; i < length; i++){
-		printf("%s", words[i]);
+		fprintf(output, "%s", words[i]);
 	}
 
 
