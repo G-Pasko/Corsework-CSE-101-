@@ -31,7 +31,7 @@ int main(int argc, char* argv[]){
 		printf("%s", words[i]);
 	}*/
 	for(i = 0; i < length; i++){
-		printf(output, "%s", words[i]);
+		printf("%s", words[i]);
 	}
 
 
