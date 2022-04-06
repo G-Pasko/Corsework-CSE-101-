@@ -341,7 +341,7 @@ void deleteFront(List L){
 		printf("List Error: calling deleteFront() on empty List");
 		exit(EXIT_FAILURE);
 	}
-	Node N = L->front;
+	Node del = L->front;
 	if(length(L) > 1){
 		L->front = L->front->next;
 		L->front->prev = NULL;
@@ -351,17 +351,41 @@ void deleteFront(List L){
 		L->index = -1;
 	}
 	L->length--;
-	free(N);
-	N = NULL;
+	free(del);
+	del = NULL;
 }
 
-void delete(List L){
+void deleteBack(List L){
 	if(L == NULL){
-		printf("List Error: calling Dequeue() on NULL List reference");
+		printf("List Error: calling deleteBack() on NULL List reference");
 		exit(EXIT_FAILURE);
 	}
 	if(L->length == 0){
-		printf("List Error: calling Dequeue() on empty List");
+		printf("List Error: calling deleteBack() on empty List");
+		exit(EXIT_FAILURE);
+	}
+	Node del = L->back;
+	if(length(L) > 1){
+		L->back = L->back->prev;
+		L->back->next = NULL;
+	}
+	else{
+		L->front = L->back = L->curser = NULL;
+		L->index = -1;
+	}
+	L->length--;
+	free(del);
+	del = NULL;
+}
+
+
+void delete(List L){
+	if(L == NULL){
+		printf("List Error: calling delete() on NULL List reference");
+		exit(EXIT_FAILURE);
+	}
+	if(L->length == 0){
+		printf("List Error: calling delete() on empty List");
 		exit(EXIT_FAILURE);
 	}
 	if(L->curser == L->front){
