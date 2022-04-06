@@ -39,6 +39,7 @@ int main(int argc, char* argv[]){
 		while(get(new) != back(new)){
 			if(strcmp(words[get(new)], words[j]) < 0){
 				insertBefore(new, j);
+				break;
 				//append(L, j);
 			}
 			else{
@@ -49,7 +50,7 @@ int main(int argc, char* argv[]){
 			append(new, j);
 		}
 	}
-	
+	printf("Words have been sorted\n");
 	moveFront(new);
 	for(i = 0; i < length; i++){
 		fprintf(output, "%s", words[get(new)]);
