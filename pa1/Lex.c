@@ -39,7 +39,7 @@ int main(int argc, char* argv[]){
 
 	for(int j = 1; i < length; j++){
 		moveFront(new);	
-		pritnf("For loop cycle: %d", j);
+		printf("For loop cycle: %d", j);
 		while(index(new) >= 0){
 			if(strcmp(words[get(new)], words[j]) < 0){
 				insertBefore(new, j);
