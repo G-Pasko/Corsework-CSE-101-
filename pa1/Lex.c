@@ -32,8 +32,28 @@ int main(int argc, char* argv[]){
 	for(i = 0; i < length; i++){
 		printf("%s", words[i]);
 	}*/
+	List new = newList();
+	append(new, 0);
+	for(int j = 1; i < length; j++){
+		moveFront(new);	
+		while(get(new) != back(new)){
+			if(strcmp(words[get(new)], words[j]) < 0){
+				insertBefore(L, j);
+				//append(L, j);
+			}
+			else{
+				moveNext(new);
+			}
+		}
+		if(index(new) < 0){
+			append(new, j);
+		}
+	}
+	
+	moveFront(new);
 	for(i = 0; i < length; i++){
-		fprintf(output, "%s", words[i]);
+		fprintf(output, "%s", words[get(new)]);
+		moveNext(new);
 	}
 
 
