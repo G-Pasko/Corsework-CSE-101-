@@ -23,6 +23,7 @@ int main(int argc, char* argv[]){
 	int i = 0;
 	while((fgets(buff2, 512, input) != NULL)){
 		words[i] = buff2;
+		printf("%s", words[i]);
 		i++;
 	}
 	int length = i;
