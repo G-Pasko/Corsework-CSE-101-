@@ -35,6 +35,8 @@ int main(int argc, char* argv[]){
 	List new = newList();
 	append(new, 0);
 
+	printf("%d\n", length);
+
 	for(int j = 1; i < length; j++){
 		moveFront(new);	
 		while(index(new) >= 0){
