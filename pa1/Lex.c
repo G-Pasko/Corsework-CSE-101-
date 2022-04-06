@@ -25,9 +25,9 @@ int main(int argc, char* argv[]){
 		i++;
 	}
 	int length = i;
-	
+ 	i = 0;
 	for(i = 0; i < length; i++){
-		fprintf(output, "%s", words[i]);
+		fprintf(output, "%s\n", words[i]);
 	}
 
 
