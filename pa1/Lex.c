@@ -46,13 +46,14 @@ int main(int argc, char* argv[]){
 				moveNext(new);
 			}
 		}
-		if(index(new) < 0){
+		if(index(new) <= 0){
 			append(new, j);
 		}
 	}
+
 	printList(stdout, new);
 
-	printf("Words have been sorted\n");
+	printf("\nWords have been sorted\n");
 	moveFront(new);
 	for(i = 0; i < length; i++){
 		printf("%d\n", i);
