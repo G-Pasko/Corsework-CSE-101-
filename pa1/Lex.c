@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "List.h"
 
+extern char *strdup(const char *);
 
 int main(int argc, char* argv[]){
 	if(argc != 3){
@@ -20,8 +21,8 @@ int main(int argc, char* argv[]){
 	rewind(input);
 	char** words = (char **)calloc(lines, sizeof(char));
 	int i = 0;
-	while((fgets(buff, 512, input) != NULL)){
-		words[i] = buff;
+	while(fgets(buff, 512, input) != NULL){
+		words[i] = strdup(buff);
 		i++;
 	}
 	int length = i;
