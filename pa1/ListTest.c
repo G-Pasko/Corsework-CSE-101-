@@ -61,8 +61,8 @@ int main(int argc, char* argv[]){
    printf("%d\n", front(B));
    deleteFront(B);
    deleteBack(B);
-   printList(B);
-   
+   printList(stdout, B);
+
 
 
    freeList(&A);
