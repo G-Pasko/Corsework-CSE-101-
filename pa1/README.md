@@ -16,3 +16,5 @@ MakeFile:
 	Used to create executable files and to compile Lex.c and has
 	commands to make ListTest, remove binaries, and check Lex.c and 
 	ListTest.c for memory leaks.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~IGNORE .gitkeep ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
