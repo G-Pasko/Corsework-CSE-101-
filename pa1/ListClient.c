@@ -7,6 +7,8 @@
 #include<stdlib.h>
 #include"List.h"
 
+
+
 int main(int argc, char* argv[]){
    
    List A = newList();
@@ -59,7 +61,33 @@ int main(int argc, char* argv[]){
    return(0);
 }
 
-/*
+
+/*List newList(void); x
+void freeList(List* pL); x
+int length(List L); x
+int index(List L); x
+int front(List L);   
+int back(List L);    
+int get(List L);  x
+bool equals(List A, List B); x
+
+void clear(List L);  x
+void set(List L, int x);   
+void moveFront(List L); x
+void moveBack(List L);  x
+void movePrev(List L);  x
+void moveNext(List L);  x
+void prepend(List L, int x);  x 
+void append(List L, int x);   x
+void insertBefore(List L, int x);   x
+void insertAfter(List L, int x);    x
+void deleteFront(List L);  
+void deleteBack(List L); 
+void delete(List L);    x
+void printList(FILE* out, List L);  x
+List copyList(List L);  x
+
+
 Output of this program:
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1

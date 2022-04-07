@@ -343,6 +343,11 @@ void deleteFront(List L){
 	}
 	Node del = L->front;
 	if(length(L) > 1){
+		if(L->curser = L->front){
+			L->curser = NULL;
+			L->index = -1;
+		}
+
 		L->front = L->front->next;
 		L->front->prev = NULL;
 	}
@@ -366,6 +371,10 @@ void deleteBack(List L){
 	}
 	Node del = L->back;
 	if(length(L) > 1){
+		if(L->curser = L->back){
+			L->curser = NULL;
+			L->index = -1;
+		}
 		L->back = L->back->prev;
 		L->back->next = NULL;
 	}
@@ -373,6 +382,7 @@ void deleteBack(List L){
 		L->front = L->back = L->curser = NULL;
 		L->index = -1;
 	}
+
 	L->length--;
 	free(del);
 	del = NULL;
@@ -432,6 +442,9 @@ void printList(FILE* out, List L){
 
 List copyList(List L){
 	List copy = (List)malloc(sizeof(ListObj));
-	copy = L;
+
+	for(moveFront(L); index(L)>=0; moveNext(L)){
+		append(copy, get(L));
+	}
 	return(copy);
 }
