@@ -55,7 +55,7 @@ int main(int argc, char* argv[]){
    printf("%d\n", length(A));
 
    printf("%d\n", front(B));
-   pritnf("%d\n", back(B));
+   printf("%d\n", back(B));
    moveFront(B);
    set(B, 69);
    printf("%d\n", front(B));
