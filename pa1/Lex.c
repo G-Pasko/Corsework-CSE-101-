@@ -75,5 +75,6 @@ int main(int argc, char* argv[]){
 	}
 	free(words);
 	fclose(input);
+	fclose(output);
 	return 0;
 }
