@@ -310,12 +310,12 @@ void insertAfter(List L, int x){
 	if(length(L) > 0 && L->curser == L->back){
 		Node new = malloc(sizeof(NodeObj));
 		new->data = x;
-		L->curser->next = new;
+		L->back->next = new;
 		new->prev = L->back;
 		L->back = new;
 		new->next = NULL;
 	}
-	else if(length(L) > 0 && index(L) > 0){
+	else{
 		Node new = malloc(sizeof(NodeObj));
 		new->data = x;
 		new->next = L->curser->next;
