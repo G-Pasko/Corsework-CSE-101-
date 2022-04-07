@@ -307,7 +307,7 @@ void insertAfter(List L, int x){
 		exit(EXIT_FAILURE);
 	}
 
-	if(L->curser->next == NULL){
+	if(length(L) > 0 && L->curser->next == NULL){
 		Node new = malloc(sizeof(NodeObj));
 		new->data = x;
 		L->curser->next = new;
