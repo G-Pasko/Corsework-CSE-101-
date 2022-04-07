@@ -349,7 +349,7 @@ void deleteFront(List L){
 		L->front = L->front->next;
 		L->front->prev = NULL;
 	}
-	else{
+	else if(length(L) == 1){
 		L->front = L->back = L->curser = NULL;
 		L->index = -1;
 	}
