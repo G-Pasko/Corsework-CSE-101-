@@ -68,6 +68,8 @@ int main(int argc, char* argv[]){
 		moveNext(new);
 	}
 
+	freeList(new);
+
 
 	fclose(input);
 	return 0;
