@@ -327,7 +327,7 @@ void insertAfter(List L, int x){
 	}
 	//L->curser->next->prev = new;
 	//L->curser->next = new;
-	L->index --;
+	//L->index --;
 	L->length++;
 
 }
