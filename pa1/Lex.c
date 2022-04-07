@@ -69,7 +69,7 @@ int main(int argc, char* argv[]){
 	}
 
 	freeList(&new);
-	free(words);
+	free(&words);
 
 	fclose(input);
 	return 0;
