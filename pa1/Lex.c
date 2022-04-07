@@ -68,7 +68,7 @@ int main(int argc, char* argv[]){
 		moveNext(new);
 	}
 
-	freeList(new);
+	freeList(&new);
 
 
 	fclose(input);
