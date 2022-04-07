@@ -69,8 +69,11 @@ int main(int argc, char* argv[]){
 	}
 
 	freeList(&new);
-	free(&words);
 
+	for(i = 0; i < length; i++){
+		free(words[i]);
+	}
+	free(words);
 	fclose(input);
 	return 0;
 }
