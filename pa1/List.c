@@ -457,9 +457,9 @@ List copyList(List L){
 		exit(EXIT_FAILURE);
 	}
 	List copy = newList();
-
-	for(moveFront(L); index(L)>=0; moveNext(L)){
-		append(copy, get(L));
+	Node new;
+	for(new = L->front; new != NULL; new = new->next){
+		append(copy, new->data);
 	}
 	return(copy);
 }
