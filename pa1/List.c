@@ -452,6 +452,10 @@ void printList(FILE* out, List L){
 }
 
 List copyList(List L){
+	if(L == NULL){
+		printf("List Error: calling copyList() on NULL List reference");
+		exit(EXIT_FAILURE);
+	}
 	List copy = newList();
 
 	for(moveFront(L); index(L)>=0; moveNext(L)){
