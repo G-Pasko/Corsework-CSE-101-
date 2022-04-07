@@ -343,7 +343,7 @@ void deleteFront(List L){
 	}
 	Node del = L->front;
 	if(length(L) > 1){
-		if(L->curser = L->front){
+		if(L->curser == L->front){
 			L->curser = NULL;
 			L->index = -1;
 		}
@@ -371,7 +371,7 @@ void deleteBack(List L){
 	}
 	Node del = L->back;
 	if(length(L) > 1){
-		if(L->curser = L->back){
+		if(L->curser == L->back){
 			L->curser = NULL;
 			L->index = -1;
 		}
