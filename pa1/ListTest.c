@@ -62,6 +62,7 @@ int main(int argc, char* argv[]){
    deleteFront(B);
    deleteBack(B);
    printList(stdout, B);
+   printf("\n");
 
 
 
