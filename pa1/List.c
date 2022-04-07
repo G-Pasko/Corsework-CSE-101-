@@ -355,10 +355,12 @@ void deleteFront(List L){
 			L->curser = NULL;
 			L->index = -1;
 		}
-
+		else{
+			L->idex --;
+		}
 		L->front = L->front->next;
 		L->front->prev = NULL;
-		L->index --;
+		//L->index --;
 
 	}
 	else if(length(L) == 1){
