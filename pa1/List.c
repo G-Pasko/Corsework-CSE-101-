@@ -305,9 +305,7 @@ void insertAfter(List L, int x){
 	if(index(L) < 0){
 		printf("List Error: calling insertAfter() on undefined index");
 		exit(EXIT_FAILURE);
-
 	}
-
 
 	if(L->curser->next == NULL){
 		Node new = malloc(sizeof(NodeObj));
