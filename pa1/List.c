@@ -356,7 +356,7 @@ void deleteFront(List L){
 			L->index = -1;
 		}
 		else{
-			L->idex --;
+			L->index --;
 		}
 		L->front = L->front->next;
 		L->front->prev = NULL;
