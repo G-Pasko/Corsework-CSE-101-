@@ -271,7 +271,15 @@ void insertBefore(List L, int x){
 		printf("List Error: calling Enqueue() on NULL List reference");
 		exit(EXIT_FAILURE);
 	}
-	if(L->curser->prev == NULL){
+	if(L->length == 0){
+		printf("List Error: calling insertAfter() on empty List");
+		exit(EXIT_FAILURE);
+	}
+	if(index(L) < 0){
+		printf("List Error: calling insertAfter() on undefined index");
+		exit(EXIT_FAILURE);
+	}
+	if(L->curser == L->front){
 		Node new = malloc(sizeof(NodeObj));
 		new->data = x;
 		L->curser->prev = new;
@@ -279,6 +287,7 @@ void insertBefore(List L, int x){
 		L->front = new;
 		new->prev = NULL;
 	}
+
 	else if(length(L) > 0 && index(L) > 0){
 		Node new = malloc(sizeof(NodeObj));
 		new->data = x;
@@ -340,6 +349,7 @@ void deleteFront(List L){
 		exit(EXIT_FAILURE);
 	}
 	Node del = L->front;
+
 	if(length(L) > 1){
 		if(L->curser == L->front){
 			L->curser = NULL;
@@ -432,14 +442,13 @@ void printList(FILE* out, List L){
 	}
 
 	Node N = NULL;
-
 	for(N = L->front; N != NULL; N = N->next){
 		fprintf(out, "%d ", N->data);
 	}
 }
 
 List copyList(List L){
-	List copy = (List)malloc(sizeof(ListObj));
+	List copy = newList();
 
 	for(moveFront(L); index(L)>=0; moveNext(L)){
 		append(copy, get(L));
