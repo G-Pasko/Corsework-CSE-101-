@@ -35,7 +35,7 @@ int main(int argc, char* argv[]){
 	List new = newList();
 	append(new, 0);
 
-	printf("%d\n", length);
+	//printf("%d\n", length);
 
 	for(int j = 1; j < length; j++){
 		moveFront(new);	
@@ -60,7 +60,7 @@ int main(int argc, char* argv[]){
 
 	//printList(stdout, new);
 
-	printf("\nWords have been sorted\n");
+	//printf("\nWords have been sorted\n");
 	moveFront(new);
 	for(i = 0; i < length; i++){
 		//printf("%d\n", i);
@@ -69,7 +69,6 @@ int main(int argc, char* argv[]){
 	}
 
 	freeList(&new);
-	free(new);
 
 	for(i = 0; i < length; i++){
 		free(words[i]);
