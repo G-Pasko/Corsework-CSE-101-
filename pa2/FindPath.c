@@ -1,10 +1,12 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include "List.h"
 #include "Graph.h"
 
-int main(int argc, char argv[]){
+int main(int argc, char* argv[]){
 	if(argc != 3){
-		pritnf("Incorrect number of file arguments. Run 'Find Path <input file> <output file>'\n");
+		printf("Incorrect number of file arguments. Run 'Find Path <input file> <output file>'\n");
 		exit(EXIT_FAILURE);
 	}
 	char buff[512];
@@ -23,12 +25,12 @@ int main(int argc, char argv[]){
 		i++;
 	}
 	for(i = 0; i < lines; i++){
-		fprintf("%s\n", words[i]);
+		fprintf(output, "%s\n", words[i]);
 	}
 
 	//freeList(&new);
 
-	for(i = 0; i < length; i++){
+	for(i = 0; i < lines; i++){
 		free(words[i]);
 	}
 	free(words);
