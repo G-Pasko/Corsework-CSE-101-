@@ -15,6 +15,8 @@ typedef struct GraphObj{
 	int distance[] = {};
 }GraphObj;
 
+typedef GraphObj* Graph;
+
 
 Graph newGraph(int n){
 	Graph new = calloc(n, sizeof(GraphObj));
