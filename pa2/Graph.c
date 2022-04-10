@@ -120,7 +120,7 @@ void makeNull(Graph G){
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i < G->size; i++){
-		G->nieghbors[i] = NULL;
+		G->neighbors[i] = NULL;
 		G->color[i] = "w";
 		G->distance[i] = nil;
 	}
@@ -138,8 +138,8 @@ void addEdge(Graph G, int u, int v){
 		printf("Graph Error: calling addEdge() on invalid integer values");
 		exit(EXIT_FAILURE);
 	}
-	append(G->nieghbors[u+1], v);
-	append(G->nieghbors[v + 1], u);
+	append(G->neighbors[u+1], v);
+	append(G->neighbors[v + 1], u);
 }
 
 void addArc(Graph G, int u, int v){
@@ -155,7 +155,7 @@ void addArc(Graph G, int u, int v){
 		printf("Graph Error: calling addArc() on invalid integer values");
 		exit(EXIT_FAILURE);
 	}
-	append(G->nieghbors[u+1], v);
+	append(G->neighbors[u+1], v);
 }
 
 void BFS(Graph G, int s){
@@ -173,7 +173,7 @@ void BFS(Graph G, int s){
 	while(Q != NULL){
 		x = get(Q);
 		deleteFront(Q);
-		for(Node y = neighbors[x]; y != NULL; y = y->next){
+		for(Node y = G->neighbors[x]; y != NULL; y = y->next){
 			if(color[y] == "w"){
 				color[y] = "g";
 				distance[y] = distance[x] + 1;
