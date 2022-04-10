@@ -3,7 +3,7 @@
 #include "Graph.h"
 #include "List.h"
 #define INF -1;
-#define nil 69;
+#define NIL 69;
 
 
 typedef struct GraphObj{
@@ -15,14 +15,14 @@ typedef struct GraphObj{
 	int distance[] = {};
 }GraphObj;
 
-typedef GraphObj* Graph;
+//typedef GraphObj* Graph;
 
 
 Graph newGraph(int n){
 	Graph new = calloc(n, sizeof(GraphObj));
 	new->color = NULL;
 	new->neighbors = newList();
-	new->parentIndex = nil;
+	new->parentIndex = NIL;
 	new->distance = inf;
 	new->order = n + 1;
 	new->size = n;
@@ -65,7 +65,7 @@ int getSource(Graph G){
 		}
 	}
 	for(int i = 1; i < getOrder(g); i++){
-		if(parentIndex[i] != nil){
+		if(parentIndex[i] != NIL){
 			return i;
 		}
 	}
@@ -124,7 +124,7 @@ void makeNull(Graph G){
 	for(int i = 1; i < G->size; i++){
 		G->neighbors[i] = NULL;
 		G->color[i] = "w";
-		G->distance[i] = nil;
+		G->distance[i] = NIL;
 	}
 }
 void addEdge(Graph G, int u, int v){
@@ -164,11 +164,11 @@ void BFS(Graph G, int s){
 	for(Node x; x != x->data != s; x = x->next){
 		color[x] = "w";
 		distance[x] = inf;
-		parentIndex[x] = nil;
+		parentIndex[x] = NIL;
 	}
 	color[s] = "g";
 	distance[s] = 0;
-	parentIndex[s] = nil;
+	parentIndex[s] = NIL;
 	List Q = newList();
 	append(Q, s);
 	moveFront(Q);
