@@ -24,6 +24,7 @@
 #include<stdlib.h>
 #include"Graph.h"
 
+
 int main(int argc, char* argv[]){
    int i, s, max, min, d, n=35;
    List  C = newList(); // central vertices 

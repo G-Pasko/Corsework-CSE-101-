@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "Graph.h"
+#include "List.h"
 #define INF -1;
 #define nil 69;
 
@@ -12,6 +14,7 @@ typedef struct GraphObj{
 	int parentIndex[] = {};
 	int distance[] = {};
 }GraphObj;
+
 
 Graph newGraph(int n){
 	Graph new = calloc(n, sizeof(GraphObj));
@@ -180,9 +183,17 @@ void BFS(Graph G, int s){
 		}
 		color[x] = "b";
 	}
-
 }
 /*** Other operations ***/
 void printGraph(FILE* out, Graph G){
-	;;
+	for(int i = 1; i < getSize(G); i++){
+		fprintf(out, "%d: ", i);
+		moveFront(nieghbors[i]);
+		int j = get(nieghbors[i]);
+		while(get(neighbors[i]) != NULL){
+			fprintf(out, "%d ", j);
+			moveNext(nieghbors[i]);
+		}
+		printf(out, "\n");
+	}
 }
