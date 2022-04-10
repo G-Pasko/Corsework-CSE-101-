@@ -19,10 +19,9 @@ typedef struct GraphObj{
 Graph newGraph(int n){
 	Graph new = calloc(n, sizeof(GraphObj));
 	new->color = NULL;
-	new->neighbors[] = NULL;
-	new->parentIndex = NULL;
-	new->distance = NULL;
-	new->order = 0;
+	//new->neighbors[] = NULL;
+	//new->parentIndex = NULL;
+	//new->distance = NULL;
 	new->order = n + 1;
 	new->size = n;
 	return new;
@@ -189,11 +188,11 @@ void BFS(Graph G, int s){
 void printGraph(FILE* out, Graph G){
 	for(int i = 1; i < getSize(G); i++){
 		fprintf(out, "%d: ", i);
-		moveFront(G->nieghbors[i]);
-		int j = get(G->nieghbors[i]);
+		moveFront(G->neighbors[i]);
+		int j = get(G->neighbors[i]);
 		while(get(G->neighbors[i]) != NULL){
 			fprintf(out, "%d ", j);
-			moveNext(G->nieghbors[i]);
+			moveNext(G->neighbors[i]);
 		}
 		printf(out, "\n");
 	}
