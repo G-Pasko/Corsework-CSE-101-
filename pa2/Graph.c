@@ -19,6 +19,7 @@ typedef struct GraphObj{
 Graph newGraph(int n){
 	Graph new = calloc(n, sizeof(GraphObj));
 	new->color = NULL;
+	new->neighbors[] = NULL;
 	new->parentIndex = NULL;
 	new->distance = NULL;
 	new->order = 0;
