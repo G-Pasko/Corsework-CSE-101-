@@ -188,11 +188,11 @@ void BFS(Graph G, int s){
 void printGraph(FILE* out, Graph G){
 	for(int i = 1; i < getSize(G); i++){
 		fprintf(out, "%d: ", i);
-		moveFront(nieghbors[i]);
-		int j = get(nieghbors[i]);
-		while(get(neighbors[i]) != NULL){
+		moveFront(G->nieghbors[i]);
+		int j = get(G->nieghbors[i]);
+		while(get(G->neighbors[i]) != NULL){
 			fprintf(out, "%d ", j);
-			moveNext(nieghbors[i]);
+			moveNext(G->nieghbors[i]);
 		}
 		printf(out, "\n");
 	}
