@@ -21,7 +21,7 @@ typedef GraphObj* Graph;
 Graph newGraph(int n){
 	Graph new = calloc(n, sizeof(GraphObj));
 	new->color = NULL;
-	new->neighbors[] = newList();
+	new->neighbors = newList();
 	new->parentIndex = nil;
 	new->distance = inf;
 	new->order = n + 1;
