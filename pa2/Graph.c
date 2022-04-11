@@ -182,13 +182,15 @@ void BFS(Graph G, int s){
 	while(Q != NULL){
 		x = get(Q);
 		deleteFront(Q);
-		for(Node y = front(G->neighbors[x]); y != NULL; y = y->next){
+		moveFront(G->neighbors[x]);
+		while(get(G->neighbors[x]) ! = NULL){
 			if(G->color[y] == "w"){
 				G->color[y] = "g";
 				G->distance[y] = G->distance[x] + 1;
 				G->parentIndex[y] = x;
 				append(Q, y);
 			}
+			moveNext(G);
 		}
 		G->color[x] = "b";
 	}
