@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include "Graph.h"
 #include "List.h"
-#define INF -1;
-#define NIL 69;
+#define INF -420
+#define NIL -69
 
 
 typedef struct GraphObj{
