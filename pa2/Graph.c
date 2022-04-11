@@ -19,19 +19,25 @@ typedef struct GraphObj{
 
 
 Graph newGraph(int n){
-	Graph new = calloc(n, sizeof(GraphObj));
+	Graph new = calloc(n + 1, sizeof(GraphObj));
 	new->color = NULL;
-	new->neighbors = newList();
-	new->parentIndex = NIL;
-	new->distance = INF;
+	for(int i = 1; i < n + 1; i++){
+		new->neighbors[i] = newList();
+	}
+	new->parentIndex[n] = NIL;
+	new->distance[n] = INF;
 	new->order = n + 1;
-	new->size = n;
+	new->size = 0;
 	return new;
 }
 
 void freeGraph(Graph* pG){				//Frees all heap memory associated with pG and
+	if(*pg == NULL || pG == NULL){
+		printf("Graph Error: calling freeGraph() on NULL Graph reference");
+		exit(EXIT_FAILURE);
+	}
 	for(int i = 1; i < getSize(*pG); i++){
-		freeList(*pG->neighbors[i]);
+		freeList((*pG)->neighbors[i]);
 	}
 	free(*pG);
 	*pG = NULL;
@@ -43,7 +49,8 @@ int getOrder(Graph G){
 		printf("Graph Error: calling getSize() on NULL Graph reference");
 		exit(EXIT_FAILURE);
 	}
-	return G->order;}
+	return G->order;
+}
 
 int getSize(Graph G){
 	if(G == NULL){
@@ -57,7 +64,7 @@ int getSource(Graph G){
 		printf("Graph Error: calling getSize() on NULL Graph reference");
 		exit(EXIT_FAILURE);
 	}
-	for(int i = 1; i < getOrder(g); i++){
+	for(int i = 1; i < getOrder(G); i++){
 		if(color[i] != "b"){
 			printf("Graph Error: calling getParent() before BFS");
 			exit(EXIT_FAILURE);
@@ -174,7 +181,7 @@ void BFS(Graph G, int s){
 	while(Q != NULL){
 		x = get(Q);
 		deleteFront(Q);
-		for(Node y = G->neighbors[x]; y != NULL; y = y->next){
+		for(Node y = front(G->neighbors[x]); y != NULL; y = y->next){
 			if(color[y] == "w"){
 				color[y] = "g";
 				distance[y] = distance[x] + 1;
