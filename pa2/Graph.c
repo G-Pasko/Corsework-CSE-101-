@@ -91,7 +91,7 @@ int getParent(Graph G, int u){
 			exit(EXIT_FAILURE);
 		}
 	}
-	return parentIndex[u];
+	return G->parentIndex[u];
 }
 int getDist(Graph G, int u){
 	if(G == NULL){
@@ -109,11 +109,11 @@ void getPath(List L, Graph G, int u){
 		printf("Graph Error: calling getPath() on NULL Graph reference");
 		exit(EXIT_FAILURE);
 	}
-	if(u < 1 || u > getOrder(g)){
+	if(u < 1 || u > getOrder(G)){
 		printf("Graph Error: calling getPath() on out of bounds node");
 		exit(EXIT_FAILURE);
 	}
-	for(int i = 1; i < getOrder(g); i++){
+	for(int i = 1; i < getOrder(G); i++){
 		if(G->color[i] != "b"){
 			printf("Graph Error: calling getParent() before BFS");
 			exit(EXIT_FAILURE);
@@ -126,7 +126,7 @@ void makeNull(Graph G){
 		printf("Graph Error: calling makeNull() on NULL Graph reference");
 		exit(EXIT_FAILURE);
 	}
-	for(int i = 1; i < G->size; i++){
+	for(int i = 1; i < getSize(G); i++){
 		G->neighbors[i] = NULL;
 		G->color[i] = "w";
 		G->distance[i] = NIL;
@@ -169,13 +169,13 @@ void addArc(Graph G, int u, int v){
 
 void BFS(Graph G, int s){
 	for(Node x; x != x->data != s; x = x->next){
-		color[x] = "w";
-		distance[x] = INF;
-		parentIndex[x] = NIL;
+		G->color[x] = "w";
+		G->distance[x] = INF;
+		G->parentIndex[x] = NIL;
 	}
-	color[s] = "g";
-	distance[s] = 0;
-	parentIndex[s] = NIL;
+	G->color[s] = "g";
+	G->distance[s] = 0;
+	G->parentIndex[s] = NIL;
 	List Q = newList();
 	append(Q, s);
 	moveFront(Q);
@@ -192,6 +192,7 @@ void BFS(Graph G, int s){
 		}
 		color[x] = "b";
 	}
+	freeList(Q);
 }
 /*** Other operations ***/
 void printGraph(FILE* out, Graph G){
