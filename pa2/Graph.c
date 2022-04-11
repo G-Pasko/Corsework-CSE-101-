@@ -7,12 +7,12 @@
 
 
 typedef struct GraphObj{
-	List neighbors[];
-	char color[];
+	List *neighbors;
+	char *color;
 	int order;				//# of vertices
 	int size;				//# of edges (order -1)
-	int parentIndex[];
-	int distance[];
+	int *parentIndex;
+	int *distance;
 }GraphObj;
 
 //typedef GraphObj* Graph;

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "List.h"
 
 typedef struct GraphObj* Graph;
 
