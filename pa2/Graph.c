@@ -86,7 +86,7 @@ int getParent(Graph G, int u){
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i < getOrder(G); i++){
-		if(G->(*color[i]) != "b"){
+		if(G->color[i] != "b"){
 			printf("Graph Error: calling getParent() before BFS");
 			exit(EXIT_FAILURE);
 		}
@@ -168,12 +168,21 @@ void addArc(Graph G, int u, int v){
 }
 
 void BFS(Graph G, int s){
-	moveFront(G->neighbors[s]);
-	for(Node x; x != x->data != s; x = x->next){
-		G->color[x] = "w";
-		G->distance[x] = INF;
-		G->parentIndex[x] = NIL;
+	//moveFront(G->neighbors[s]);
+	int x;
+	for(int i = 1; i < getOrder(G); i++){
+		moveFront(G->neighbors[i]);
+		while(G->neighbors[i] != NULL){
+			x = get(G->neighbors[i]);
+			G->color[x] = "w";
+			G->distance[x] = INF;
+			G->parentIndex[x] = NIL;
+		}
+		moveNext(G->neighbors[i]);
+
+
 	}
+
 	G->color[s] = "g";
 	G->distance[s] = 0;
 	G->parentIndex[s] = NIL;
