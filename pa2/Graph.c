@@ -69,7 +69,7 @@ int getSource(Graph G){
 			exit(EXIT_FAILURE);
 		}
 	}
-	for(int i = 1; i < getOrder(g); i++){
+	for(int i = 1; i < getOrder(G); i++){
 		if(G->parentIndex[i] != NIL){
 			return i;
 		}
@@ -81,11 +81,11 @@ int getParent(Graph G, int u){
 		printf("Graph Error: calling getSize() on NULL Graph reference");
 		exit(EXIT_FAILURE);
 	}
-	if(u < 1 || u > getOrder(g)){
+	if(u < 1 || u > getOrder(G)){
 		printf("Graph Error: calling getPath() on out of bounds node");
 		exit(EXIT_FAILURE);
 	}
-	for(int i = 1; i < getOrder(g); i++){
+	for(int i = 1; i < getOrder(G); i++){
 		if(G->color[i] != "b"){
 			printf("Graph Error: calling getParent() before BFS");
 			exit(EXIT_FAILURE);
@@ -98,7 +98,7 @@ int getDist(Graph G, int u){
 		printf("Graph Error: calling getSize() on NULL Graph reference");
 		exit(EXIT_FAILURE);
 	}
-	if(u < 1 || u > getOrder(g)){
+	if(u < 1 || u > getOrder(G)){
 		printf("Graph Error: calling getPath() on out of bounds node");
 		exit(EXIT_FAILURE);
 	}
@@ -183,14 +183,14 @@ void BFS(Graph G, int s){
 		x = get(Q);
 		deleteFront(Q);
 		for(Node y = front(G->neighbors[x]); y != NULL; y = y->next){
-			if(color[y] == "w"){
-				color[y] = "g";
-				distance[y] = distance[x] + 1;
-				parentIndex[y] = x;
+			if(G->color[y] == "w"){
+				G->color[y] = "g";
+				G->distance[y] = G->distance[x] + 1;
+				G->parentIndex[y] = x;
 				append(Q, y);
 			}
 		}
-		color[x] = "b";
+		G->color[x] = "b";
 	}
 	freeList(Q);
 }
