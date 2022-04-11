@@ -30,9 +30,8 @@ Graph newGraph(int n){
 }
 
 void freeGraph(Graph* pG){				//Frees all heap memory associated with pG and
-	List front;
 	for(int i = 1; i < getSize(*pG); i++){
-		freeList(neighbors[i]);
+		freeList(*pG->neighbors[i]);
 	}
 	free(*pG);
 	*pG = NULL;
