@@ -23,7 +23,7 @@ Graph newGraph(int n){
 	new->color = NULL;
 	new->neighbors = newList();
 	new->parentIndex = NIL;
-	new->distance = inf;
+	new->distance = INF;
 	new->order = n + 1;
 	new->size = n;
 	return new;
@@ -31,7 +31,7 @@ Graph newGraph(int n){
 
 void freeGraph(Graph* pG){				//Frees all heap memory associated with pG and
 	List front;
-	for(int i = 1; i < getSize(G); i++){
+	for(int i = 1; i < getSize(*pG); i++){
 		freeList(neighbors[i]);
 	}
 	free(*pG);
@@ -163,7 +163,7 @@ void addArc(Graph G, int u, int v){
 void BFS(Graph G, int s){
 	for(Node x; x != x->data != s; x = x->next){
 		color[x] = "w";
-		distance[x] = inf;
+		distance[x] = INF;
 		parentIndex[x] = NIL;
 	}
 	color[s] = "g";
