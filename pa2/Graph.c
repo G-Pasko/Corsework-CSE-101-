@@ -195,7 +195,7 @@ void BFS(Graph G, int s){
 		}
 		G->color[x] = "b";
 	}
-	freeList(Q);
+	freeList(*Q);
 }
 /*** Other operations ***/
 void printGraph(FILE* out, Graph G){
@@ -207,6 +207,6 @@ void printGraph(FILE* out, Graph G){
 			fprintf(out, "%d ", j);
 			moveNext(G->neighbors[i]);
 		}
-		printf(out, "\n");
+		fprintf(out, "\n");
 	}
 }
