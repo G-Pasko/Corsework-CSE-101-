@@ -86,7 +86,7 @@ int getParent(Graph G, int u){
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i < getOrder(G); i++){
-		if(G->color[i] != "b"){
+		if(G->(*color[i]) != "b"){
 			printf("Graph Error: calling getParent() before BFS");
 			exit(EXIT_FAILURE);
 		}
@@ -184,7 +184,7 @@ void BFS(Graph G, int s){
 		x = get(Q);
 		deleteFront(Q);
 		moveFront(G->neighbors[x]);
-		while(get(G->neighbors[x]) ! = NULL){
+		while(get(G->neighbors[x]) != NULL){
 			if(G->color[y] == "w"){
 				G->color[y] = "g";
 				G->distance[y] = G->distance[x] + 1;
