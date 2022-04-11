@@ -32,7 +32,7 @@ Graph newGraph(int n){
 }
 
 void freeGraph(Graph* pG){				//Frees all heap memory associated with pG and
-	if(*pg == NULL || pG == NULL){
+	if(*pG == NULL || pG == NULL){
 		printf("Graph Error: calling freeGraph() on NULL Graph reference");
 		exit(EXIT_FAILURE);
 	}
@@ -41,7 +41,6 @@ void freeGraph(Graph* pG){				//Frees all heap memory associated with pG and
 	}
 	free(*pG);
 	*pG = NULL;
-	return 0;						
 }
 
 int getOrder(Graph G){
@@ -65,13 +64,13 @@ int getSource(Graph G){
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i < getOrder(G); i++){
-		if(color[i] != "b"){
+		if(G->color[i] != "b"){
 			printf("Graph Error: calling getParent() before BFS");
 			exit(EXIT_FAILURE);
 		}
 	}
 	for(int i = 1; i < getOrder(g); i++){
-		if(parentIndex[i] != NIL){
+		if(G->parentIndex[i] != NIL){
 			return i;
 		}
 	}
@@ -87,7 +86,7 @@ int getParent(Graph G, int u){
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i < getOrder(g); i++){
-		if(color[i] != "b"){
+		if(G->color[i] != "b"){
 			printf("Graph Error: calling getParent() before BFS");
 			exit(EXIT_FAILURE);
 		}
@@ -115,7 +114,7 @@ void getPath(List L, Graph G, int u){
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i < getOrder(g); i++){
-		if(color[i] != "b"){
+		if(G->color[i] != "b"){
 			printf("Graph Error: calling getParent() before BFS");
 			exit(EXIT_FAILURE);
 		}
@@ -148,6 +147,7 @@ void addEdge(Graph G, int u, int v){
 	}
 	append(G->neighbors[u+1], v);
 	append(G->neighbors[v + 1], u);
+	G->size ++;
 }
 
 void addArc(Graph G, int u, int v){
@@ -164,6 +164,7 @@ void addArc(Graph G, int u, int v){
 		exit(EXIT_FAILURE);
 	}
 	append(G->neighbors[u+1], v);
+	G->size ++;
 }
 
 void BFS(Graph G, int s){
