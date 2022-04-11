@@ -168,6 +168,7 @@ void addArc(Graph G, int u, int v){
 }
 
 void BFS(Graph G, int s){
+	moveFront(G->neighbors[s]);
 	for(Node x; x != x->data != s; x = x->next){
 		G->color[x] = "w";
 		G->distance[x] = INF;
