@@ -30,8 +30,8 @@ Graph newGraph(int n){
 	for(int i = 1; i < n + 1; i++){
 		new->neighbors[i] = newList();
 	}
-	new->parentIndex[] = {};
-	new->distance[] = {};
+	//new->parentIndex[] = {};
+	//new->distance[] = {};
 	new->lastVertex = NIL;
 	new->order = n + 1;
 	new->size = 0;
@@ -44,7 +44,7 @@ void freeGraph(Graph* pG){				//Frees all heap memory associated with pG and
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i < getOrder(*pG); i++){
-		freeList(*((*pG)->neighbors[i]));
+		freeList((*pG)->neighbors[i]);
 	}
 	free(*pG);
 	*pG = NULL;
@@ -216,7 +216,7 @@ void BFS(Graph G, int s){
 		while(index(G->neighbors[x]) != -1){
 			int y = get(G->neighbors[x]);
 			if(G->color[y] != 0){
-				*(G->color[y]) = 1;
+				G->color[y] = 1;
 				G->distance[y] = G->distance[x] + 1;
 				G->parentIndex[y] = x;
 				append(Q, y);
@@ -225,7 +225,7 @@ void BFS(Graph G, int s){
 		}
 		G->color[x] = 2;
 	}
-	freeList(*Q);
+	freeList(Q);
 }
 /*** Other operations ***/
 void printGraph(FILE* out, Graph G){
