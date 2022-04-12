@@ -18,6 +18,7 @@ typedef struct GraphObj{
 	int size;				//# of edges (order -1)
 	int *parentIndex;
 	int *distance;
+	int lastVertex;
 }GraphObj;
 
 //typedef GraphObj* Graph;
@@ -29,8 +30,9 @@ Graph newGraph(int n){
 	for(int i = 1; i < n + 1; i++){
 		new->neighbors[i] = newList();
 	}
-	new->parentIndex[n] = NIL;
-	new->distance[n] = INF;
+	new->parentIndex[] = {};
+	new->distance[] = {};
+	new->lastVertex = NIL;
 	new->order = n + 1;
 	new->size = 0;
 	return new;
@@ -41,7 +43,7 @@ void freeGraph(Graph* pG){				//Frees all heap memory associated with pG and
 		printf("Graph Error: calling freeGraph() on NULL Graph reference");
 		exit(EXIT_FAILURE);
 	}
-	for(int i = 1; i < getSize(*pG); i++){
+	for(int i = 1; i < getOrder(*pG); i++){
 		freeList(*((*pG)->neighbors[i]));
 	}
 	free(*pG);
@@ -69,13 +71,13 @@ int getSource(Graph G){
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i < getOrder(G); i++){
-		if(G->color[i] !=2 ){
+		if(G->color[i] != 2 ){
 			printf("Graph Error: calling getParent() before BFS");
 			exit(EXIT_FAILURE);
 		}
 	}
 	for(int i = 1; i < getOrder(G); i++){
-		if(G->parentIndex[i] != NIL){
+		if(G->parentIndex[i] == NIL){
 			return i;
 		}
 	}
@@ -106,6 +108,9 @@ int getDist(Graph G, int u){
 		printf("Graph Error: calling getPath() on out of bounds node");
 		exit(EXIT_FAILURE);
 	}
+	if(G->lastVertex == 0){
+		return INF;
+	}
 	return G->distance[u];
 }
 void getPath(List L, Graph G, int u){
@@ -123,6 +128,16 @@ void getPath(List L, Graph G, int u){
 			exit(EXIT_FAILURE);
 		}
 	}
+	if(G->distance[u] == INF){
+		append(L, NIL);
+	}
+	else{
+		append(L, u);
+		u = getParent(G, u);
+		getPath(L, G, u);
+	}
+
+	//appends path to List
 }
 /*** Manipulation procedures ***/
 void makeNull(Graph G){
@@ -135,6 +150,8 @@ void makeNull(Graph G){
 		G->color[i] = 0;
 		G->distance[i] = NIL;
 	}
+	G->order = 0;
+	G->size = 0;
 }
 void addEdge(Graph G, int u, int v){
 	if(G == NULL){
@@ -151,6 +168,7 @@ void addEdge(Graph G, int u, int v){
 	}
 	append(G->neighbors[u+1], v);
 	append(G->neighbors[v + 1], u);
+
 	G->size ++;
 }
 
@@ -183,8 +201,6 @@ void BFS(Graph G, int s){
 			G->parentIndex[x] = NIL;
 		}
 		moveNext(G->neighbors[i]);
-
-
 	}
 
 	G->color[s] = 1;
