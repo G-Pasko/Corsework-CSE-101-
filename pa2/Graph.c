@@ -114,7 +114,7 @@ void getPath(List L, Graph G, int u){
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i < getOrder(G); i++){
-		if(G->color[i] != "b"){
+		if(*(G->color[i]) != "b"){
 			printf("Graph Error: calling getParent() before BFS");
 			exit(EXIT_FAILURE);
 		}
@@ -174,8 +174,8 @@ void BFS(Graph G, int s){
 		moveFront(G->neighbors[i]);
 		while(G->neighbors[i] != NULL){
 			x = get(G->neighbors[i]);
-			G->color[x] = "w";
-			G->distance[x] = INF;
+			*(G->color[x]) = "w";
+			(G->distance[x]) = INF;
 			G->parentIndex[x] = NIL;
 		}
 		moveNext(G->neighbors[i]);
@@ -196,7 +196,7 @@ void BFS(Graph G, int s){
 		while(get(G->neighbors[x]) != NULL){
 			int y = get(G->neighbors[x]);
 			if(G->color[y] == "w"){
-				G->color[y] = "g";
+				*(G->color[y]) = "g";
 				G->distance[y] = G->distance[x] + 1;
 				G->parentIndex[y] = x;
 				append(Q, y);
