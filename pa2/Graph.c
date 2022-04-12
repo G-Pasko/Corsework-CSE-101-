@@ -6,9 +6,14 @@
 #define NIL -69
 
 
+//white = 0
+//grey = 1
+//black = 2
+
+
 typedef struct GraphObj{
 	List *neighbors;
-	char *color;
+	int *color;
 	int order;				//# of vertices
 	int size;				//# of edges (order -1)
 	int *parentIndex;
@@ -64,7 +69,7 @@ int getSource(Graph G){
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i < getOrder(G); i++){
-		if(strcmp(G->color[i], "b") != 0){
+		if(G->color[i] !=2 ){
 			printf("Graph Error: calling getParent() before BFS");
 			exit(EXIT_FAILURE);
 		}
@@ -85,7 +90,7 @@ int getParent(Graph G, int u){
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i < getOrder(G); i++){
-		if(strcmp(G->color[i], "b") != 0){
+		if(G->color[i] != 2){
 			printf("Graph Error: calling getParent() before BFS");
 			exit(EXIT_FAILURE);
 		}
@@ -113,7 +118,7 @@ void getPath(List L, Graph G, int u){
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i < getOrder(G); i++){
-		if(strcmp((G->color[i]), "b") != 0){
+		if(G->color[i] != 2){
 			printf("Graph Error: calling getParent() before BFS");
 			exit(EXIT_FAILURE);
 		}
@@ -127,7 +132,7 @@ void makeNull(Graph G){
 	}
 	for(int i = 1; i < getSize(G); i++){
 		G->neighbors[i] = NULL;
-		G->color[i] = "w";
+		G->color[i] = 0;
 		G->distance[i] = NIL;
 	}
 }
@@ -173,7 +178,7 @@ void BFS(Graph G, int s){
 		moveFront(G->neighbors[i]);
 		while(G->neighbors[i] != NULL){
 			x = get(G->neighbors[i]);
-			G->color[x] = "w";
+			G->color[x] = 0;
 			G->distance[x] = INF;
 			G->parentIndex[x] = NIL;
 		}
@@ -182,7 +187,7 @@ void BFS(Graph G, int s){
 
 	}
 
-	G->color[s] = "g";
+	G->color[s] = 1;
 	G->distance[s] = 0;
 	G->parentIndex[s] = NIL;
 	List Q = newList();
@@ -194,15 +199,15 @@ void BFS(Graph G, int s){
 		moveFront(G->neighbors[x]);
 		while(get(G->neighbors[x]) != NULL){
 			int y = get(G->neighbors[x]);
-			if(strcmp(G->color[y] == "w") != 0){
-				*(G->color[y]) = "g";
+			if(G->color[y] != 0){
+				*(G->color[y]) = 1;
 				G->distance[y] = G->distance[x] + 1;
 				G->parentIndex[y] = x;
 				append(Q, y);
 			}
 			moveNext(G->neighbors[x]);
 		}
-		G->color[x] = "b";
+		G->color[x] = 2;
 	}
 	freeList(*Q);
 }
