@@ -197,7 +197,7 @@ void BFS(Graph G, int s){
 		x = get(Q);
 		deleteFront(Q);
 		moveFront(G->neighbors[x]);
-		while(get(G->neighbors[x]) != NULL){
+		while(index(G->neighbors[x]) != -1){
 			int y = get(G->neighbors[x]);
 			if(G->color[y] != 0){
 				*(G->color[y]) = 1;
