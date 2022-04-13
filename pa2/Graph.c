@@ -30,7 +30,7 @@ Graph newGraph(int n){
 	new->color = (int *)calloc(n + 1, sizeof(int));
 	//printf("Calloced\n");
 	new->parentIndex = (int *)calloc(n + 1, sizeof(int));
-	/printf("Calloced\n");
+	//printf("Calloced\n");
 	new->distance = (int *)calloc(n + 1, sizeof(int));
 	//printf("Calloced\n");
 	for(int i = 1; i < n + 1; i++){
