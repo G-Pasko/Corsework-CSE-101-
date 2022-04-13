@@ -32,7 +32,7 @@ Graph newGraph(int n){
 	}
 	//new->parentIndex[] = {};
 	//new->distance[] = {};
-	new->lastVertex = NIL;
+	new->source = NIL;
 	new->order = n + 1;
 	new->size = 0;
 	return new;
@@ -110,7 +110,7 @@ int getDist(Graph G, int u){
 		printf("Graph Error: calling getPath() on out of bounds node");
 		exit(EXIT_FAILURE);
 	}
-	if(G->lastVertex == 0){
+	if(G->source == 0){
 		return INF;
 	}
 	return G->distance[u];
