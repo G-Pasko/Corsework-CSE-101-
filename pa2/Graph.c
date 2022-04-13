@@ -32,8 +32,6 @@ Graph newGraph(int n){
 	for(int i = 1; i < n + 1; i++){
 		new->neighbors[i] = newList();
 	}
-	//new->parentIndex[] = {};
-	//new->distance[] = {};
 	new->source = NIL;
 	new->order = n + 1;
 	new->size = 0;
