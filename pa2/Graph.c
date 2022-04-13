@@ -18,7 +18,7 @@ typedef struct GraphObj{
 	int size;				//# of edges (order -1)
 	int *parentIndex;
 	int *distance;
-	int lastVertex;
+	int source;
 }GraphObj;
 
 //typedef GraphObj* Graph;
@@ -81,6 +81,8 @@ int getSource(Graph G){
 			return i;
 		}
 	}
+	return G->source;
+
 }
 int getParent(Graph G, int u){
 	if(G == NULL){
@@ -192,6 +194,7 @@ void addArc(Graph G, int u, int v){
 void BFS(Graph G, int s){
 	//moveFront(G->neighbors[s]);
 	int x;
+	G->source = s;
 	for(int i = 1; i < getOrder(G); i++){
 		moveFront(G->neighbors[i]);
 		while(G->neighbors[i] != NULL){
