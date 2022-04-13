@@ -26,12 +26,17 @@ typedef struct GraphObj{
 
 Graph newGraph(int n){
 	Graph new = calloc(n + 1, sizeof(GraphObj));
+	printf("Calloced\n");
 	new->color = (int *)calloc(n + 1, sizeof(int));
+	printf("Calloced\n");
 	new->parentIndex = (int *)calloc(n + 1, sizeof(int));
+	printf("Calloced\n");
 	new->distance = (int *)calloc(n + 1, sizeof(int));
+	printf("Calloced\n");
 	for(int i = 1; i < n + 1; i++){
 		new->neighbors[i] = newList();
 	}
+	printf("Calloced\n");
 	new->source = NIL;
 	new->order = n + 1;
 	new->size = 0;
