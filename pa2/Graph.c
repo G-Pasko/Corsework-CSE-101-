@@ -25,7 +25,7 @@ typedef struct GraphObj{
 
 
 Graph newGraph(int n){
-	Graph new = calloc(n + 1, sizeof(GraphObj));
+	Graph new = calloc(n, sizeof(GraphObj));
 	new->color = NULL;
 	for(int i = 1; i < n + 1; i++){
 		new->neighbors[i] = newList();
