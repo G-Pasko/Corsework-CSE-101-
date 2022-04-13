@@ -56,7 +56,7 @@ void freeList(List* pL){
 //Access Functions
 int length(List L){
 	if(L == NULL){
-		printf("List Error: calling getLength() on NULL List reference");
+		printf("List Error: calling length() on NULL List reference");
 		exit(EXIT_FAILURE);
 	}
 	return(L->length);
@@ -246,7 +246,7 @@ void prepend(List L, int x){
 
 void append(List L, int x){
 	if(L == NULL){
-		printf("List Error: calling Enqueue() on NULL List reference");
+		printf("List Error: calling append() on NULL List reference");
 		exit(EXIT_FAILURE);
 	}
 
@@ -268,15 +268,15 @@ void append(List L, int x){
 
 void insertBefore(List L, int x){
 	if(L == NULL){
-		printf("List Error: calling Enqueue() on NULL List reference");
+		printf("List Error: calling insertBefore() on NULL List reference");
 		exit(EXIT_FAILURE);
 	}
 	if(L->length == 0){
-		printf("List Error: calling insertAfter() on empty List");
+		printf("List Error: calling insertBefore() on empty List");
 		exit(EXIT_FAILURE);
 	}
 	if(index(L) < 0){
-		printf("List Error: calling insertAfter() on undefined index");
+		printf("List Error: calling insertBefore() on undefined index");
 		exit(EXIT_FAILURE);
 	}
 	if(L->curser == L->front){
@@ -303,7 +303,7 @@ void insertBefore(List L, int x){
 
 void insertAfter(List L, int x){
 	if(L == NULL){
-		printf("List Error: calling Enqueue() on NULL List reference");
+		printf("List Error: calling insertAfter() on NULL List reference");
 		exit(EXIT_FAILURE);
 	}
 
