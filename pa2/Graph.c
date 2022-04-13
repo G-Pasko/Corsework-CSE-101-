@@ -33,8 +33,8 @@ Graph newGraph(int n){
 	//printf("Calloced\n");
 	new->distance = (int *)calloc(n + 1, sizeof(int));
 	//printf("Calloced\n");
+	new->neighbors[] = calloc(n + 1, sizeof(ListObj));
 	for(int i = 1; i < n + 1; i++){
-		new->neighbors[i];
 		new->neighbors[i] = newList();
 		printf("Calloced %d lists\n", i);
 	}
