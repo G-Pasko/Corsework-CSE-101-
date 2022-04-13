@@ -25,10 +25,10 @@ typedef struct GraphObj{
 
 
 Graph newGraph(int n){
-	Graph new = (Graph *)calloc(n, sizeof(GraphObj));
-	new->color = (int *)calloc(n, sizeof(int));
-	new->parentIndex = (int *)calloc(n, sizeof(int));
-	new->distance = (int *)calloc(n, sizeof(int));
+	Graph new = (Graph *)calloc(n + 1, sizeof(GraphObj));
+	new->color = (int *)calloc(n + 1, sizeof(int));
+	new->parentIndex = (int *)calloc(n + 1, sizeof(int));
+	new->distance = (int *)calloc(n + 1, sizeof(int));
 	for(int i = 1; i < n + 1; i++){
 		new->neighbors[i] = newList();
 	}
