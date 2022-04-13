@@ -246,7 +246,7 @@ void prepend(List L, int x){
 
 void append(List L, int x){
 	if(L == NULL){
-		printf("List Error: calling append() on NULL List reference");
+		printf("List Error: calling append() on NULL List reference\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -268,15 +268,15 @@ void append(List L, int x){
 
 void insertBefore(List L, int x){
 	if(L == NULL){
-		printf("List Error: calling insertBefore() on NULL List reference");
+		printf("List Error: calling insertBefore() on NULL List reference\n");
 		exit(EXIT_FAILURE);
 	}
 	if(L->length == 0){
-		printf("List Error: calling insertBefore() on empty List");
+		printf("List Error: calling insertBefore() on empty List\n");
 		exit(EXIT_FAILURE);
 	}
 	if(index(L) < 0){
-		printf("List Error: calling insertBefore() on undefined index");
+		printf("List Error: calling insertBefore() on undefined index\n");
 		exit(EXIT_FAILURE);
 	}
 	if(L->curser == L->front){
@@ -303,16 +303,16 @@ void insertBefore(List L, int x){
 
 void insertAfter(List L, int x){
 	if(L == NULL){
-		printf("List Error: calling insertAfter() on NULL List reference");
+		printf("List Error: calling insertAfter() on NULL List reference\n");
 		exit(EXIT_FAILURE);
 	}
 
 	if(L->length == 0){
-		printf("List Error: calling insertAfter() on empty List");
+		printf("List Error: calling insertAfter() on empty List\n");
 		exit(EXIT_FAILURE);
 	}
 	if(index(L) < 0){
-		printf("List Error: calling insertAfter() on undefined index");
+		printf("List Error: calling insertAfter() on undefined index\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -341,11 +341,11 @@ void insertAfter(List L, int x){
 
 void deleteFront(List L){
 	if(L == NULL){
-		printf("List Error: calling deleteFront() on NULL List reference");
+		printf("List Error: calling deleteFront() on NULL List reference\n");
 		exit(EXIT_FAILURE);
 	}
 	if(L->length == 0){
-		printf("List Error: calling deleteFront() on empty List");
+		printf("List Error: calling deleteFront() on empty List\n");
 		exit(EXIT_FAILURE);
 	}
 	Node del = L->front;
@@ -374,11 +374,11 @@ void deleteFront(List L){
 
 void deleteBack(List L){
 	if(L == NULL){
-		printf("List Error: calling deleteBack() on NULL List reference");
+		printf("List Error: calling deleteBack() on NULL List reference\n");
 		exit(EXIT_FAILURE);
 	}
 	if(L->length == 0){
-		printf("List Error: calling deleteBack() on empty List");
+		printf("List Error: calling deleteBack() on empty List\n");
 		exit(EXIT_FAILURE);
 	}
 	Node del = L->back;
@@ -403,11 +403,11 @@ void deleteBack(List L){
 
 void delete(List L){
 	if(L == NULL){
-		printf("List Error: calling delete() on NULL List reference");
+		printf("List Error: calling delete() on NULL List reference\n");
 		exit(EXIT_FAILURE);
 	}
 	if(L->length == 0){
-		printf("List Error: calling delete() on empty List");
+		printf("List Error: calling delete() on empty List\n");
 		exit(EXIT_FAILURE);
 	}
 	if(L->curser == L->front){
@@ -441,7 +441,7 @@ void delete(List L){
 
 void printList(FILE* out, List L){
 	if(L == NULL){
-		printf("List Error: calling printList() on NULL List reference");
+		printf("List Error: calling printList() on NULL List reference\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -453,7 +453,7 @@ void printList(FILE* out, List L){
 
 List copyList(List L){
 	if(L == NULL){
-		printf("List Error: calling copyList() on NULL List reference");
+		printf("List Error: calling copyList() on NULL List reference\n");
 		exit(EXIT_FAILURE);
 	}
 	List copy = newList();

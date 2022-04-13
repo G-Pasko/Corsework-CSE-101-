@@ -47,7 +47,7 @@ Graph newGraph(int n){
 
 void freeGraph(Graph* pG){				//Frees all heap memory associated with pG and
 	if(*pG == NULL || pG == NULL){
-		printf("Graph Error: calling freeGraph() on NULL Graph reference");
+		printf("Graph Error: calling freeGraph() on NULL Graph reference\n");
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i < getOrder(*pG); i++){
@@ -59,7 +59,7 @@ void freeGraph(Graph* pG){				//Frees all heap memory associated with pG and
 
 int getOrder(Graph G){
 	if(G == NULL){
-		printf("Graph Error: calling getSize() on NULL Graph reference");
+		printf("Graph Error: calling getSize() on NULL Graph reference\n");
 		exit(EXIT_FAILURE);
 	}
 	return G->order;
@@ -67,19 +67,19 @@ int getOrder(Graph G){
 
 int getSize(Graph G){
 	if(G == NULL){
-		printf("Graph Error: calling getSize() on NULL Graph reference");
+		printf("Graph Error: calling getSize() on NULL Graph reference\n");
 		exit(EXIT_FAILURE);
 	}
 	return G->size;
 }
 int getSource(Graph G){
 	if(G == NULL){
-		printf("Graph Error: calling getSize() on NULL Graph reference");
+		printf("Graph Error: calling getSize() on NULL Graph reference\n");
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i < getOrder(G); i++){
 		if(G->color[i] != 2 ){
-			printf("Graph Error: calling getParent() before BFS");
+			printf("Graph Error: calling getParent() before BFS\n");
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -93,16 +93,16 @@ int getSource(Graph G){
 }
 int getParent(Graph G, int u){
 	if(G == NULL){
-		printf("Graph Error: calling getSize() on NULL Graph reference");
+		printf("Graph Error: calling getSize() on NULL Graph reference\n");
 		exit(EXIT_FAILURE);
 	}
 	if(u < 1 || u > getOrder(G)){
-		printf("Graph Error: calling getPath() on out of bounds node");
+		printf("Graph Error: calling getPath() on out of bounds node\n");
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i < getOrder(G); i++){
 		if(G->color[i] != 2){
-			printf("Graph Error: calling getParent() before BFS");
+			printf("Graph Error: calling getParent() before BFS\n");
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -110,11 +110,11 @@ int getParent(Graph G, int u){
 }
 int getDist(Graph G, int u){
 	if(G == NULL){
-		printf("Graph Error: calling getSize() on NULL Graph reference");
+		printf("Graph Error: calling getSize() on NULL Graph reference\n");
 		exit(EXIT_FAILURE);
 	}
 	if(u < 1 || u > getOrder(G)){
-		printf("Graph Error: calling getPath() on out of bounds node");
+		printf("Graph Error: calling getPath() on out of bounds node\n");
 		exit(EXIT_FAILURE);
 	}
 	if(G->source == 0){
@@ -124,16 +124,16 @@ int getDist(Graph G, int u){
 }
 void getPath(List L, Graph G, int u){
 	if(G == NULL){
-		printf("Graph Error: calling getPath() on NULL Graph reference");
+		printf("Graph Error: calling getPath() on NULL Graph reference\n");
 		exit(EXIT_FAILURE);
 	}
 	if(u < 1 || u > getOrder(G)){
-		printf("Graph Error: calling getPath() on out of bounds node");
+		printf("Graph Error: calling getPath() on out of bounds node\n");
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i < getOrder(G); i++){
 		if(G->color[i] != 2){
-			printf("Graph Error: calling getParent() before BFS");
+			printf("Graph Error: calling getParent() before BFS\n");
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -151,7 +151,7 @@ void getPath(List L, Graph G, int u){
 /*** Manipulation procedures ***/
 void makeNull(Graph G){
 	if(G == NULL){
-		printf("Graph Error: calling makeNull() on NULL Graph reference");
+		printf("Graph Error: calling makeNull() on NULL Graph reference\n");
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i < getSize(G); i++){
@@ -164,15 +164,15 @@ void makeNull(Graph G){
 }
 void addEdge(Graph G, int u, int v){
 	if(G == NULL){
-		printf("Graph Error: calling addEdge() on NULL Graph reference");
+		printf("Graph Error: calling addEdge() on NULL Graph reference\n");
 		exit(EXIT_FAILURE);
 	}
 	if(u < 1 || v < 1){
-		printf("Graph Error: calling addEdge() on invalid integer values");
+		printf("Graph Error: calling addEdge() on invalid integer values\n");
 		exit(EXIT_FAILURE);
 	}
 	if(u > getOrder(G) || v > getOrder(G)){
-		printf("Graph Error: calling addEdge() on invalid integer values");
+		printf("Graph Error: calling addEdge() on invalid integer values\n");
 		exit(EXIT_FAILURE);
 	}
 	append(G->neighbors[u], v);
@@ -183,15 +183,15 @@ void addEdge(Graph G, int u, int v){
 
 void addArc(Graph G, int u, int v){
 	if(G == NULL){
-		printf("Graph Error: calling addArc() on NULL Graph reference");
+		printf("Graph Error: calling addArc() on NULL Graph reference\n");
 		exit(EXIT_FAILURE);
 	}
 	if(u < 1 || v < 1){
-		printf("Graph Error: calling addArc() on invalid integer values");
+		printf("Graph Error: calling addArc() on invalid integer values\n");
 		exit(EXIT_FAILURE);
 	}
 	if(u > getOrder(G) || v > getOrder(G)){
-		printf("Graph Error: calling addArc() on invalid integer values");
+		printf("Graph Error: calling addArc() on invalid integer values\n");
 		exit(EXIT_FAILURE);
 	}
 	append(G->neighbors[u+1], v);
