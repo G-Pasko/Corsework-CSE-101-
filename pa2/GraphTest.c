@@ -36,7 +36,9 @@ int main(int argc, char* argv[]){
    G = newGraph(n);
    for(i=1; i<n; i++){
       if( i%7!=0 ) addEdge(G, i, i+1);
+      printf("edge added\n");
       if( i<=28  ) addEdge(G, i, i+7);
+      printf("edge added\n");
    }
    addEdge(G, 9, 31);
    addEdge(G, 17, 13);
