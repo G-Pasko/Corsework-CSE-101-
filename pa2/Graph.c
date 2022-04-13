@@ -35,8 +35,9 @@ Graph newGraph(int n){
 	printf("Calloced\n");
 	for(int i = 1; i < n + 1; i++){
 		new->neighbors[i] = newList();
+		printf("Calloced %d lists\n", i);
 	}
-	printf("Calloced\n");
+	printf("Calloced all lists\n");
 	new->source = NIL;
 	new->order = n + 1;
 	new->size = 0;
