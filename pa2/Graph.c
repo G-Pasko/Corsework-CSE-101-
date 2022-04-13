@@ -225,7 +225,7 @@ void BFS(Graph G, int s){
 		}
 		G->color[x] = 2;
 	}
-	freeList(Q);
+	freeList(&Q);
 }
 /*** Other operations ***/
 void printGraph(FILE* out, Graph G){
