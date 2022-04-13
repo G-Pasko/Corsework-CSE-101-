@@ -46,7 +46,7 @@ int main(int argc, char* argv[]){
    addEdge(G, 17, 13);
    printf("edge 17-13 added\n");
    addEdge(G, 14, 33);
-   \printf("edge 13-33 added\n");
+   printf("edge 13-33 added\n");
 
    // Print adjacency list representation of G
    printGraph(stdout, G);
