@@ -40,9 +40,13 @@ int main(int argc, char* argv[]){
       if( i<=28  ) addEdge(G, i, i+7);
       printf("edge added\n");
    }
+   printf("all loop edges added\n");
    addEdge(G, 9, 31);
+   printf("edge 9-31 added\n");
    addEdge(G, 17, 13);
+   printf("edge 17-13 added\n");
    addEdge(G, 14, 33);
+   \printf("edge 13-33 added\n");
 
    // Print adjacency list representation of G
    printGraph(stdout, G);
