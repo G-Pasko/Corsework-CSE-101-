@@ -240,8 +240,8 @@ void BFS(Graph G, int s){
 /*** Other operations ***/
 void printGraph(FILE* out, Graph G){
 	fprintf(out, "pre-for loop\n");
-	for(int i = 1; i < getSize(G); i++){
-		fprintf(out, "for looop #%d\n", i);
+	for(int i = 1; i < getOrder(G); i++){
+		fprintf(out, "for loop #%d\n", i);
 		fprintf(out, "%d: ", i);
 		moveFront(G->neighbors[i]);
 		int j = get(G->neighbors[i]);
