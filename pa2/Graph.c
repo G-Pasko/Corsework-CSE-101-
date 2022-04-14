@@ -239,9 +239,9 @@ void BFS(Graph G, int s){
 }
 /*** Other operations ***/
 void printGraph(FILE* out, Graph G){
-	fprintf(out, "pre-for loop\n");
+	//fprintf(out, "pre-for loop\n");
 	for(int i = 1; i < getOrder(G); i++){
-		fprintf(out, "for loop #%d\n", i);
+		//fprintf(out, "for loop #%d\n", i);
 		fprintf(out, "%d: ", i);
 		moveFront(G->neighbors[i]);
 		int j;
@@ -251,6 +251,6 @@ void printGraph(FILE* out, Graph G){
 			moveNext(G->neighbors[i]);
 		}
 		fprintf(out, "\n");
-		printf("finished first nieghbors\n");
+		//printf("finished first nieghbors\n");
 	}
 }

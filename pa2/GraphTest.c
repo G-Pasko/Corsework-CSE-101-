@@ -54,6 +54,7 @@ int main(int argc, char* argv[]){
    // Calculate the eccentricity of each vertex 
    for(s=1; s<=n; s++){
       BFS(G, s);
+      printf("Finihsed BFS with root of %d\n", s);
       max = getDist(G, 1);
       for(i=2; i<=n; i++){
          d = getDist(G, i);
