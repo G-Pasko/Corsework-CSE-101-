@@ -245,7 +245,7 @@ void printGraph(FILE* out, Graph G){
 		fprintf(out, "%d: ", i);
 		moveFront(G->neighbors[i]);
 		int j;
-		while(index(G->neighbors[i]) <= length(G->neighbors[i])){
+		while(index(G->neighbors[i]) < length(G->neighbors[i])){
 			j = get(G->neighbors[i]);
 			fprintf(out, "%d ", j);
 			moveNext(G->neighbors[i]);
