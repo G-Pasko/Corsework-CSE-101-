@@ -242,7 +242,7 @@ void printGraph(FILE* out, Graph G){
 	fprintf(out, "pre-for loop\n");
 	for(int i = 1; i < getOrder(G); i++){
 		fprintf(out, "for loop #%d\n", i);
-		fprintf(out, "%d: ", i);
+		//fprintf(out, "%d: ", i);
 		moveFront(G->neighbors[i]);
 		int j = get(G->neighbors[i]);
 		while(index(G->neighbors[i]) <= length(G->neighbors[i])){
