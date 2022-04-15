@@ -27,29 +27,29 @@ int main(int argc, char* argv[]){
 		i++;
 	}
 	int num_vertices, v1, v2;
-
-	sscanf(words[0], "%d", num_vertices);
+	int start;
+	sscanf(words[0], "%d", &num_vertices);
 	Graph G = newGraph(num_vertices);
 	for(i = 0; i < lines; i++){
 		printf(output, "%s\n", words[i]);
 		sscanf(words[i], "%d %d",v1, v2);
-		printf("grabbed vertices %d and %d\n", v1, v2);
+		printf("grabbed vertices %d and %d\n", &v1, &v2);
 		if(v1 == 0 && v2 == 0){
-			int start = i++;
+			start = i++;
 			break;
 		}
 		addEdge(G, v1, v2);
 	}
 	for(i = start; i < lines -1; i++){
 		//find path
-		sscanf(words[i], "%d %d",v1, v2);
+		sscanf(words[i], "%d %d", &v1, &v2);
 		printf("fidning path from %d to %d\n", v1, v2);
 		BFS(G, v2);
 		List L = newList();
 		getPath(L, G, v1);
 		printf("The distance from %d to %d is %d\n", v1, v2, getDist(G, v1));
-		prinf("A shortest %d-%d path is: ", v1, v2);
-		printList(L);
+		printf("A shortest %d-%d path is: ", v1, v2);
+		printList(stdout, L);
 		printf("\n");
 	}
 
