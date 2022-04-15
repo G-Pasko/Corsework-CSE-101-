@@ -222,7 +222,7 @@ void BFS(Graph G, int s){
 		moveFront(G->neighbors[x]);
 		while(index(G->neighbors[x]) != -1){
 			int y = get(G->neighbors[x]);
-			if(G->color[y] != 0){
+			if(G->color[y] == 0){
 				G->color[y] = 1;
 				G->distance[y] = G->distance[x] + 1;
 				G->parentIndex[y] = x;
