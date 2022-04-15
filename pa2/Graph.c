@@ -98,12 +98,11 @@ int getParent(Graph G, int u){
 		printf("Graph Error: calling getPath() on out of bounds node\n");
 		exit(EXIT_FAILURE);
 	}
-	for(int i = 1; i < getOrder(G); i++){
-		if(G->source == NIL){
-			printf("Graph Error: calling getParent() before BFS\n");
-			exit(EXIT_FAILURE);
-		}
+	if(G->source == NIL){
+		printf("Graph Error: calling getParent() before BFS\n");
+		exit(EXIT_FAILURE);
 	}
+	
 	return G->parentIndex[u];
 }
 int getDist(Graph G, int u){
