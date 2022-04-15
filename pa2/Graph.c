@@ -127,11 +127,9 @@ void getPath(List L, Graph G, int u){
 		printf("Graph Error: calling getPath() on out of bounds node\n");
 		exit(EXIT_FAILURE);
 	}
-	for(int i = 1; i < getOrder(G); i++){
-		if(G->source == NIL){
-			printf("Graph Error: calling getParent() before BFS\n");
-			exit(EXIT_FAILURE);
-		}
+	if(G->source == NIL){
+		printf("Graph Error: calling getPath() before BFS\n");
+		exit(EXIT_FAILURE);
 	}
 	if(G->distance[u] == INF){
 		append(L, NIL);
