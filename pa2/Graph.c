@@ -34,9 +34,9 @@ Graph newGraph(int n){
 	new->neighbors = calloc(n + 1, sizeof(List));
 	for(int i = 1; i < n + 1; i++){
 		new->neighbors[i] = newList();
-		printf("Calloced %d lists\n", i);
+		//printf("Calloced %d lists\n", i);
 	}
-	printf("Calloced all lists\n");
+	//printf("Calloced all lists\n");
 	new->source = NIL;
 	new->order = n + 1;
 	new->size = 0;
@@ -174,36 +174,47 @@ void addEdge(Graph G, int u, int v){
 		exit(EXIT_FAILURE);
 	}
 	int j;
-	for(j = 1; j < length(G->neighbors[u]); j++){
-		moveFront(G->neighbors[u]);	
-		while(index(G->neighbors[u]) >= 0){
-			if(get(G->neighbors[u]) > v){
-				insertBefore(G->neighbors[u], v);
-				break;
+	if(length(G->neighbors[u]) == 0){
+		append(G->neighbors[u], v);
+	}
+	else{
+		for(j = 0; j < length(G->neighbors[u]); j++){
+			moveFront(G->neighbors[u]);	
+			while(index(G->neighbors[u]) >= 0){
+				if(get(G->neighbors[u]) > v){
+					insertBefore(G->neighbors[u], v);
+					break;
+				}
+				else{
+					moveNext(G->neighbors[u]);
+				}
 			}
-			else{
-				moveNext(G->neighbors[u]);
+			if(index(G->neighbors[u]) < 0){
+				append(G->neighbors[u], v);
 			}
-		}
-		if(index(G->neighbors[u]) < 0){
-			append(G->neighbors[u], v);
 		}
 	}
-	for(j = 1; j < length(G->neighbors[v]); j++){
-		moveFront(G->neighbors[v]);	
-		while(index(G->neighbors[v]) >= 0){
-			if(get(G->neighbors[v]) > u){
-				insertBefore(G->neighbors[v], u);
-				break;
+	if(length(G->neighbors[v] == 0)){
+		append(G->neighbors[v], u);
+	}
+	else{
+		for(j = 0; j < length(G->neighbors[v]); j++){
+			moveFront(G->neighbors[v]);	
+			while(index(G->neighbors[v]) >= 0){
+				if(get(G->neighbors[v]) > u){
+					insertBefore(G->neighbors[v], u);
+					break;
+				}
+				else{
+					moveNext(G->neighbors[v]);
+				}
 			}
-			else{
-				moveNext(G->neighbors[v]);
+			if(index(G->neighbors[v]) < 0){
+				append(G->neighbors[v], u);
 			}
-		}
-		if(index(G->neighbors[v]) < 0){
-			append(G->neighbors[v], u);
 		}
 	}
+
 
 	//append(G->neighbors[u], v);
 	//append(G->neighbors[v], u);
