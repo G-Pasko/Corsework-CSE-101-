@@ -194,7 +194,7 @@ void addArc(Graph G, int u, int v){
 		printf("Graph Error: calling addArc() on invalid integer values\n");
 		exit(EXIT_FAILURE);
 	}
-	append(G->neighbors[u+1], v);
+	append(G->neighbors[u], v);
 	G->size ++;
 }
 
@@ -204,13 +204,14 @@ void BFS(Graph G, int s){
 	G->source = s;
 	for(int i = 1; i < getOrder(G); i++){
 		moveFront(G->neighbors[i]);
-		while(G->neighbors[i] != NULL){
+		while(index(G->neighbors[i]) != -1){
 			x = get(G->neighbors[i]);
 			G->color[x] = 0;
 			G->distance[x] = INF;
 			G->parentIndex[x] = NIL;
+			moveNext(G->neighbors[i]);
 		}
-		moveNext(G->neighbors[i]);
+		//moveNext(G->neighbors[i]);
 	}
 
 	G->color[s] = 1;
