@@ -57,7 +57,7 @@ void freeGraph(Graph* pG){				//Frees all heap memory associated with pG and
 
 int getOrder(Graph G){
 	if(G == NULL){
-		printf("Graph Error: calling getSize() on NULL Graph reference\n");
+		printf("Graph Error: calling getOrder() on NULL Graph reference\n");
 		exit(EXIT_FAILURE);
 	}
 	return G->order;
@@ -72,7 +72,7 @@ int getSize(Graph G){
 }
 int getSource(Graph G){
 	if(G == NULL){
-		printf("Graph Error: calling getSize() on NULL Graph reference\n");
+		printf("Graph Error: calling getSource() on NULL Graph reference\n");
 		exit(EXIT_FAILURE);
 	}
 	return G->source;
@@ -80,7 +80,7 @@ int getSource(Graph G){
 }
 int getParent(Graph G, int u){
 	if(G == NULL){
-		printf("Graph Error: calling getSize() on NULL Graph reference\n");
+		printf("Graph Error: calling getPath() on NULL Graph reference\n");
 		exit(EXIT_FAILURE);
 	}
 	if(u < 1 || u > getOrder(G)){
@@ -95,11 +95,11 @@ int getParent(Graph G, int u){
 }
 int getDist(Graph G, int u){
 	if(G == NULL){
-		printf("Graph Error: calling getSize() on NULL Graph reference\n");
+		printf("Graph Error: calling getDist() on NULL Graph reference\n");
 		exit(EXIT_FAILURE);
 	}
 	if(u < 1 || u > getOrder(G)){
-		printf("Graph Error: calling getPath() on out of bounds node\n");
+		printf("Graph Error: calling getDist() on out of bounds node\n");
 		exit(EXIT_FAILURE);
 	}
 	if(G->source == 0){
@@ -215,7 +215,24 @@ void addArc(Graph G, int u, int v){
 		printf("Graph Error: calling addArc() on invalid integer values\n");
 		exit(EXIT_FAILURE);
 	}
-	append(G->neighbors[u], v);
+	if(length(G->neighbors[u]) == 0){
+		append(G->neighbors[u], v);
+	}
+	else{
+		moveFront(G->neighbors[u]);	
+		while(index(G->neighbors[u]) >= 0){
+			if(get(G->neighbors[u]) > v){
+				insertBefore(G->neighbors[u], v);
+				break;
+			}
+			else{
+				moveNext(G->neighbors[u]);
+			}
+		}
+		if(index(G->neighbors[u]) < 0){
+			append(G->neighbors[u], v);
+		}
+	}
 	G->size ++;
 }
 
