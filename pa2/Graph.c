@@ -34,6 +34,8 @@ Graph newGraph(int n){
 	new->neighbors = calloc(n + 1, sizeof(List));
 	for(int i = 1; i < n + 1; i++){
 		new->neighbors[i] = newList();
+		new->distance[i] = INF;
+		new->parentIndex[i] = NIL;
 		//printf("Calloced %d lists\n", i);
 	}
 	//printf("Calloced all lists\n");
