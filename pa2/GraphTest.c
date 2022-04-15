@@ -93,7 +93,7 @@ int main(int argc, char* argv[]){
    printf("\n");
    printf("Radius = %d\n", min);
    printf("Central vert%s: ", length(C)==1?"ex":"ices");
-   printList(stdout, C);
+   //printList(stdout, C);
    printf("\n");
    printf("Diameter = %d\n", max);
    printf("Peripheral vert%s: ", length(P)==1?"ex":"ices");
