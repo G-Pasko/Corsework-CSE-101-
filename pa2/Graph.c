@@ -178,7 +178,7 @@ void addEdge(Graph G, int u, int v){
 		append(G->neighbors[u], v);
 	}
 	else{
-		for(j = 1; j < length(G->neighbors[u]) + 1; j++){
+		for(j = 0; j < length(G->neighbors[u]); j++){
 			moveFront(G->neighbors[u]);	
 			while(index(G->neighbors[u]) >= 0){
 				if(get(G->neighbors[u]) > v){
@@ -191,6 +191,7 @@ void addEdge(Graph G, int u, int v){
 			}
 			if(index(G->neighbors[u]) < 0){
 				append(G->neighbors[u], v);
+				break;
 			}
 		}
 	}
@@ -198,7 +199,7 @@ void addEdge(Graph G, int u, int v){
 		append(G->neighbors[v], u);
 	}
 	else{
-		for(j = 1; j < length(G->neighbors[v]) + 1; j++){
+		for(j = 0; j < length(G->neighbors[v]); j++){
 			moveFront(G->neighbors[v]);	
 			while(index(G->neighbors[v]) >= 0){
 				if(get(G->neighbors[v]) > u){
@@ -211,6 +212,7 @@ void addEdge(Graph G, int u, int v){
 			}
 			if(index(G->neighbors[v]) < 0){
 				append(G->neighbors[v], u);
+				break;
 			}
 		}
 	}
