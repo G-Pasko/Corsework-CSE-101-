@@ -80,11 +80,11 @@ int getSource(Graph G){
 }
 int getParent(Graph G, int u){
 	if(G == NULL){
-		printf("Graph Error: calling getPath() on NULL Graph reference\n");
+		printf("Graph Error: calling getParent() on NULL Graph reference\n");
 		exit(EXIT_FAILURE);
 	}
 	if(u < 1 || u > getOrder(G)){
-		printf("Graph Error: calling getPath() on out of bounds node\n");
+		printf("Graph Error: calling getParent() on out of bounds node\n");
 		exit(EXIT_FAILURE);
 	}
 	if(G->source == NIL){
