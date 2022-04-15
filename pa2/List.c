@@ -262,6 +262,7 @@ void append(List L, int x){
 		new->prev = L->back;
 		L->back->next = new;
 		L->back = new;
+		new->next = NULL;
 	}
 	L->length++;
 }
