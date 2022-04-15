@@ -75,17 +75,6 @@ int getSource(Graph G){
 		printf("Graph Error: calling getSize() on NULL Graph reference\n");
 		exit(EXIT_FAILURE);
 	}
-	for(int i = 1; i < getOrder(G); i++){
-		if(G->color[i] != 2 ){
-			printf("Graph Error: calling getParent() before BFS\n");
-			exit(EXIT_FAILURE);
-		}
-	}
-	for(int i = 1; i < getOrder(G); i++){
-		if(G->parentIndex[i] == NIL){
-			return i;
-		}
-	}
 	return G->source;
 
 }
