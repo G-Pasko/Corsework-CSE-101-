@@ -102,7 +102,7 @@ int getDist(Graph G, int u){
 		printf("Graph Error: calling getDist() on out of bounds node\n");
 		exit(EXIT_FAILURE);
 	}
-	if(G->source == 0){
+	if(G->source == NIL){
 		return INF;
 	}
 	return G->distance[u];
@@ -121,7 +121,8 @@ void getPath(List L, Graph G, int u){
 		exit(EXIT_FAILURE);
 	}
 	if(u == G->source){
-		append(L, NIL);
+		//append(L, NIL);
+		;;
 	}
 	else if(G->distance[u] == INF){
 		append(L, NIL);
