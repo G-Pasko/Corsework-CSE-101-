@@ -99,8 +99,7 @@ int getParent(Graph G, int u){
 		exit(EXIT_FAILURE);
 	}
 	if(G->source == NIL){
-		printf("Graph Error: calling getParent() before BFS\n");
-		exit(EXIT_FAILURE);
+		return NIL;
 	}
 	
 	return G->parentIndex[u];
