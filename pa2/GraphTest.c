@@ -95,10 +95,10 @@ int main(int argc, char* argv[]){
    //printf("Central vert%s: ", length(C)==1?"ex":"ices");
    //printList(stdout, C);
    //printf("\n");
-   printf("Diameter = %d\n", max);
-   printf("Peripheral vert%s: ", length(P)==1?"ex":"ices");
-   printList(stdout, P);
-   printf("\n");
+   //printf("Diameter = %d\n", max);
+   //printf("Peripheral vert%s: ", length(P)==1?"ex":"ices");
+   //printList(stdout, P);
+   //printf("\n");
 
    // Free objects 
    freeList(&C);
