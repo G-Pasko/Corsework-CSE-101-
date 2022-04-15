@@ -34,8 +34,8 @@ Graph newGraph(int n){
 	new->neighbors = calloc(n + 1, sizeof(List));
 	for(int i = 1; i < n + 1; i++){
 		new->neighbors[i] = newList();
-		new->distance[i] = INF;
-		new->parentIndex[i] = NIL;
+		//new->distance[i] = INF;
+		//new->parentIndex[i] = NIL;
 		//printf("Calloced %d lists\n", i);
 	}
 	//printf("Calloced all lists\n");
@@ -114,7 +114,7 @@ void getPath(List L, Graph G, int u){
 		printf("Graph Error: calling getPath() on NULL Graph reference\n");
 		exit(EXIT_FAILURE);
 	}
-	if((u < 1 || u > getOrder(G))){
+	if(u < 1 || u > getOrder(G)){
 		printf("Graph Error: calling getPath() on out of bounds node\n");
 		exit(EXIT_FAILURE);
 	}
@@ -126,13 +126,12 @@ void getPath(List L, Graph G, int u){
 		append(L, u);
 		return;
 	}
-	if(G->distance[u] == INF){
+	else if(parentIndex[u] = NIL){
 		append(L, NIL);
 	}
 	else{
+		getPath(L, G, parentIndex[u]);
 		append(L, u);
-		u = getParent(G, u);
-		getPath(L, G, u);
 	}
 
 	//appends path to List
