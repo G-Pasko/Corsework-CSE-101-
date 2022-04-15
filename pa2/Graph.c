@@ -112,7 +112,7 @@ void getPath(List L, Graph G, int u){
 		printf("Graph Error: calling getPath() on NULL Graph reference\n");
 		exit(EXIT_FAILURE);
 	}
-	if(u < 1 || u > getOrder(G)){
+	if((u != G->source) && (u < 1 || u > getOrder(G))){
 		printf("Graph Error: calling getPath() on out of bounds node\n");
 		exit(EXIT_FAILURE);
 	}
@@ -120,7 +120,10 @@ void getPath(List L, Graph G, int u){
 		printf("Graph Error: calling getPath() before BFS\n");
 		exit(EXIT_FAILURE);
 	}
-	if(G->distance[u] == INF){
+	if(u == G->source){
+		append(L, NIL);
+	}
+	else if(G->distance[u] == INF){
 		append(L, NIL);
 	}
 	else{
