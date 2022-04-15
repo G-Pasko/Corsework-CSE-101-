@@ -218,6 +218,7 @@ void BFS(Graph G, int s){
 	while(Q != NULL){
 		moveFront(Q);
 		x = get(Q);
+		printf("got q\n");
 		deleteFront(Q);
 		moveFront(G->neighbors[x]);
 		while(index(G->neighbors[x]) != -1){
