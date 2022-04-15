@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include "Graph.h"
 #include "List.h"
-#define INF -420
-#define NIL -69
 
 
 //white = 0
