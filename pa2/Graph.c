@@ -204,7 +204,7 @@ void BFS(Graph G, int s){
 	G->source = s;
 	for(int i = 1; i < getOrder(G); i++){
 		moveFront(G->neighbors[i]);
-		while(index(G->neighbors[i]) != -1){
+		while(G->neighbors[i] != NULL){
 			x = get(G->neighbors[i]);
 			G->color[x] = 0;
 			G->distance[x] = INF;
