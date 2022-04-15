@@ -208,6 +208,7 @@ void BFS(Graph G, int s){
 		G->parentIndex[i] = NIL;
 		//moveNext(G->neighbors[i]);
 	}
+	printf("finished initialization\n");
 
 	G->color[s] = 1;
 	G->distance[s] = 0;
