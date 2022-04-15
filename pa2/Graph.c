@@ -202,15 +202,10 @@ void BFS(Graph G, int s){
 	//moveFront(G->neighbors[s]);
 	int x;
 	G->source = s;
-	for(int i = 1; i < getOrder(G); i++){
-		moveFront(G->neighbors[i]);
-		while(G->neighbors[i] != NULL){
-			x = get(G->neighbors[i]);
-			G->color[x] = 0;
-			G->distance[x] = INF;
-			G->parentIndex[x] = NIL;
-			moveNext(G->neighbors[i]);
-		}
+	for(int i = 1; i <= getOrder(G); i++){
+		G->color[x] = 0;
+		G->distance[x] = INF;
+		G->parentIndex[x] = NIL;
 		//moveNext(G->neighbors[i]);
 	}
 
@@ -219,8 +214,8 @@ void BFS(Graph G, int s){
 	G->parentIndex[s] = NIL;
 	List Q = newList();
 	append(Q, s);
-	moveFront(Q);
 	while(Q != NULL){
+		moveFront(Q);
 		x = get(Q);
 		deleteFront(Q);
 		moveFront(G->neighbors[x]);
