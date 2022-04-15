@@ -126,11 +126,11 @@ void getPath(List L, Graph G, int u){
 		append(L, u);
 		return;
 	}
-	else if(parentIndex[u] == NIL){
+	else if(G->parentIndex[u] == NIL){
 		append(L, NIL);
 	}
 	else{
-		getPath(L, G, parentIndex[u]);
+		getPath(L, G, G->parentIndex[u]);
 		append(L, u);
 	}
 
