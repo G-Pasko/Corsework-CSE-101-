@@ -1,12 +1,12 @@
 #------------------------------------------------------------------------------
 #  Makefile for CMPS 101 Programming Assignment 2
-#  #
+#
 #  make                     makes FindPath
-#  #  make GraphTest           makes GraphTest
+#  make GraphTest           makes GraphTest
 #  make clean               removes binaries
-#  #  make checkFind           tests FindPath for memory leaks on in7
+#  make checkFind           tests FindPath for memory leaks on in7
 #  make checkTest           tests GraphTest for memory leaks
-#  #------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 
 BASE_SOURCES   = Graph.c List.c
 BASE_OBJECTS   = Graph.o List.o
