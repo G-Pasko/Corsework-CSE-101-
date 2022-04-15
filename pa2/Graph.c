@@ -215,7 +215,7 @@ void BFS(Graph G, int s){
 	G->parentIndex[s] = NIL;
 	List Q = newList();
 	append(Q, s);
-	while(Q != NULL){
+	while(length(Q) != 0){
 		moveFront(Q);
 		x = get(Q);
 		printf("got q\n");
