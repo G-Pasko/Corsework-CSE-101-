@@ -99,7 +99,7 @@ int getParent(Graph G, int u){
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i < getOrder(G); i++){
-		if(G->color[i] != 2){
+		if(i != G->source && G->color[i] != 2){
 			printf("Graph Error: calling getParent() before BFS\n");
 			exit(EXIT_FAILURE);
 		}
