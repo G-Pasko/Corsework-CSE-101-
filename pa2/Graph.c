@@ -203,9 +203,9 @@ void BFS(Graph G, int s){
 	int x;
 	G->source = s;
 	for(int i = 1; i <= getOrder(G); i++){
-		G->color[x] = 0;
-		G->distance[x] = INF;
-		G->parentIndex[x] = NIL;
+		G->color[i] = 0;
+		G->distance[i] = INF;
+		G->parentIndex[i] = NIL;
 		//moveNext(G->neighbors[i]);
 	}
 
