@@ -194,7 +194,7 @@ void addEdge(Graph G, int u, int v){
 			}
 		}
 	}
-	if(length(G->neighbors[v] == 0)){
+	if(length(G->neighbors[v]) == 0){
 		append(G->neighbors[v], u);
 	}
 	else{
