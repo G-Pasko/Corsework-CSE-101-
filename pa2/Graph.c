@@ -121,6 +121,7 @@ void getPath(List L, Graph G, int u){
 		exit(EXIT_FAILURE);
 	}
 	if(u == G->source){
+		append(L, u);
 		return;
 	}
 	if(G->distance[u] == INF){
