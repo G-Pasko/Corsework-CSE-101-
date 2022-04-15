@@ -50,11 +50,11 @@ int main(int argc, char* argv[]){
 
    // Print adjacency list representation of G
    printGraph(stdout, G);
-   printf("Done with print graph\n");
+   //printf("Done with print graph\n");
    // Calculate the eccentricity of each vertex 
    for(s=1; s<=n; s++){
       BFS(G, s);
-      printf("Finihsed BFS with root of %d\n", s);
+      //printf("Finihsed BFS with root of %d\n", s);
       max = getDist(G, 1);
       for(i=2; i<=n; i++){
          d = getDist(G, i);
