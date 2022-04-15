@@ -173,7 +173,6 @@ void addEdge(Graph G, int u, int v){
 		printf("Graph Error: calling addEdge() on invalid integer values\n");
 		exit(EXIT_FAILURE);
 	}
-	int j;
 	if(length(G->neighbors[u]) == 0){
 		append(G->neighbors[u], v);
 	}
@@ -208,7 +207,6 @@ void addEdge(Graph G, int u, int v){
 		}
 		if(index(G->neighbors[v]) < 0){
 			append(G->neighbors[v], u);
-			break;
 		}
 	}
 
