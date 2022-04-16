@@ -11,13 +11,14 @@ int main(int argc, char* argv[]){
 		printf("Incorrect number of file arguments. Run 'Find Path <input file> <output file>'\n");
 		exit(EXIT_FAILURE);
 	}
-	if(argv[1] == NULL){
-		printf("Input file is NULL'\n");
-		exit(EXIT_FAILURE);
-	}
 	char buff[512];
 	int lines = 0;
 	FILE *input = fopen(argv[1], "r");
+	if(input == NULL){
+		printf("Input file is NULL'\n");
+		exit(EXIT_FAILURE);
+	}
+
 	FILE *output = fopen(argv[2], "w");
 	while((fgets(buff, 512, input) != NULL)){
 		lines ++;
