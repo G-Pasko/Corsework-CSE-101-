@@ -55,9 +55,9 @@ int main(int argc, char* argv[]){
 		List L = newList();
 		getPath(L, G, v2);
 		printf("The distance from %d to %d is %d\n", v1, v2, getDist(G, v2));
-		printf("A shortest %d-%d path is: \n", v1, v2);
+		printf("A shortest %d-%d path is: ", v1, v2);
 		printList(stdout, L);
-		printf("\n");
+		printf("\n\n");
 	}
 
 	//freeList(&new);
