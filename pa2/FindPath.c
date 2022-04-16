@@ -11,6 +11,10 @@ int main(int argc, char* argv[]){
 		printf("Incorrect number of file arguments. Run 'Find Path <input file> <output file>'\n");
 		exit(EXIT_FAILURE);
 	}
+	if(argv[1] == NULL){
+		printf("Input file is NULL'\n");
+		exit(EXIT_FAILURE);
+	}
 	char buff[512];
 	int lines = 0;
 	FILE *input = fopen(argv[1], "r");
@@ -49,8 +53,8 @@ int main(int argc, char* argv[]){
 		BFS(G, v1);
 		List L = newList();
 		getPath(L, G, v2);
-		printf("The distance from %d to %d is %d\n", v1, v2, getDist(G, v1));
-		printf("A shortest %d-%d path is: ", v1, v2);
+		printf("The distance from %d to %d is %d\n", v1, v2, getDist(G, v2));
+		printf("A shortest %d-%d path is: \n", v1, v2);
 		printList(stdout, L);
 		printf("\n");
 	}
