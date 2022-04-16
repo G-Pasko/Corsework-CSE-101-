@@ -35,7 +35,7 @@ int main(int argc, char* argv[]){
 		sscanf(words[i], "%d %d",&v1, &v2);
 		printf("grabbed vertices %d and %d\n", v1, v2);
 		if(v1 == 0 && v2 == 0){
-			start = i++;
+			start = i + 1;
 			break;
 		}
 		if(v1 != 0 && v2 != 0){
