@@ -48,7 +48,7 @@ int main(int argc, char* argv[]){
 		}
 	}
 
-	printGraph(G);
+	printGraph(output, G);
 	for(i = start; i < lines -1; i++){
 		//find path
 		sscanf(words[i], "%d %d", &v1, &v2);
