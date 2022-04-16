@@ -56,10 +56,18 @@ int main(int argc, char* argv[]){
 		BFS(G, v1);
 		List L = newList();
 		getPath(L, G, v2);
-		fprintf(output, "The distance from %d to %d is %d\n", v1, v2, getDist(G, v2));
-		fprintf(output, "A shortest %d-%d path is: ", v1, v2);
-		printList(output, L);
-		fprintf(output, "\n\n");
+		//cehck for inf dinstance and NIL path
+		if(getDist(G, v2) == INF){
+			fprintf(output, "The distance from %d to %d is infinity\n", v1, v2);
+			fprintf(output, "No %d-%d path exists", v1, v2);
+		}
+		else{
+			fprintf(output, "The distance from %d to %d is %d\n", v1, v2, getDist(G, v2));
+			fprintf(output, "A shortest %d-%d path is: ", v1, v2);
+			printList(output, L);
+			fprintf(output, "\n\n");
+		}
+		
 	}
 
 	//freeList(&new);
