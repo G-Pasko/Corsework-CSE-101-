@@ -46,9 +46,9 @@ int main(int argc, char* argv[]){
 		//find path
 		sscanf(words[i], "%d %d", &v1, &v2);
 		printf("fidning path from %d to %d\n", v1, v2);
-		BFS(G, v2);
+		BFS(G, v1);
 		List L = newList();
-		getPath(L, G, v1);
+		getPath(L, G, v2);
 		printf("The distance from %d to %d is %d\n", v1, v2, getDist(G, v1));
 		printf("A shortest %d-%d path is: ", v1, v2);
 		printList(stdout, L);
