@@ -47,10 +47,12 @@ int main(int argc, char* argv[]){
 			addEdge(G, v1, v2);
 		}
 	}
+
+	printGraph(G);
 	for(i = start; i < lines -1; i++){
 		//find path
 		sscanf(words[i], "%d %d", &v1, &v2);
-		printf("fidning path from %d to %d\n", v1, v2);
+		//printf("fidning path from %d to %d\n", v1, v2);
 		BFS(G, v1);
 		List L = newList();
 		getPath(L, G, v2);
