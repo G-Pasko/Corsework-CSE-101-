@@ -38,7 +38,9 @@ int main(int argc, char* argv[]){
 			start = i++;
 			break;
 		}
-		addEdge(G, v1, v2);
+		if(v1 != 0 && v2 != 0){
+			addEdge(G, v1, v2);
+		}
 	}
 	for(i = start; i < lines -1; i++){
 		//find path
