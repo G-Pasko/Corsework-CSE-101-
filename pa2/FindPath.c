@@ -36,9 +36,9 @@ int main(int argc, char* argv[]){
 	sscanf(words[0], "%d", &num_vertices);
 	Graph G = newGraph(num_vertices);
 	for(i = 1; i < lines; i++){
-		fprintf(output, "%s\n", words[i]);
+		//fprintf(output, "%s\n", words[i]);
 		sscanf(words[i], "%d %d",&v1, &v2);
-		printf("grabbed vertices %d and %d\n", v1, v2);
+		//printf("grabbed vertices %d and %d\n", v1, v2);
 		if(v1 == 0 && v2 == 0){
 			start = i + 1;
 			break;
@@ -56,10 +56,10 @@ int main(int argc, char* argv[]){
 		BFS(G, v1);
 		List L = newList();
 		getPath(L, G, v2);
-		printf("The distance from %d to %d is %d\n", v1, v2, getDist(G, v2));
-		printf("A shortest %d-%d path is: ", v1, v2);
-		printList(stdout, L);
-		printf("\n\n");
+		fprintf(output, "The distance from %d to %d is %d\n", v1, v2, getDist(G, v2));
+		fprintf(output, "A shortest %d-%d path is: ", v1, v2);
+		printList(output, L);
+		fprintf(output, "\n\n");
 	}
 
 	//freeList(&new);
