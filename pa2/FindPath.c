@@ -59,7 +59,7 @@ int main(int argc, char* argv[]){
 		//cehck for inf dinstance and NIL path
 		if(getDist(G, v2) == INF){
 			fprintf(output, "The distance from %d to %d is infinity\n", v1, v2);
-			fprintf(output, "No %d-%d path exists", v1, v2);
+			fprintf(output, "No %d-%d path exists\n", v1, v2);
 		}
 		else{
 			fprintf(output, "The distance from %d to %d is %d\n", v1, v2, getDist(G, v2));
