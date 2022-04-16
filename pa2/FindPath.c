@@ -30,7 +30,7 @@ int main(int argc, char* argv[]){
 	int start;
 	sscanf(words[0], "%d", &num_vertices);
 	Graph G = newGraph(num_vertices);
-	for(i = 0; i < lines; i++){
+	for(i = 1; i < lines; i++){
 		fprintf(output, "%s\n", words[i]);
 		sscanf(words[i], "%d %d",&v1, &v2);
 		printf("grabbed vertices %d and %d\n", v1, v2);
