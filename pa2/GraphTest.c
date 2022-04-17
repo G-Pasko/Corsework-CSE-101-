@@ -106,7 +106,7 @@ int main(int argc, char* argv[]){
    freeList(&E);
    makeNull(G);
    freeGraph(&G);
-
+   printf("Freed G\n");
    Graph new = newGraph(3);
    addEdge(new, 1, 2);
    addArc(new, 1, 3);
@@ -121,6 +121,7 @@ int main(int argc, char* argv[]){
    List L = newList();
    getPath(L, new, 2);
    freeGraph(&new);
+   printf("Freed new\n");
 
    return 0;
 }
