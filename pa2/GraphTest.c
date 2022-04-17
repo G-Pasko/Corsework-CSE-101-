@@ -104,7 +104,36 @@ int main(int argc, char* argv[]){
    freeList(&C);
    freeList(&P);
    freeList(&E);
+   makeNull(G);
    freeGraph(&G);
+
+
 
    return(0);
 }
+
+   Graph new = newGraph(3);
+   addEdge(G, 1, 2);
+   addArc(G, 1, 3);
+   BFS(G, 1);
+   getParent(G, 1);
+   getSize(G);
+   addArc(G, 3, 1);
+   BFS(G, 1);
+   getParent(G, 1);
+   getOrder(G);
+   getSource(G);
+   List L = newList();
+   getPath(L, G, 2);
+   freeGraph(&G);
+
+
+/*
+
+
+int getOrder(Graph G);
+int getSize(Graph G);
+int getSource(Graph G);
+int getParent(Graph G, int u);
+void getPath(List L, Graph G, int u);
+void addArc(Graph G, int u, int v);
