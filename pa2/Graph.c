@@ -56,11 +56,11 @@ void freeGraph(Graph* pG){				//Frees all heap memory associated with pG and
 	free((*pG)->neighbors);
 	(*pG)->neighbors = NULL;
 	free((*pG)->parentIndex);
-	(*pG)->parentIndex = NULL:
+	(*pG)->parentIndex = NULL;
 	free((*pG)->color);
 	(*pG)->color = NULL;
 	free((*pG)->distance);
-	(*pG)->distance = NULL
+	(*pG)->distance = NULL;
 	free(*pG);
 	*pG = NULL;
 }
