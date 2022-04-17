@@ -75,6 +75,8 @@ int main(int argc, char* argv[]){
 	for(i = 0; i < lines; i++){
 		free(words[i]);
 	}
+	freeGraph(&G);
+	freeList(&L);
 	free(words);
 	fclose(input);
 	fclose(output);

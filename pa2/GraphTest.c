@@ -120,6 +120,7 @@ int main(int argc, char* argv[]){
    List L = newList();
    getPath(L, new, 2);
    freeGraph(&new);
+   free(&L);
    printf("Freed new\n");
 
    return 0;
