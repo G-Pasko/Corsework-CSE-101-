@@ -108,10 +108,6 @@ int main(int argc, char* argv[]){
    freeGraph(&G);
 
 
-
-   return(0);
-}
-
    Graph new = newGraph(3);
    addEdge(G, 1, 2);
    addArc(G, 1, 3);
@@ -127,7 +123,8 @@ int main(int argc, char* argv[]){
    getPath(L, G, 2);
    freeGraph(&G);
 
-
+   return 0;
+}
 /*
 
 
