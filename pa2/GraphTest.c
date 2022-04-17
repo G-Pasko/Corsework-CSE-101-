@@ -108,19 +108,19 @@ int main(int argc, char* argv[]){
    freeGraph(&G);
 
    Graph new = newGraph(3);
-   addEdge(G, 1, 2);
-   addArc(G, 1, 3);
-   BFS(G, 1);
-   getParent(G, 1);
-   getSize(G);
-   addArc(G, 3, 1);
-   BFS(G, 1);
-   getParent(G, 1);
-   getOrder(G);
-   getSource(G);
+   addEdge(new, 1, 2);
+   addArc(new, 1, 3);
+   BFS(new, 1);
+   getParent(new, 1);
+   getSize(new);
+   addArc(new, 3, 1);
+   BFS(new, 1);
+   getParent(new, 1);
+   getOrder(new);
+   getSource(new);
    List L = newList();
-   getPath(L, G, 2);
-   freeGraph(&G);
+   getPath(L, new, 2);
+   freeGraph(&new);
 
    return 0;
 }
