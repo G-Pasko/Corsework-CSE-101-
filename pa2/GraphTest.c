@@ -104,7 +104,6 @@ int main(int argc, char* argv[]){
    freeList(&C);
    freeList(&P);
    freeList(&E);
-   makeNull(G);
    freeGraph(&G);
    printf("Freed G\n");
    Graph new = newGraph(3);
