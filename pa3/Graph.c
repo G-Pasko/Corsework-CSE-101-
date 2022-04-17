@@ -31,7 +31,7 @@ Graph newGraph(int n){
 	//printf("Calloced\n");
 	new->parentIndex = (int *)calloc(n + 1, sizeof(int));
 	//printf("Calloced\n");
-	//new->distance = (int *)calloc(n + 1, sizeof(int));
+	new->distance = (int *)calloc(n + 1, sizeof(int));
 	//printf("Calloced\n");
 	new->discoverTime = (int *)calloc(n + 1, sizeof(int));
 	new->finishTime = (int *)calloc(n + 1, sizeof(int));
@@ -292,16 +292,24 @@ void DFS(Graph G, List S){
 	int time = 0;
 	for(i = 1; i <= getOrder(G); i++){
 		if(G->color[i] == 0){
-			Visit(i, &time);
+			Visit(&G, i, &time);
 		}
 	}
 }
 
-void Visit(int x, int* time){
-	G->distance[x] = (++time); 
-	G->color[x] = 1;
-	for(int i = 1; i <= getOrder())
-
+void Visit(Graph* pG, int x, int* time){
+	*time = *time + 1;
+	pG->distance[x] = *time; 
+	pG->color[x] = 1;
+	for(int i = 1; i <= pG->neighbors[x]){
+		if(pG->color[i] == 0){
+			parentIndex[i] = x;
+			Visit(i);
+		}
+	}
+	pG->color[x] = 2;
+	*time = *time + 1;
+	pG->finishTime[x] = *time;
 }
 
 void BFS(Graph G, int s){
