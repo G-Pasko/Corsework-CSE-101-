@@ -67,6 +67,7 @@ int main(int argc, char* argv[]){
 			printList(output, L);
 			fprintf(output, "\n\n");
 		}
+		freeList(&L);
 		
 	}
 
@@ -76,7 +77,6 @@ int main(int argc, char* argv[]){
 		free(words[i]);
 	}
 	freeGraph(&G);
-	freeList(&L);
 	free(words);
 	fclose(input);
 	fclose(output);
