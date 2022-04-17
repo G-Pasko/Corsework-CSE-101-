@@ -107,7 +107,6 @@ int main(int argc, char* argv[]){
    makeNull(G);
    freeGraph(&G);
 
-
    Graph new = newGraph(3);
    addEdge(G, 1, 2);
    addArc(G, 1, 3);
@@ -125,12 +124,3 @@ int main(int argc, char* argv[]){
 
    return 0;
 }
-/*
-
-
-int getOrder(Graph G);
-int getSize(Graph G);
-int getSource(Graph G);
-int getParent(Graph G, int u);
-void getPath(List L, Graph G, int u);
-void addArc(Graph G, int u, int v);
