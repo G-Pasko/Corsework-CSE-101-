@@ -148,7 +148,7 @@ void makeNull(Graph G){
 	for(int i = 1; i < getSize(G); i++){
 		G->neighbors[i] = NULL;
 		G->color[i] = 0;
-		G->distance[i] = NIL;
+		G->distance[i] = INF;
 	}
 	G->order = 0;
 	G->size = 0;
