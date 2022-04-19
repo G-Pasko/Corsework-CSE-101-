@@ -18,7 +18,7 @@ typedef struct GraphObj{
 	int *distance;
 	int *discoverTime;
 	int *finishTime;
-	int source;
+	//int source;
 }GraphObj;
 
 //typedef GraphObj* Graph;
@@ -35,7 +35,7 @@ Graph newGraph(int n){
 	for(int i = 1; i < n + 1; i++){
 		new->neighbors[i] = newList();
 	}
-	new->source = NIL;
+	//new->source = NIL;
 	new->order = n;
 	new->size = 0;
 	return new;
@@ -76,6 +76,7 @@ int getSize(Graph G){
 	}
 	return G->size;
 }
+/*
 int getSource(Graph G){
 	if(G == NULL){
 		printf("Graph Error: calling getSource() on NULL Graph reference\n");
@@ -84,6 +85,7 @@ int getSource(Graph G){
 	return G->source;
 
 }
+*/
 int getParent(Graph G, int u){
 	if(G == NULL){
 		printf("Graph Error: calling getParent() on NULL Graph reference\n");
@@ -93,9 +95,9 @@ int getParent(Graph G, int u){
 		printf("Graph Error: calling getParent() on out of bounds node\n");
 		exit(EXIT_FAILURE);
 	}
-	if(G->source == NIL){
+	/*if(G->source == NIL){
 		return NIL;
-	}
+	}*/
 	
 	return G->parentIndex[u];
 }
@@ -108,9 +110,9 @@ int getDist(Graph G, int u){
 		printf("Graph Error: calling getDist() on out of bounds node\n");
 		exit(EXIT_FAILURE);
 	}
-	if(G->source == NIL){
+	/*if(G->source == NIL){
 		return INF;
-	}
+	}*/
 	return G->distance[u];
 }
 
@@ -147,14 +149,14 @@ void getPath(List L, Graph G, int u){
 		printf("Graph Error: calling getPath() on out of bounds node\n");
 		exit(EXIT_FAILURE);
 	}
-	if(G->source == NIL){
+	/*if(G->source == NIL){
 		printf("Graph Error: calling getPath() before BFS\n");
 		exit(EXIT_FAILURE);
 	}
 	if(u == G->source){
 		append(L, u);
 		return;
-	}
+	}*/
 	else if(G->parentIndex[u] == NIL){
 		append(L, NIL);
 	}
@@ -271,26 +273,26 @@ void addArc(Graph G, int u, int v){
 	G->size ++;
 }
 
-void Visit(Graph* pG, int x, int* time){
+void Visit(Graph G, int x, int* time){
 	//printf("time = %d\n", *time);
 	*time = *time + 1;
 	//printf("time = %d\n", *time);
-	(*pG)->discoverTime[x] = *time; 
+	G->discoverTime[x] = *time; 
 	//printf("distance from x is  %d\n", (*pG)->discoverTime[x]);
-	(*pG)->color[x] = 1;
-	moveFront((*pG)->neighbors[x]);
+	G->color[x] = 1;
+	moveFront(G->neighbors[x]);
 	int y;
-	while(index((*pG)->neighbors[x]) != -1){
-		y = get((*pG)->neighbors[x]);
-		if((*pG)->color[y] == 0){
-			(*pG)->parentIndex[y] = x;
-			Visit(pG, y, time);
+	while(index(G->neighbors[x]) != -1){
+		y = get(G->neighbors[x]);
+		if(G->color[y] == 0){
+			G->parentIndex[y] = x;
+			Visit(G, y, time);
 		}
-		moveNext((*pG)->neighbors[x]);
+		moveNext(G->neighbors[x]);
 	}
-	(*pG)->color[x] = 2;
+	G->color[x] = 2;
 	*time = *time + 1;
-	(*pG)->finishTime[x] = *time;
+	G->finishTime[x] = *time;
 }
 
 void DFS(Graph G, List S){
@@ -305,14 +307,14 @@ void DFS(Graph G, List S){
 	int time = 0;
 	for(int i = 1; i <= getOrder(G); i++){
 		if(G->color[i] == 0){
-			Visit(&G, i, &time);
+			Visit(G, i, &time);
 		}
 	}
 	//Insert sort list by finish time
 }
 
 
-
+/*
 void BFS(Graph G, int s){
 	//moveFront(G->neighbors[s]);
 	int x;
@@ -350,6 +352,7 @@ void BFS(Graph G, int s){
 	}
 	freeList(&Q);
 }
+*/
 /*** Other operations ***/
 void printGraph(FILE* out, Graph G){
 	//fprintf(out, "pre-for loop\n");
