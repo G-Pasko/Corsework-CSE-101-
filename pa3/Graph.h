@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "List.h"
-#define UNDEF -420
+#define INF -420
 #define NIL -69
+#define UNDEF -80085
 typedef struct GraphObj* Graph;
 
 /*** Constructors-Destructors ***/
