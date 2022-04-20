@@ -58,7 +58,8 @@ int main(int argc, char* argv[]){
 	//Run DFS on OG
 	DFS(G, L);
 	//Create transpose of G
-	Graph T = transpose(G);
+	Graph T = newGraph(getOrder(G));
+	T = transpose(G);
 	//Run DFS with transpose graph and new List
 	DFS(T, L);
 
