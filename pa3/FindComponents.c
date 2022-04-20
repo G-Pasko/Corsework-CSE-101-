@@ -5,6 +5,7 @@
 #include "List.h"
 #include "Graph.h"
 
+extern char *strdup(const char *);
 
 int main(int argc, char* argv[]){
 	if(argc != 3){
