@@ -273,7 +273,7 @@ void addArc(Graph G, int u, int v){
 	G->size ++;
 }
 
-void Visit(Graph G, int x, int* time){
+void Visit(Graph G, int x, int* time, List S){
 	//printf("time = %d\n", *time);
 	*time = *time + 1;
 	//printf("time = %d\n", *time);
@@ -286,13 +286,14 @@ void Visit(Graph G, int x, int* time){
 		y = get(G->neighbors[x]);
 		if(G->color[y] == 0){
 			G->parentIndex[y] = x;
-			Visit(G, y, time);
+			Visit(G, y, time, S);
 		}
 		moveNext(G->neighbors[x]);
 	}
 	G->color[x] = 2;
 	*time = *time + 1;
 	G->finishTime[x] = *time;
+	prepend(S, x);
 }
 
 void DFS(Graph G, List S){
@@ -305,12 +306,17 @@ void DFS(Graph G, List S){
 		G->parentIndex[i] = NIL;
 	}
 	int time = 0;
-	for(int i = 1; i <= getOrder(G); i++){
-		if(G->color[i] == 0){
-			Visit(G, i, &time);
+	moveFront(S);
+	int len = length(S);
+	for(int i = 0; i < len; i++){
+		if(G->color[get(S)] == 0){
+			Visit(G, get(S), &time, S);
 		}
+		moveNext(S);
 	}
-	//Insert sort list by finish time
+	for(int i = 0; i < len; i ++){
+		deleteBack(S);
+	}
 }
 
 
@@ -356,7 +362,7 @@ void BFS(Graph G, int s){
 /*** Other operations ***/
 void printGraph(FILE* out, Graph G){
 	//fprintf(out, "pre-for loop\n");
-	for(int i = 1; i < getOrder(G); i++){
+	for(int i = 1; i <= getOrder(G); i++){
 		//fprintf(out, "for loop #%d\n", i);
 		fprintf(out, "%d: ", i);
 		moveFront(G->neighbors[i]);
