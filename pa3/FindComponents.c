@@ -72,12 +72,13 @@ int main(int argc, char* argv[]){
 			fprintf(output, "Component %d: ", component_num);
 			//print temp in reverse order
 			moveBack(temp);
-			index(temp != -1){
+			while(index(temp) != -1){
 				fprintf(output, "%d ", get(temp));
 				moveNext(temp);
 			}
 
 			fprintf(output, "\n");
+			//empty list
 			while(length(temp) != 0){
 				deleteFront(temp);
 			}
