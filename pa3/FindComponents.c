@@ -76,7 +76,7 @@ int main(int argc, char* argv[]){
 				fprintf(output, "%d ", get(temp));
 				movePrev(temp);
 			}
-
+			component_num ++;
 			fprintf(output, "\n");
 			//empty list
 			while(length(temp) != 0){
