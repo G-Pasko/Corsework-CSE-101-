@@ -68,7 +68,7 @@ int main(int argc, char* argv[]){
 	List temp = newList();
 	while(index(L) != -1){
 		append(temp, get(L));
-		if(getParent(T, [get(L)]) == NIL){
+		if(getParent(T, get(L)) == NIL){
 			fprintf(output, "Component %d: ", component_num);
 			printList(output, temp);
 			fprintf(output, "\n");
