@@ -85,7 +85,7 @@ int main(int argc, char* argv[]){
 		}
 		movePrev(L);
 	}
-	free(&words);
+	free(words);
 	fclose(input);
 	fclose(output);
 	freeList(&L);
