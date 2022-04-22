@@ -252,14 +252,15 @@ void addArc(Graph G, int u, int v){
 		printf("Graph Error: calling addArc() on invalid integer values\n");
 		exit(EXIT_FAILURE);
 	}
-	if(length(G->neighbors[u]) == 0){
-		append(G->neighbors[u], v);
-	}
 	for(moveFront(G->neighbors[u]); index(G->neighbors[u] != -1; moveNext(G->neighbors[u]))){
 		if(get(G->neighbors[u]) == v){
 			return;
 		}
 	}
+	if(length(G->neighbors[u]) == 0){
+		append(G->neighbors[u], v);
+	}
+
 	else{
 		moveFront(G->neighbors[u]);	
 		while(index(G->neighbors[u]) >= 0){
