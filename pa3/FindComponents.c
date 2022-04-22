@@ -72,7 +72,9 @@ int main(int argc, char* argv[]){
 			fprintf(output, "Component %d: ", component_num);
 			printList(output, temp);
 			fprintf(output, "\n");
-			freeList(&temp);
+			while(length(temp) != 0){
+				deleteFront(temp);
+			}
 		}
 		movePrev(L);
 	}
