@@ -49,6 +49,10 @@ void freeGraph(Graph* pG){				//Frees all heap memory associated with pG and
 	for(int i = 1; i < getOrder(*pG); i++){
 		freeList(&(*pG)->neighbors[i]);	
 	}
+	free((*pG)->finishTime);
+	(*pG)->finishTime = NULL;
+	free((*pG)->discoverTime);
+	(*pG)->discoverTime = NULL;
 	free((*pG)->neighbors);
 	(*pG)->neighbors = NULL;
 	free((*pG)->parentIndex);
