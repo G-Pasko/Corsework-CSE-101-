@@ -58,9 +58,9 @@ int main(int argc, char* argv[]){
 	//Run DFS on OG
 	DFS(G, L);
 	//Create transpose of G
-	Graph T = transpose(G);
+	Graph Trans = transpose(G);
 	//Run DFS with transpose graph and new List
-	DFS(T, L);
+	DFS(Trans, L);
 
 	//Determine strong components
 	moveBack(L);
@@ -68,7 +68,7 @@ int main(int argc, char* argv[]){
 	List temp = newList();
 	while(index(L) != -1){
 		append(temp, get(L));
-		if(&(T)->parentIndex[get(L)] == NIL){
+		if(Trans->parentIndex[get(L)] == NIL){
 			fprintf(output, "Component %d: ", component_num);
 			printList(output, temp);
 			fprintf(output, "\n");
