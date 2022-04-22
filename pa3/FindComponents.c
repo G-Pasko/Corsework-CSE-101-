@@ -70,7 +70,13 @@ int main(int argc, char* argv[]){
 		append(temp, get(L));
 		if(getParent(T, get(L)) == NIL){
 			fprintf(output, "Component %d: ", component_num);
-			printList(output, temp);
+			//print temp in reverse order
+			moveBack(temp);
+			index(temp != -1){
+				fprintf(output, "%d ", get(temp));
+				moveNext(temp);
+			}
+
 			fprintf(output, "\n");
 			while(length(temp) != 0){
 				deleteFront(temp);
