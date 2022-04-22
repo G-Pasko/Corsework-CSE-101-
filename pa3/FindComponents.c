@@ -60,7 +60,7 @@ int main(int argc, char* argv[]){
 	//Create transpose of G
 	Graph T = transpose(G);
 	//Run DFS with transpose graph and new List
-	DFS(T, L);
+	//DFS(T, L);
 
 	//Determine strong components
 	moveBack(L);
