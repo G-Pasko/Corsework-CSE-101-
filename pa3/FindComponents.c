@@ -85,8 +85,8 @@ int main(int argc, char* argv[]){
 		}
 		movePrev(L);
 	}
-	free(&input);
-	free(&output);
+	fclose(&input);
+	fclose(&output);
 	freeList(&L);
 	freeList(&temp);
 	freeGraph(&T);
