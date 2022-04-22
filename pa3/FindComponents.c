@@ -74,7 +74,7 @@ int main(int argc, char* argv[]){
 			moveBack(temp);
 			while(index(temp) != -1){
 				fprintf(output, "%d ", get(temp));
-				moveNext(temp);
+				movePrev(temp);
 			}
 
 			fprintf(output, "\n");
