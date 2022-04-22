@@ -255,6 +255,11 @@ void addArc(Graph G, int u, int v){
 	if(length(G->neighbors[u]) == 0){
 		append(G->neighbors[u], v);
 	}
+	for(moveFront(G->neighbors[u]); index(G->neighbors[u] != -1; moveNext(G->neighbors[u]))){
+		if(get(G->neighbors[u]) == v){
+			return;
+		}
+	}
 	else{
 		moveFront(G->neighbors[u]);	
 		while(index(G->neighbors[u]) >= 0){
