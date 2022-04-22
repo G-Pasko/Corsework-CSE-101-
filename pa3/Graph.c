@@ -34,6 +34,10 @@ Graph newGraph(int n){
 	new->neighbors = calloc(n + 1, sizeof(List));
 	for(int i = 1; i < n + 1; i++){
 		new->neighbors[i] = newList();
+		new->discoverTime[i] = UNDEF;
+		new->finishTime[i] = UNDEF;
+		new->parentIndex[i] = NIL;
+		new->color[i] = 0;
 	}
 	//new->source = NIL;
 	new->order = n;
