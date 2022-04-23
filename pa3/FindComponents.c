@@ -49,6 +49,7 @@ int main(int argc, char* argv[]){
 		}
 	}
 	//Print adjacency lists
+	fprintf(output, "Adjacency list representation of G:\n");
 	printGraph(output, G);
 	//Create list for runtime (initiated in numerical order)
 	List L = newList();
