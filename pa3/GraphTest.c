@@ -73,14 +73,14 @@ int main(int argc, char* argv[]){
    printf("%d \n", getSize(new));
    addArc(new, 1, 2);
    printf("%d \n", getSize(new));
-   addArc(2, 3);
-   addArc(3, 4);
+   addArc(new, 2, 3);
+   addArc(new, 3, 4);
    List L2 = newList();
    DFS(new, L2);
    printf("%d", getParent(new, 2));
 
    freeList(&L2);
-   greeGraph(&new);
+   freeGraph(&new);
 
    return(0);
 }
