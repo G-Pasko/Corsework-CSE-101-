@@ -67,15 +67,16 @@ int main(int argc, char* argv[]){
    freeGraph(&T);
    freeGraph(&C);
 
-   Graph new = newGraph(4);
-   printf("%d\n", getOrder(new));
-   addEdge(new, 1, 2);
+   Graph new = newGraph(4);   addEdge(new, 1, 2);
    printf("%d \n", getSize(new));
    addArc(new, 1, 2);
    printf("%d \n", getSize(new));
    addArc(new, 2, 3);
    addArc(new, 3, 4);
    List L2 = newList();
+   for(int i = 1; i <= getOrder(new); i++){
+      append(L2, i);
+   }
    DFS(new, L2);
    printf("%d", getParent(new, 2));
 
