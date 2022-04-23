@@ -1,4 +1,7 @@
-#------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+# Granger Pasko, gpasko
+# 2022 Spring CSE101 PA3 
+# 
 #  Makefile for CMPS 101 Programming Assignment 3
 #
 #  make                     makes FindComponents

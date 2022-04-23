@@ -1,3 +1,10 @@
+/********************************************************************************* 
+* Granger Pasko, gpasko
+* 2022 Spring CSE101 PA3 
+* Graph.c 
+* Creating graph ADTS, Constructors, and Destructors
+*********************************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "Graph.h"

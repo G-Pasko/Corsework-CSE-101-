@@ -1,7 +1,10 @@
-//-----------------------------------------------------------------------------
-// GraphTest.c
-// Test client for the Graph ADT
-//-----------------------------------------------------------------------------
+/********************************************************************************* 
+* Granger Pasko, gpasko
+* 2022 Spring CSE101 PA3 
+* GraphTest.c 
+* Testing all functions in Graph.c to ensure they work properly (based off of
+* GraphClient.c)
+*********************************************************************************/
 #include<stdio.h>
 #include<stdlib.h>
 #include"List.h"
@@ -63,6 +66,27 @@ int main(int argc, char* argv[]){
    freeGraph(&G);
    freeGraph(&T);
    freeGraph(&C);
+
+   Graph new = newGraph(4);
+   printf("%d\n", getOrder(new));
+   addEdge(new, 1, 2);
+   printf("%d \n", getSize(new));
+   addArc(new, 1, 2);
+   printf("%d \n", getSize(new));
+   addArc(2, 3);
+   addArc(3, 4);
+   List L2 = newList();
+   DFS(new, L2);
+   printf("%d", getParent(new, 2));
+
+   freeList(&L2);
+   greeGraph(&new);
+
    return(0);
 }
+
+/*
+int getParent(Graph G, int u); 
+// Manipulation procedures
+
 

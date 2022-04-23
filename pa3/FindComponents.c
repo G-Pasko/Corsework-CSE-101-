@@ -1,4 +1,9 @@
-//FindComponents.c
+/********************************************************************************* 
+* Granger Pasko, gpasko
+* 2022 Spring CSE101 PA3 
+* FindComponents.c
+* Creating list ADTS, Constructors, and Destructors
+*********************************************************************************/
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

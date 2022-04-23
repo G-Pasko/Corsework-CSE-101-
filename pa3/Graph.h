@@ -1,3 +1,10 @@
+/********************************************************************************* 
+* Granger Pasko, gpasko
+* 2022 Spring CSE101 PA3 
+* Graph.h 
+* Declaring all graph functions used in Graph.c
+*********************************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "List.h"
