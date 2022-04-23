@@ -63,6 +63,13 @@ int main(int argc, char* argv[]){
 	DFS(T, L);
 
 	//Determine strong components
+	int num_components = 0;
+	for(moveBack(L); index(L) != -1; movePrev(L)){
+		if(getParent(T, get(L)) == NIL){
+			num_components ++;
+		}
+	}
+	fprintf(output, "\nG contains %d strongly connected components:\n", num_components);
 	moveBack(L);
 	int component_num = 1;
 	List temp = newList();
@@ -85,6 +92,7 @@ int main(int argc, char* argv[]){
 		}
 		movePrev(L);
 	}
+
 	free(words);
 	fclose(input);
 	fclose(output);
