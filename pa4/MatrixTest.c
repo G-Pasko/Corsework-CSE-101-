@@ -23,6 +23,8 @@ int main(){
    changeEntry(A, 3,2,8); changeEntry(B, 3,2,1);
    changeEntry(A, 3,3,9); changeEntry(B, 3,3,1);
 
+   printf("Done with change entry\n");
+
    printf("%d\n", NNZ(A));
    printMatrix(stdout, A);
    printf("\n");
