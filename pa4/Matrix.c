@@ -25,7 +25,7 @@ typedef struct EntryObj{
 Matrix newMatrix(int n){
 	Matrix new = calloc(1, sizeof(MatrixObj));
 	new->size = n;
-	new->rows = malloc(sizeof(List));
+	new->rows = calloc(n + 1, sizeof(List));
 	for(int i = 1; i <= n; i++){
 		new->rows[i] = newList();
 	}
