@@ -13,6 +13,8 @@ int main(){
    Matrix B = newMatrix(n);
    Matrix C, D, E, F, G, H;
 
+   printf("Done with matrix creation\n");
+
    changeEntry(A, 1,1,1); changeEntry(B, 1,1,1);
    changeEntry(A, 1,2,2); changeEntry(B, 1,2,0);
    changeEntry(A, 1,3,3); changeEntry(B, 1,3,1);
