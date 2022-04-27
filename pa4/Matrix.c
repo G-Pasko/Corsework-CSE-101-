@@ -55,6 +55,7 @@ int size(Matrix M){
 int NNZ(Matrix M){
 	int count = 0;
 	for(int i = 1; i <= size(M); i++){
+		printf("adding %dth row length\n", i);
 		count += length(M->rows[i]);
 	}
 	
