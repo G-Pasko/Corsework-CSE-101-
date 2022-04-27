@@ -13,7 +13,6 @@ int main(){
    Matrix B = newMatrix(n);
    Matrix C, D, E, F, G, H;
 
-   printf("Done with matrix creation\n");
 
    changeEntry(A, 1,1,1); changeEntry(B, 1,1,1);
    changeEntry(A, 1,2,2); changeEntry(B, 1,2,0);
@@ -25,7 +24,6 @@ int main(){
    changeEntry(A, 3,2,8); changeEntry(B, 3,2,1);
    changeEntry(A, 3,3,9); changeEntry(B, 3,3,1);
 
-   printf("Done with change entry\n");
 
    printf("%d\n", NNZ(A));
    printMatrix(stdout, A);

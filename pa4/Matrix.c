@@ -214,7 +214,15 @@ void printMatrix(FILE* out, Matrix M){
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i  <= size(M); i++){
-		fprintf(out, "%d: \n", i);
+		if(length(M->rows[i]) != 0){
+			fprintf(out, "%d: ", i);
+			moveFront(M->rows[i]);
+			while(index(M->rows[i]) != -1){
+				fprintf(out, "(%d, %.1f) ", ((Entry)M->rows[i])->col, ((Entry)M->rows[i])->val);
+				moveNext(M->rows[i]);
+			}
+		}
+
 	}
 	return;;
 }
