@@ -218,7 +218,9 @@ void printMatrix(FILE* out, Matrix M){
 			fprintf(out, "%d: ", i);
 			moveFront(M->rows[i]);
 			while(index(M->rows[i]) != -1){
-				fprintf(out, "(%d, %.1f) ", ((Entry)M->rows[i])->col, ((Entry)M->rows[i])->val);
+				if(((Entry)M->rows[i])->val != 0){
+					fprintf(out, "(%d, %.1f) ", ((Entry)M->rows[i])->col, ((Entry)M->rows[i])->val);
+				}
 				moveNext(M->rows[i]);
 			}
 			fprintf(out, "\n");
