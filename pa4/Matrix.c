@@ -214,7 +214,7 @@ void printMatrix(FILE* out, Matrix M){
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i  <= size(M); i++){
-		fprintf(out, "%d: ")
+		fprintf(out, "%d: \n", i);
 	}
 	return;;
 }
