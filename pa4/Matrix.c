@@ -54,7 +54,6 @@ int size(Matrix M){
 // Return the number of non-zero elements in M.
 int NNZ(Matrix M){
 	int count = 0;
-	
 	for(int i = 1; i <= size(M); i++){
 		count += length(M->rows[i]);
 	}
@@ -210,5 +209,12 @@ Matrix product(Matrix A, Matrix B){
 // list of pairs "(col, val)" giving the column numbers and non-zero values
 // in that row. The double val will be rounded to 1 decimal point.
 void printMatrix(FILE* out, Matrix M){
+	if(M == NULL){
+		printf("Matrix Error: calling size() on NULL Matrix reference\n");
+		exit(EXIT_FAILURE);
+	}
+	for(int i = 1; i  <= size(M); i++){
+		fprintf(out, "%d: ")
+	}
 	return;;
 }
