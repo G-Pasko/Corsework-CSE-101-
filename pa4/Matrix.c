@@ -221,6 +221,7 @@ void printMatrix(FILE* out, Matrix M){
 				fprintf(out, "(%d, %.1f) ", ((Entry)M->rows[i])->col, ((Entry)M->rows[i])->val);
 				moveNext(M->rows[i]);
 			}
+			fprintf("\n");
 		}
 
 	}
