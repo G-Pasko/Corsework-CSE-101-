@@ -219,7 +219,7 @@ void printMatrix(FILE* out, Matrix M){
 			moveFront(M->rows[i]);
 			while(index(M->rows[i]) != -1){
 				if(((Entry)M->rows[i])->val != 0.0){
-					fprintf(out, "(%d, %.1f) ", ((Entry)M->rows[i])->col, ((Entry)M->rows[i])->val);
+					fprintf(out, "(%d, %.1f) ", ((Entry)get(M->rows[i]))->col, ((Entry)get(M->rows[i]))->val);
 				}
 				moveNext(M->rows[i]);
 			}
