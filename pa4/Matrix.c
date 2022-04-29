@@ -124,7 +124,7 @@ void changeEntry(Matrix M, int i, int j, double x){
 			delete(M->rows[i]);
 			return;
 		}
-		if(((Entry)get(M->rows[i]))->col > j){
+		if(((Entry)get(M->rows[i]))->col > j && x != 0.0){
 			Entry new = malloc(sizeof(EntryObj));
 			new->col = j;
 			new->val = x;
