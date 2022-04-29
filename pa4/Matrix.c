@@ -113,7 +113,7 @@ void changeEntry(Matrix M, int i, int j, double x){
 	moveFront(M->rows[i]);
 	while(index(M->rows[i]) != -1){
 		if(((Entry)get(M->rows[i]))->col == j){
-			if(x == 0){
+			if(x == 0.0){
 				delete(M->rows[i]);
 				return;
 			}
