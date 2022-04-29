@@ -133,10 +133,12 @@ void changeEntry(Matrix M, int i, int j, double x){
 		}
 		moveNext(M->rows[i]);
 	}
-	Entry new = malloc(sizeof(EntryObj));
-	new->col = j;
-	new->val = x;
-	append(M->rows[i], new);
+	if(x != 0.0){
+		Entry new = malloc(sizeof(EntryObj));
+		new->col = j;
+		new->val = x;
+		append(M->rows[i], new);
+	}
 }
 // Matrix Arithmetic operations
 // copy()
