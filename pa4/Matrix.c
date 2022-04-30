@@ -71,13 +71,13 @@ int equals(Matrix A, Matrix B){
 		return 0;
 	}
 	for(int i = 1; i <= size(A); i++){
-		if(length(A->rows[i]) == length(A->rows)){
-			moveFront(A);
-			moveFront(B);
+		if(length(A->rows[i]) == length(B->rows[i])){
+			moveFront(A->rows[i]);
+			moveFront(B->rows[i]);
 			while(index(A->rows[i]) != -1){
 				if(((Entry)get(A->rows[i]))->val == ((Entry)get(B->rows[i]))->val){
-					moveNext(A);
-					moveNext(B);
+					moveNext(A->rows[i]);
+					moveNext(B->rows[i]);
 				}
 				else{
 					return 0;
@@ -170,8 +170,21 @@ void changeEntry(Matrix M, int i, int j, double x){
 // copy()
 // Returns a reference to a new Matrix object having the same entries as A.
 Matrix copy(Matrix A){
+	if(A == NULL){
+		printf("Matrix Error: calling copy() on NULL Matrix reference\n");
+		exit(EXIT_FAILURE);
+	}
 	Matrix new = newMatrix(size(A));
-
+	for(int i = 1; i <= size(A); i++){
+		moveFront(A->rows[i]);
+		while(index(A->rows[i]) != -1 && length(A->rows[i]) != 0){
+			Entry E = malloc(sizeof(EntryObj));
+			E->col = ((Entry)get(A->rows[i]))->col;
+			E->val = ((Entry)get(A->rows[i]))->val;
+			append(new->rows[i], E);
+			moveNext(A->rows[i]);
+		}
+	}
 	return new;
 }
 // transpose()
@@ -183,6 +196,18 @@ Matrix transpose(Matrix A){
 // scalarMult()
 // Returns a reference to a new Matrix object representing xA.
 Matrix scalarMult(double x, Matrix A){
+	if(A == NULL){
+		printf("Matrix Error: calling scalarMult() on NULL Matrix reference\n");
+		exit(EXIT_FAILURE);
+	}
+	for(int i = 1; i <= size(A); i++){
+		moveFront(A->rows[i]);
+		while(index(A->rows[i]) != -1 && length(A->rows[i]) != 0){
+			((Entry)get(A->rows[i]))->val = x * ((Entry)get(A->rows[i]))->val;
+			moveNext(A->rows[i]);
+		}
+	}
+
 	return A;
 }
 // sum()
@@ -197,7 +222,33 @@ Matrix sum(Matrix A, Matrix B){
 		printf("Matrix Error: calling sum() with matrices of different sizes\n");
 		exit(EXIT_FAILURE);
 	}
-	Matrix sum = newMatrix(1);
+	Matrix sum = newMatrix(size(A));
+	/*
+	for(int i = 1; i <= size(A); i++){
+		moveFront(A->rows[i]);
+		while(index(A->rows[i]) != -1 && length(A->rows[i]) != 0){
+			Entry E = malloc(sizeof(EntryObj));
+			E->col = ((Entry)get(A->rows[i]))->col;
+			E->val = ((Entry)get(A->rows[i]))->val;
+			append(sum->rows[i], E);
+			moveNext(A->rows[i]);
+		}
+	}
+	for(int i = 1; i <= size(B); i++){
+		moveFront(B->rows[i]);
+		while(index(B->rows[i]) != -1 && length(B->rows[i]) != 0){
+			if(((Entry)get(A->rows[i]))->col){
+				//if col is same as targetadd val to node in sum
+			}
+			else{
+				Entry E = malloc(sizeof(EntryObj));
+				E->col = ((Entry)get(A->rows[i]))->col;
+				E->val = ((Entry)get(A->rows[i]))->val;
+				//insert sort
+			}
+			moveNext(A->rows[i]);
+		}
+	}*/
 	return sum;
 }
 // diff()
@@ -212,7 +263,7 @@ Matrix diff(Matrix A, Matrix B){
 		printf("Matrix Error: calling diff() with matrices of different sizes\n");
 		exit(EXIT_FAILURE);
 	}
-	Matrix diff = newMatrix(1);
+	Matrix diff = newMatrix(size(A));
 	return diff;
 }
 // product()
