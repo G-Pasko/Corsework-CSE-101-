@@ -238,25 +238,25 @@ Matrix sum(Matrix A, Matrix B){
 		moveFront(B->rows[i]);
 		while(index(A->rows[i]) != -1 && index(B->rows[i]) != -1){
 			if(((Entry)get(A->rows[i]))->col == ((Entry)get(B->rows[i]))->col){
-				Entry new = malloc(sizeof(EntryObj));
-				new->col = i;
-				new->val = ((Entry)get(A->rows[i]))->val + ((Entry)get(B->rows[i]))->val;
-				changeEntry(sum, i, ((Entry)get(A->rows[i]))->col, new->val);
+				//Entry new = malloc(sizeof(EntryObj));
+				//new->col = i;
+				//new->val = ((Entry)get(A->rows[i]))->val + ((Entry)get(B->rows[i]))->val;
+				changeEntry(sum, i, ((Entry)get(A->rows[i]))->col, ((Entry)get(A->rows[i]))->val + ((Entry)get(B->rows[i]))->val);
 				moveNext(A->rows[i]);
 				moveNext(B->rows[i]);
 			}
 			else if(((Entry)get(A->rows[i]))->col < ((Entry)get(B->rows[i]))->col){
-				Entry new = malloc(sizeof(EntryObj));
-				new->col = i;
-				new->val = ((Entry)get(A->rows[i]))->val;
-				changeEntry(sum, i, ((Entry)get(A->rows[i]))->col, new->val);
+				//Entry new = malloc(sizeof(EntryObj));
+				//new->col = i;
+				//new->val = ((Entry)get(A->rows[i]))->val;
+				changeEntry(sum, i, ((Entry)get(A->rows[i]))->col, ((Entry)get(A->rows[i]))->val);
 				moveNext(A->rows[i]);
 			}
 			else if(((Entry)get(A->rows[i]))->col > ((Entry)get(B->rows[i]))->col){
-				Entry new = malloc(sizeof(EntryObj));
-				new->col = i;
-				new->val = ((Entry)get(B->rows[i]))->val;
-				changeEntry(sum, i, ((Entry)get(B->rows[i]))->col, new->val);
+				//Entry new = malloc(sizeof(EntryObj));
+				//new->col = i;
+				//new->val = ((Entry)get(B->rows[i]))->val;
+				changeEntry(sum, i, ((Entry)get(B->rows[i]))->col, ((Entry)get(B->rows[i]))->val);
 				moveNext(B->rows[i]);
 			}
 		}
@@ -294,37 +294,37 @@ Matrix diff(Matrix A, Matrix B){
 		moveFront(B->rows[i]);
 		while(index(A->rows[i]) != -1 && index(B->rows[i]) != -1){
 			if(((Entry)get(A->rows[i]))->col == ((Entry)get(B->rows[i]))->col){
-				Entry new = malloc(sizeof(EntryObj));
-				new->col = i;
-				new->val = ((Entry)get(A->rows[i]))->val - ((Entry)get(B->rows[i]))->val;
-				changeEntry(diff, i, ((Entry)get(A->rows[i]))->col, new->val);
+				//Entry new = malloc(sizeof(EntryObj));
+				//new->col = i;
+				//new->val = ((Entry)get(A->rows[i]))->val - ((Entry)get(B->rows[i]))->val;
+				changeEntry(diff, i, ((Entry)get(A->rows[i]))->col, ((Entry)get(A->rows[i]))->val - ((Entry)get(B->rows[i]))->val);
 				moveNext(A->rows[i]);
 				moveNext(B->rows[i]);
 			}
 			else if(((Entry)get(A->rows[i]))->col < ((Entry)get(B->rows[i]))->col){
-				Entry new = malloc(sizeof(EntryObj));
-				new->col = i;
-				new->val = 0 - ((Entry)get(A->rows[i]))->val;
-				changeEntry(diff, i, ((Entry)get(A->rows[i]))->col, new->val);
+				//Entry new = malloc(sizeof(EntryObj));
+				//new->col = i;
+				//new->val = 0 - ((Entry)get(A->rows[i]))->val;
+				changeEntry(diff, i, ((Entry)get(A->rows[i]))->col, ((Entry)get(A->rows[i]))->val);
 				moveNext(A->rows[i]);
 			}
 			else if(((Entry)get(A->rows[i]))->col > ((Entry)get(B->rows[i]))->col){
-				Entry new = malloc(sizeof(EntryObj));
-				new->col = i;
-				new->val = 0 - ((Entry)get(B->rows[i]))->val;
-				changeEntry(diff, i, ((Entry)get(B->rows[i]))->col, new->val);
+				//Entry new = malloc(sizeof(EntryObj));
+				//new->col = i;
+				//new->val = 0 - ((Entry)get(B->rows[i]))->val;
+				changeEntry(diff, i, ((Entry)get(B->rows[i]))->col, 0 - ((Entry)get(B->rows[i]))->val);
 				moveNext(B->rows[i]);
 			}
 		}
 		if(index(A->rows[i]) == -1 && index(B->rows[i]) >= 0){
 			while(index(B->rows[i]) != -1){
-				changeEntry(diff, i, ((Entry)get(B->rows[i]))->col, ((Entry)get(B->rows[i]))->val * -1);
+				changeEntry(diff, i, ((Entry)get(B->rows[i]))->col, 0-((Entry)get(B->rows[i]))->val);
 				moveNext(B->rows[i]);
 			}
 		}
 		else if(index(B->rows[i]) == -1 && index(A->rows[i]) >= 0){
 			while(index(A->rows[i]) != -1){
-				changeEntry(diff, i, ((Entry)get(A->rows[i]))->col, -1 * ((Entry)get(A->rows[i]))->val * -1);
+				changeEntry(diff, i, ((Entry)get(A->rows[i]))->col, ((Entry)get(A->rows[i]))->val);
 				moveNext(A->rows[i]);
 			}
 		}
