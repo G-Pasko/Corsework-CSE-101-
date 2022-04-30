@@ -111,7 +111,7 @@ void makeZero(Matrix M){
 		if(length(M->rows[i]) != 0){
 			moveFront(M->rows[i]);
 			while(index(M->rows[i]) != -1){
-				freeList(M->rows[i]);
+				delete(M->rows[i]);
 				moveNext(M->rows[i]);
 			}
 		}
