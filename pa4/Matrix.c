@@ -63,7 +63,33 @@ int NNZ(Matrix M){
 // equals()
 // Return true (1) if matrices A and B are equal, false (0) otherwise.
 int equals(Matrix A, Matrix B){
-	return 0;
+	if(A == NULL || B == NULL){
+		printf("Matrix Error: calling equals() on NULL Matrix reference\n");
+		exit(EXIT_FAILURE);
+	}
+	if(size(A) != size(B) || NNZ(A) != NNZ(B)){
+		return 0;
+	}
+	for(int i = 1; i <= size(A); i++){
+		if(length(A->rows[i]) == length(A->rows)){
+			moveFront(A);
+			moveFront(B);
+			while(index(A->rows[i]) != -1){
+				if(((Entry)get(A->rows[i]))->val == ((Entry)get(B->rows[i]))->val){
+					moveNext(A);
+					moveNext(B);
+				}
+				else{
+					return 0;
+				}
+			}
+		}
+		else{
+			return 0;
+		}
+	}
+	return 1;
+	
 }
 
 // Manipulation procedures
