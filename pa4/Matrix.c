@@ -35,6 +35,10 @@ Matrix newMatrix(int n){
 // freeMatrix()
 // Frees heap memory associated with *pM, sets *pM to NULL.
 void freeMatrix(Matrix* pM){
+	if(*pM == NULL){
+		printf("Matrix Error: calling freeMatrix() on NULL Matrix reference\n");
+		exit(EXIT_FAILURE);
+	}
 	makeZero(*pM);
 	for(int i = 1; i <= size(*pM); i++){
 		freeList(&(*pM)->rows[i]);
