@@ -117,6 +117,7 @@ void makeZero(Matrix M){
 		while(index(M->rows[i]) != -1){
 			free((get(M->rows[i])));
 			delete(M->rows[i]);
+			moveNext(M->rows[i]);
 		}
 		clear(M->rows[i]);
 	}
