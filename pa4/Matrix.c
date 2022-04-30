@@ -71,10 +71,10 @@ int equals(Matrix A, Matrix B){
 		return 0;
 	}
 	for(int i = 1; i <= size(A); i++){
-		if(length(A->rows[i]) == length(B->rows[i])){
+		if(length(A->rows[i]) != 0 && (length(A->rows[i]) == length(B->rows[i]))){
 			moveFront(A->rows[i]);
 			moveFront(B->rows[i]);
-			while(index(B->rows[i] != -1 && index(A->rows[i]) != -1){
+			while(index(B->rows[i]) != -1 && index(A->rows[i]) != -1){
 				if(((Entry)get(A->rows[i]))->val == ((Entry)get(B->rows[i]))->val){
 					moveNext(A->rows[i]);
 					moveNext(B->rows[i]);
