@@ -281,11 +281,11 @@ Matrix sum(Matrix A, Matrix B){
 // pre: size(A)==size(B)
 Matrix diff(Matrix A, Matrix B){
 	if(A == NULL || B == NULL){
-		printf("Matrix Error: calling diff() on NULL Matrix reference\n");
+		printf("Matrix Error: calling sum() on NULL Matrix reference\n");
 		exit(EXIT_FAILURE);
 	}
 	if(size(A) != size(B)){
-		printf("Matrix Error: calling diff() with matrices of different sizes\n");
+		printf("Matrix Error: calling sum() with matrices of different sizes\n");
 		exit(EXIT_FAILURE);
 	}
 	Matrix diff = newMatrix(size(A));
@@ -296,7 +296,7 @@ Matrix diff(Matrix A, Matrix B){
 			if(((Entry)get(A->rows[i]))->col == ((Entry)get(B->rows[i]))->col){
 				//Entry new = malloc(sizeof(EntryObj));
 				//new->col = i;
-				//new->val = ((Entry)get(A->rows[i]))->val - ((Entry)get(B->rows[i]))->val;
+				//new->val = ((Entry)get(A->rows[i]))->val + ((Entry)get(B->rows[i]))->val;
 				changeEntry(diff, i, ((Entry)get(A->rows[i]))->col, ((Entry)get(A->rows[i]))->val - ((Entry)get(B->rows[i]))->val);
 				moveNext(A->rows[i]);
 				moveNext(B->rows[i]);
@@ -304,21 +304,21 @@ Matrix diff(Matrix A, Matrix B){
 			else if(((Entry)get(A->rows[i]))->col < ((Entry)get(B->rows[i]))->col){
 				//Entry new = malloc(sizeof(EntryObj));
 				//new->col = i;
-				//new->val = 0 - ((Entry)get(A->rows[i]))->val;
+				//new->val = ((Entry)get(A->rows[i]))->val;
 				changeEntry(diff, i, ((Entry)get(A->rows[i]))->col, ((Entry)get(A->rows[i]))->val);
 				moveNext(A->rows[i]);
 			}
 			else if(((Entry)get(A->rows[i]))->col > ((Entry)get(B->rows[i]))->col){
 				//Entry new = malloc(sizeof(EntryObj));
 				//new->col = i;
-				//new->val = 0 - ((Entry)get(B->rows[i]))->val;
-				changeEntry(diff, i, ((Entry)get(B->rows[i]))->col, 0 - ((Entry)get(B->rows[i]))->val);
+				//new->val = ((Entry)get(B->rows[i]))->val;
+				changeEntry(diff, i, ((Entry)get(B->rows[i]))->col, -1 * ((Entry)get(B->rows[i]))->val);
 				moveNext(B->rows[i]);
 			}
 		}
 		if(index(A->rows[i]) == -1 && index(B->rows[i]) >= 0){
 			while(index(B->rows[i]) != -1){
-				changeEntry(diff, i, ((Entry)get(B->rows[i]))->col, 0-((Entry)get(B->rows[i]))->val);
+				changeEntry(diff, i, ((Entry)get(B->rows[i]))->col, -1 * ((Entry)get(B->rows[i]))->val);
 				moveNext(B->rows[i]);
 			}
 		}
