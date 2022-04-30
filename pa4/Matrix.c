@@ -110,7 +110,7 @@ void makeZero(Matrix M){
 	for(int i = 1; i <= size(M); i++){
 		if(length(M->rows[i]) != 0){
 			while(length(M->rows[i]) != 0){
-				deleteFront(M->rows[i])
+				deleteFront(M->rows[i]);
 			}
 		}
 	}
