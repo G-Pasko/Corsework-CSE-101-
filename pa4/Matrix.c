@@ -114,10 +114,10 @@ void makeZero(Matrix M){
 	}
 	for(int i = 1; i <= size(M); i++){
 		moveFront(M->rows[i]);
-		while(index(M->rows[i]) != -1){
+		while(length(M->rows[i]) != 0){
 			free((get(M->rows[i])));
 			delete(M->rows[i]);
-			moveNext(M->rows[i]);
+			moveFront(M->rows[i]);
 		}
 		clear(M->rows[i]);
 	}
