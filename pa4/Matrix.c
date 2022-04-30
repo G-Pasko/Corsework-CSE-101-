@@ -209,15 +209,16 @@ Matrix scalarMult(double x, Matrix A){
 		printf("Matrix Error: calling scalarMult() on NULL Matrix reference\n");
 		exit(EXIT_FAILURE);
 	}
+	Matrix scalar = newMatrix(size(A));
 	for(int i = 1; i <= size(A); i++){
 		moveFront(A->rows[i]);
 		while(index(A->rows[i]) != -1 && length(A->rows[i]) != 0){
-			((Entry)get(A->rows[i]))->val = x * ((Entry)get(A->rows[i]))->val;
+			changeEntry(scalar, i, ((Entry)get(A->rows[i]))->col, x * ((Entry)get(A->rows[i]))->val);
 			moveNext(A->rows[i]);
 		}
 	}
 
-	return A;
+	return scalar;
 }
 // sum()
 // Returns a reference to a new Matrix object representing A+B.
@@ -232,32 +233,47 @@ Matrix sum(Matrix A, Matrix B){
 		exit(EXIT_FAILURE);
 	}
 	Matrix sum = newMatrix(size(A));
-	/*
 	for(int i = 1; i <= size(A); i++){
 		moveFront(A->rows[i]);
-		while(index(A->rows[i]) != -1 && length(A->rows[i]) != 0){
-			Entry E = malloc(sizeof(EntryObj));
-			E->col = ((Entry)get(A->rows[i]))->col;
-			E->val = ((Entry)get(A->rows[i]))->val;
-			append(sum->rows[i], E);
-			moveNext(A->rows[i]);
-		}
-	}
-	for(int i = 1; i <= size(B); i++){
 		moveFront(B->rows[i]);
-		while(index(B->rows[i]) != -1 && length(B->rows[i]) != 0){
-			if(((Entry)get(A->rows[i]))->col){
-				//if col is same as targetadd val to node in sum
+		while(index(A->rows[i]) != -1 && index(B->rows[i]) != -1){
+			if(((Entry)get(A->rows[i]))->col == ((Entry)get(B->rows[i]))->col){
+				Entry new = malloc(sizeof(EntryObj));
+				new->col = i;
+				new->val = ((Entry)get(A->rows[i]))->val + ((Entry)get(B->rows[i]))->val;
+				changeEntry(sum, i, ((Entry)get(A->rows[i]))->col, new->val);
+				moveNext(A->rows[i]);
+				moveNext(B->rows[i]);
 			}
-			else{
-				Entry E = malloc(sizeof(EntryObj));
-				E->col = ((Entry)get(A->rows[i]))->col;
-				E->val = ((Entry)get(A->rows[i]))->val;
-				//insert sort
+			else if(((Entry)get(A->rows[i]))->col < ((Entry)get(B->rows[i]))->col){
+				Entry new = malloc(sizeof(EntryObj));
+				new->col = i;
+				new->val = ((Entry)get(A->rows[i]))->val;
+				changeEntry(sum, i, ((Entry)get(A->rows[i]))->col, new->val);
+				moveNext(A->rows[i]);
 			}
-			moveNext(A->rows[i]);
+			else if(((Entry)get(A->rows[i]))->col > ((Entry)get(B->rows[i]))->col){
+				Entry new = malloc(sizeof(EntryObj));
+				new->col = i;
+				new->val = ((Entry)get(B->rows[i]))->val;
+				changeEntry(sum, i, ((Entry)get(B->rows[i]))->col, new->val);
+				moveNext(B->rows[i]);
+			}
 		}
-	}*/
+		if(index(A->rows[i]) == -1 && index(B->rows[i]) >= 0){
+			while(index(B->rows[i]) != -1){
+				changeEntry(sum, i, ((Entry)get(B->rows[i]))->col, ((Entry)get(B->rows[i]))->val);
+				moveNext(B->rows[i]);
+			}
+		}
+		else if(index(B->rows[i]) == -1 && index(A->rows[i]) >= 0){
+			while(index(A->rows[i]) != -1){
+				changeEntry(sum, i, ((Entry)get(A->rows[i]))->col, ((Entry)get(A->rows[i]))->val);
+				moveNext(A->rows[i]);
+			}
+		}
+	}	
+
 	return sum;
 }
 // diff()
@@ -273,6 +289,47 @@ Matrix diff(Matrix A, Matrix B){
 		exit(EXIT_FAILURE);
 	}
 	Matrix diff = newMatrix(size(A));
+	for(int i = 1; i <= size(A); i++){
+		moveFront(A->rows[i]);
+		moveFront(B->rows[i]);
+		while(index(A->rows[i]) != -1 && index(B->rows[i]) != -1){
+			if(((Entry)get(A->rows[i]))->col == ((Entry)get(B->rows[i]))->col){
+				Entry new = malloc(sizeof(EntryObj));
+				new->col = i;
+				new->val = ((Entry)get(A->rows[i]))->val - ((Entry)get(B->rows[i]))->val;
+				changeEntry(diff, i, ((Entry)get(A->rows[i]))->col, new->val);
+				moveNext(A->rows[i]);
+				moveNext(B->rows[i]);
+			}
+			else if(((Entry)get(A->rows[i]))->col < ((Entry)get(B->rows[i]))->col){
+				Entry new = malloc(sizeof(EntryObj));
+				new->col = i;
+				new->val = 0 - ((Entry)get(A->rows[i]))->val;
+				changeEntry(diff, i, ((Entry)get(A->rows[i]))->col, new->val);
+				moveNext(A->rows[i]);
+			}
+			else if(((Entry)get(A->rows[i]))->col > ((Entry)get(B->rows[i]))->col){
+				Entry new = malloc(sizeof(EntryObj));
+				new->col = i;
+				new->val = 0 - ((Entry)get(B->rows[i]))->val;
+				changeEntry(diff, i, ((Entry)get(B->rows[i]))->col, new->val);
+				moveNext(B->rows[i]);
+			}
+		}
+		if(index(A->rows[i]) == -1 && index(B->rows[i]) >= 0){
+			while(index(B->rows[i]) != -1){
+				changeEntry(diff, i, ((Entry)get(B->rows[i]))->col, ((Entry)get(B->rows[i]))->val * -1);
+				moveNext(B->rows[i]);
+			}
+		}
+		else if(index(B->rows[i]) == -1 && index(A->rows[i]) >= 0){
+			while(index(A->rows[i]) != -1){
+				changeEntry(diff, i, ((Entry)get(A->rows[i]))->col, -1 * ((Entry)get(A->rows[i]))->val * -1);
+				moveNext(A->rows[i]);
+			}
+		}
+	}	
+
 	return diff;
 }
 // product()
