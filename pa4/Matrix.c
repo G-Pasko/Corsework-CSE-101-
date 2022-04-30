@@ -67,20 +67,27 @@ int equals(Matrix A, Matrix B){
 		printf("Matrix Error: calling equals() on NULL Matrix reference\n");
 		exit(EXIT_FAILURE);
 	}
+	if(A == B){
+		return 1;
+	}
+
 	if(size(A) != size(B) || NNZ(A) != NNZ(B)){
 		return 0;
 	}
+
 	for(int i = 1; i <= size(A); i++){
-		if(length(A->rows[i]) != 0 && (length(A->rows[i]) == length(B->rows[i]))){
-			moveFront(A->rows[i]);
-			moveFront(B->rows[i]);
-			while(index(B->rows[i]) != -1 && index(A->rows[i]) != -1){
-				if(((Entry)get(A->rows[i]))->val == ((Entry)get(B->rows[i]))->val){
-					moveNext(A->rows[i]);
-					moveNext(B->rows[i]);
-				}
-				else{
-					return 0;
+		if(length(A->rows[i]) == length(B->rows[i])){
+			if(length(A->rows[i]) != 0){
+				moveFront(A->rows[i]);
+				moveFront(B->rows[i]);
+				while(index(B->rows[i]) != -1 && index(A->rows[i]) != -1){
+					if(((Entry)get(A->rows[i]))->val == ((Entry)get(B->rows[i]))->val){
+						moveNext(A->rows[i]);
+						moveNext(B->rows[i]);
+					}
+					else{
+						return 0;
+					}
 				}
 			}
 		}
@@ -104,7 +111,7 @@ void makeZero(Matrix M){
 		if(length(M->rows[i]) != 0){
 			moveFront(M->rows[i]);
 			while(index(M->rows[i]) != -1){
-				delete(M->rows[i]);
+				freeList(M->rows[i]);
 				moveNext(M->rows[i]);
 			}
 		}
@@ -178,10 +185,7 @@ Matrix copy(Matrix A){
 	for(int i = 1; i <= size(A); i++){
 		moveFront(A->rows[i]);
 		while(index(A->rows[i]) != -1 && length(A->rows[i]) != 0){
-			Entry E = malloc(sizeof(EntryObj));
-			E->col = ((Entry)get(A->rows[i]))->col;
-			E->val = ((Entry)get(A->rows[i]))->val;
-			append(new->rows[i], E);
+			changeEntry(new, i, ((Entry)get(A->rows[i]))->col, ((Entry)get(A->rows[i]))->val);
 			moveNext(A->rows[i]);
 		}
 	}
