@@ -113,11 +113,10 @@ void makeZero(Matrix M){
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i <= size(M); i++){
-		if(length(M->rows[i]) != 0){
-			while(length(M->rows[i]) != 0){
-				deleteFront(M->rows[i]);
-			}
-
+		moveFront(M->rows[i]);
+		while(index(M->rows[i]) != -1){
+			free((get(M->rows[i])));
+			delete(M->rows[i]);
 		}
 		clear(M->rows[i]);
 	}
@@ -278,6 +277,27 @@ Matrix diff(Matrix A, Matrix B){
 // product()
 // Returns a reference to a new Matrix object representing AB
 // pre: size(A)==size(B)
+double dotProd(List A, List B){
+	int total = 0;
+	moveFront(A);
+	moveFront(B);
+	while(index(A) != -1 && index(B) != -1){
+		if(((Entry)get(A))->col == ((Entry)get(B))->col){
+			total += ((Entry)get(A))->val * ((Entry)get(B))->val;
+			moveNext(A);
+			moveNext(B);
+		}
+		else if(((Entry)get(A))->col < ((Entry)get(B))->col){
+			moveNext(A);
+		}
+		else if(((Entry)get(A))->col > ((Entry)get(B))->col){
+			moveNext(B);
+		}
+	}
+	return total;
+
+}
+
 Matrix product(Matrix A, Matrix B){
 	if(A == NULL || B == NULL){
 		printf("Matrix Error: calling product() on NULL Matrix reference\n");
@@ -287,9 +307,22 @@ Matrix product(Matrix A, Matrix B){
 		printf("Matrix Error: calling product() with matrices of different sizes\n");
 		exit(EXIT_FAILURE);
 	}
-	Matrix prod = newMatrix(1);
+
+	Matrix prod = newMatrix(sizeof(A));
+	return prod;
+	for(int i = 1; i <= size(A); i++){
+		for(int j = 1; i <=size(B); j++){
+			Entry new = malloc(sizeof(EntryObj));
+			new->col = j;
+			new->val = dotProd(A->rows[i], B->rows[i]);
+			append(prod->rows[i], new);
+		}
+	}
+
 	return prod;
 }
+
+
 // printMatrix()
 // Prints a string representation of Matrix M to filestream out. Zero rows
 // are not printed. Each non-zero row is represented as one line consisting
