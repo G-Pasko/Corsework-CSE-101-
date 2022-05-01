@@ -177,7 +177,7 @@ void changeEntry(Matrix M, int i, int j, double x){
 		if(((Entry)get(M->rows[i]))->col == j){
 			if(x == 0.0){
 				free(get(M->rows[i]));
-				delete(M->rows[i]);
+				//delete(M->rows[i]);
 				M->NNZ --;
 				return;
 			}
