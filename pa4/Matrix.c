@@ -41,9 +41,12 @@ void freeMatrix(Matrix* pM){
 	}
 	makeZero(*pM);
 	for(int i = 1; i <= size(*pM); i++){
-		freeList(&(*pM)->rows[i]);
+		freeList(&((*pM)->rows[i]));
 	}
+	free((*pM)->rows);
+	(*pM)->rows = NULL;
 	free(*pM);
+	*pM = NULL;
 }
 // Access functions
 // size()
@@ -115,8 +118,7 @@ void makeZero(Matrix M){
 	for(int i = 1; i <= size(M); i++){
 		moveFront(M->rows[i]);
 		while(length(M->rows[i]) != 0){
-			free((get(M->rows[i])));
-			deleteFront(M->rows[i]);
+			free(get(M->rows[i]));
 			moveFront(M->rows[i]);
 		}
 		clear(M->rows[i]);
@@ -200,7 +202,20 @@ Matrix copy(Matrix A){
 // Returns a reference to a new Matrix object representing the transpose
 // of A.
 Matrix transpose(Matrix A){
-	return A;
+	//do list copy w switched i and j values
+	if(A == NULL){
+		printf("Matrix Error: calling copy() on NULL Matrix reference\n");
+		exit(EXIT_FAILURE);
+	}
+	Matrix new = newMatrix(size(A));
+	for(int i = 1; i <= size(A); i++){
+		moveFront(A->rows[i]);
+		while(index(A->rows[i]) != -1 && length(A->rows[i]) != 0){
+			changeEntry(new, ((Entry)get(A->rows[i]))->col, i, ((Entry)get(A->rows[i]))->val);
+			moveNext(A->rows[i]);
+		}
+	}
+	return new;
 }
 // scalarMult()
 // Returns a reference to a new Matrix object representing xA.
@@ -289,6 +304,9 @@ Matrix diff(Matrix A, Matrix B){
 		exit(EXIT_FAILURE);
 	}
 	Matrix diff = newMatrix(size(A));
+	if(A == B){
+		return diff;
+	}
 	for(int i = 1; i <= size(A); i++){
 		moveFront(A->rows[i]);
 		moveFront(B->rows[i]);
@@ -391,6 +409,9 @@ void printMatrix(FILE* out, Matrix M){
 	if(M == NULL){
 		printf("Matrix Error: calling size() on NULL Matrix reference\n");
 		exit(EXIT_FAILURE);
+	}
+	if(NNZ(M) == 0){
+		fprintf(out, "\n");
 	}
 	for(int i = 1; i  <= size(M); i++){
 		if(length(M->rows[i]) != 0){
