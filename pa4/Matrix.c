@@ -177,14 +177,17 @@ void changeEntry(Matrix M, int i, int j, double x){
 		if(((Entry)get(M->rows[i]))->col == j){
 			if(x == 0.0){
 				free(get(M->rows[i]));
-				//delete(M->rows[i]);
+				delete(M->rows[i]);
 				M->NNZ --;
 				return;
 			}
-			((Entry)get(M->rows[i]))->val = x;
-			return;
+			else{
+				((Entry)get(M->rows[i]))->val = x;
+				return;
+			}
+			
 		}
-		if(((Entry)get(M->rows[i]))->col > j && x != 0.0){
+		else if(((Entry)get(M->rows[i]))->col > j && x != 0.0){
 			Entry new = malloc(sizeof(EntryObj));
 			new->col = j;
 			new->val = x;
@@ -192,12 +195,12 @@ void changeEntry(Matrix M, int i, int j, double x){
 			M->NNZ ++;
 			return;
 		}
-		if(((Entry)get(M->rows[i]))->col > j && x == 0.0){
+		else if(((Entry)get(M->rows[i]))->col > j && x == 0.0){
 			return;
 		}	
 		moveNext(M->rows[i]);
 	}
-	if(x != 0.0){
+	if(index(M->rows[i]) == -1 && x != 0.0){
 		Entry new = malloc(sizeof(EntryObj));
 		new->col = j;
 		new->val = x;
