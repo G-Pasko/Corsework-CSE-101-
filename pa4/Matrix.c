@@ -64,16 +64,16 @@ int NNZ(Matrix M){
 	int count = 0;
 	for(int i = 1; i <= size(M); i++){
 		moveFront(M->rows[i]);
-		/*
 		while(index(M->rows[i]) != -1){
 			count ++;
 			moveNext(M->rows[i]);
 		}
-		*/
 		
+		/*
 		if(M->rows[i] != NULL){
 			count += length(M->rows[i]);
 		}
+		*/
 	}
 	
 	return count;
@@ -182,7 +182,6 @@ void changeEntry(Matrix M, int i, int j, double x){
 			return;
 		}
 		if(((Entry)get(M->rows[i]))->col > j && x == 0.0){
-			//free(get(M->rows[i]));
 			return;
 		}	
 		moveNext(M->rows[i]);
