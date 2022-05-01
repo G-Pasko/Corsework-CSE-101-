@@ -25,6 +25,7 @@ int main(int argc, char* argv[]){
 	fgets(buff, 512, input);
 	int size, NNZ1, NNZ2;
 	sscanf(buff, "%d %d %d", &size, &NNZ1, &NNZ2);
+	fgets(buff, 512, input);
 	Matrix A = newMatrix(size);
 	int row, col;
 	double val;
