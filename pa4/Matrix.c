@@ -136,12 +136,11 @@ void makeZero(Matrix M){
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 1; i <= size(M); i++){
-		moveFront(M->rows[i]);
-		while(index(M->rows[i]) != -1){
+		while(length(M->rows[i]) != 0){
+			moveFront(M->rows[i]);
 			free(get(M->rows[i]));
-			delete(M->rows[i]);
+			deleteFront(M->rows[i]);
 			M->NNZ--;
-			moveNext(M->rows[i]);
 		}
 		clear(M->rows[i]);
 	}
