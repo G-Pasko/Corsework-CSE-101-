@@ -100,10 +100,6 @@ int equals(Matrix A, Matrix B){
 					}
 				}
 			}
-			else{
-				moveNext(A->rows[i]);
-				moveNext(B->rows[i]);
-			}
 		}
 		else{
 			return 0;
@@ -147,7 +143,7 @@ void changeEntry(Matrix M, int i, int j, double x){
 		exit(EXIT_FAILURE);
 	}
 	if(length(M->rows[i]) == 0){
-		if(x == 0){
+		if(x == 0.0){
 			return;
 		}
 		Entry new = malloc(sizeof(EntryObj));
