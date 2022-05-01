@@ -107,6 +107,9 @@ int equals(Matrix A, Matrix B){
 						return 0;
 					}
 				}
+				if(index(B->rows[i]) != index(A->rows[i])){
+					return 0;
+				}
 			}
 		}
 		else{
