@@ -156,14 +156,14 @@ void changeEntry(Matrix M, int i, int j, double x){
 	while(index(M->rows[i]) != -1){
 		if(((Entry)get(M->rows[i]))->col == j){
 			if(x == 0.0){
-				delete(M->rows[i]);
+				free(get(M->rows[i]));
 				return;
 			}
 			Entry new = malloc(sizeof(EntryObj));
 			new->col = j;
 			new->val = x;
 			insertAfter(M->rows[i], new);
-			delete(M->rows[i]);
+			free(get(M->rows[i]));
 			return;
 		}
 		if(((Entry)get(M->rows[i]))->col > j && x != 0.0){
@@ -174,7 +174,7 @@ void changeEntry(Matrix M, int i, int j, double x){
 			return;
 		}
 		if(((Entry)get(M->rows[i]))->col > j && x == 0.0){
-			delete(M->rows[i]);
+			free(get(M->rows[i]));
 			return;
 		}	
 		moveNext(M->rows[i]);
