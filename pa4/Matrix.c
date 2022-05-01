@@ -275,6 +275,11 @@ Matrix sum(Matrix A, Matrix B){
 		printf("Matrix Error: calling sum() with matrices of different sizes\n");
 		exit(EXIT_FAILURE);
 	}
+	if(A == B){
+		Matrix sum = scalarMult(2.0, A);
+		return sum;
+
+	}
 	Matrix sum = newMatrix(size(A));
 	for(int i = 1; i <= size(A); i++){
 		moveFront(A->rows[i]);
