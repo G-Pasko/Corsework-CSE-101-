@@ -43,7 +43,7 @@ void freeMatrix(Matrix* pM){
 	for(int i = 1; i <= size(*pM); i++){
 		freeList(&((*pM)->rows[i]));
 	}
-	free(&((*pM)->rows));
+	free((*pM)->rows);
 	(*pM)->rows = NULL;
 	free(*pM);
 	*pM = NULL;
@@ -117,9 +117,9 @@ void makeZero(Matrix M){
 	}
 	for(int i = 1; i <= size(M); i++){
 		moveFront(M->rows[i]);
-		while(length(M->rows[i]) != 0){
+		while(index(M->rows[i]) != -1){
 			free(get(M->rows[i]));
-			moveFront(M->rows[i]);
+			moveNext(M->rows[i]);
 		}
 		clear(M->rows[i]);
 	}
