@@ -10,6 +10,7 @@
 
 typedef struct MatrixObj{
 	List* rows;
+	int NNZ;
 	int size;
 }MatrixObj;
 
@@ -25,6 +26,7 @@ typedef struct EntryObj{
 Matrix newMatrix(int n){
 	Matrix new = calloc(1, sizeof(MatrixObj));
 	new->size = n;
+	new->NNZ = 0;
 	new->rows = calloc(n + 1, sizeof(List));
 	for(int i = 1; i <= n; i++){
 		new->rows[i] = newList();
@@ -61,6 +63,11 @@ int size(Matrix M){
 // NNZ()
 // Return the number of non-zero elements in M.
 int NNZ(Matrix M){
+	if(M == NULL){
+		printf("Matrix Error: calling NNZ() on NULL Matrix reference\n");
+		exit(EXIT_FAILURE);
+	}
+	/*
 	int count = 0;
 	for(int i = 1; i <= size(M); i++){
 		moveFront(M->rows[i]);
@@ -69,14 +76,14 @@ int NNZ(Matrix M){
 			moveNext(M->rows[i]);
 		}
 		
-		/*
+		
 		if(M->rows[i] != NULL){
 			count += length(M->rows[i]);
 		}
-		*/
-	}
+		
+	}*/
 	
-	return count;
+	return M->NNZ;
 }
 // equals()
 // Return true (1) if matrices A and B are equal, false (0) otherwise.
@@ -132,6 +139,7 @@ void makeZero(Matrix M){
 		moveFront(M->rows[i]);
 		while(index(M->rows[i]) != -1){
 			free(get(M->rows[i]));
+			M->NNZ --;
 			moveNext(M->rows[i]);
 		}
 		clear(M->rows[i]);
@@ -161,6 +169,7 @@ void changeEntry(Matrix M, int i, int j, double x){
 		new->col = j;
 		new->val = x;
 		append(M->rows[i], new);
+		M->NNZ ++;
 		return;
 	}
 	moveFront(M->rows[i]);
@@ -168,6 +177,7 @@ void changeEntry(Matrix M, int i, int j, double x){
 		if(((Entry)get(M->rows[i]))->col == j){
 			if(x == 0.0){
 				free(get(M->rows[i]));
+				M->NNZ --;
 				return;
 			}
 			Entry new = malloc(sizeof(EntryObj));
@@ -182,6 +192,7 @@ void changeEntry(Matrix M, int i, int j, double x){
 			new->col = j;
 			new->val = x;
 			insertBefore(M->rows[i], new);
+			M->NNZ ++;
 			return;
 		}
 		if(((Entry)get(M->rows[i]))->col > j && x == 0.0){
@@ -193,6 +204,7 @@ void changeEntry(Matrix M, int i, int j, double x){
 		Entry new = malloc(sizeof(EntryObj));
 		new->col = j;
 		new->val = x;
+		M->NNZ ++;
 		append(M->rows[i], new);
 	}
 }
