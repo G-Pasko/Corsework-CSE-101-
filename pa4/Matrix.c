@@ -139,6 +139,7 @@ void makeZero(Matrix M){
 		moveFront(M->rows[i]);
 		while(index(M->rows[i]) != -1){
 			free(get(M->rows[i]));
+			delete(M->rows[i]);
 			M->NNZ--;
 			moveNext(M->rows[i]);
 		}
