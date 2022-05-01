@@ -24,8 +24,8 @@ typedef struct EntryObj{
 // Returns a reference to a new nXn Matrix object in the zero state.
 Matrix newMatrix(int n){
 	Matrix new = calloc(1, sizeof(MatrixObj));
-	new->size = n + 1;
-	new->rows = calloc(new->size + 1, sizeof(List));
+	new->size = n;
+	new->rows = calloc(n + 1, sizeof(List));
 	for(int i = 1; i <= n; i++){
 		new->rows[i] = newList();
 	}
