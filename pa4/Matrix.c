@@ -137,7 +137,7 @@ void makeZero(Matrix M){
 
 //
 //
-/*
+
 void changeEntry(Matrix M, int i, int j, double x){
 	if(M == NULL){
 		printf("Matrix Error: calling size() on NULL Matrix reference\n");
@@ -197,59 +197,6 @@ void changeEntry(Matrix M, int i, int j, double x){
 		M->NNZ ++;
 		append(M->rows[i], new);
 	}
-}
-*/
-
-void changeEntry(Matrix M, int i, int j, double x){
-    if (i < 1 || i > size(M)){
-        printf("changeEntry() called on row out of bounds");
-    }
-    if (j < 1 || j > size(M)){
-        printf("changeEntry() called on column out of bounds");
-    }
-    Entry newEntry = NULL;
-    if (length(M->rows[i]) == 0 && x != 0){
-        newEntry = calloc(1, sizeof(EntryObj));
-        newEntry->col = j;
-        newEntry->val = x;
-        append(M->rows[i], newEntry);
-        M->NNZ ++;
-    }
-    else if(length(M->rows[i]) == 0){
-        return;
-    }
-    else{
-        for (moveFront(M->rows[i]); index(M->rows[i])>=0; moveNext(M->rows[i])){
-            if (j < ((Entry)get(M->rows[i]))->col){
-                if (x != 0){
-                    newEntry = calloc(1, sizeof(EntryObj));
-                    newEntry->col = j;
-                    newEntry->val = x;
-                    insertBefore(M->rows[i], newEntry);
-                    M->NNZ ++;
-                }
-                return;
-            }
-            else if (j == ((Entry)get(M->rows[i]))->col){
-                if (x == 0){
-                    free(get(M->rows[i]));
-                    //delete(M->rows[i]);
-                    M->NNZ --;
-                }
-                else{
-                    ((Entry)get(M->rows[i]))->val = x;
-                }
-                return;
-            }
-        }
-       if (index(M->rows[i]) < 0 && x != 0){
-           newEntry = calloc(1, sizeof(EntryObj));
-           newEntry->col = j;
-           newEntry->val = x;
-           append(M->rows[i], newEntry);
-           M->NNZ ++;
-       }
-    }
 }
 
 
