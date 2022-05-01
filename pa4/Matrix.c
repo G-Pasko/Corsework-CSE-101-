@@ -163,7 +163,7 @@ void changeEntry(Matrix M, int i, int j, double x){
 			new->col = j;
 			new->val = x;
 			insertAfter(M->rows[i], new);
-			delete(M->rows[i]);
+			delete(get(M->rows[i]));
 			return;
 		}
 		if(((Entry)get(M->rows[i]))->col > j && x != 0.0){
