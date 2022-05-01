@@ -1,409 +1,400 @@
 /********************************************************************************* 
-* Granger Pasko, gpasko
-* 2022 Spring CSE101 PA4 
+* Brandon Lau, blau7
+* 2022 Spring CSE101 PA4
 * List.c 
-* Creating list ADTS, Constructors, and Destructors
+* Implementation File for List ADT 
 *********************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+
 #include "List.h"
-//Structs
-extern char* strdup(const char*);
 
+// structs --------------------------------------------------------------------
+typedef struct NodeObj* Node;
 
-typedef struct NodeObj{
-	ListElement data;
-	struct NodeObj* prev;
-	struct NodeObj* next;
-}NodeObj;
+typedef struct NodeObj {
+    ListElement val;
+    Node previous;
+    Node next;
+} NodeObj;
 
-typedef NodeObj* Node;
+typedef struct ListObj {
+    Node front;
+    Node back;
+    Node cursor;
+    int length;
+    int index;
+} ListObj;
 
-typedef struct ListObj{
-	int length;
-	int index;				//position of curser
-	Node back;
-	Node front;
-	Node curser;
-}ListObj;
-
-// Constructors and Destructors
-
-// newNode()
-// Returns reference to new Node object. Initializes next and data fields.
-List newList(void){
-	List L = malloc(sizeof(ListObj));
-	L->back = L->front = L->curser = NULL;
-	L->length = 0;
-	L->index = -1;
-	return(L);
+// Constructors-Destructors ---------------------------------------------------
+List newList(void){ 
+    List newList = calloc(1, sizeof(ListObj));
+    newList->front = NULL;
+    newList->back = NULL;
+    newList->cursor = NULL;
+    newList->length = 0;
+    newList->index = -1;
+    return newList;
 }
 
 void freeList(List* pL){
-	if(*pL == NULL){
-		printf("List Error: calling freeList() on NULL List reference");
-		exit(EXIT_FAILURE);
-	}
-	clear(*pL);
-	//printf("Clear success\n");
-	free(*pL);
-	//printf("Free success\n");
-	*pL = NULL;
+    if (*pL == NULL){
+        printf("freeList() called on NULL list\n");
+        exit(EXIT_FAILURE);
+    }
+    clear(*pL);
+    free(*pL);
+    *pL = NULL;
 }
 
-
-//Access Functions
+// Access functions -----------------------------------------------------------
 int length(List L){
-	if(L == NULL){
-		printf("List Error: calling length() on NULL List reference\n");
-		exit(EXIT_FAILURE);
-	}
-	return(L->length);
-}
+    if (L == NULL){
+        printf("length() called on NULL list\n");
+        exit(EXIT_FAILURE);
+    }
+    return L->length;
+} 
 
 int index(List L){
-	if(L == NULL){
-		printf("List Error: calling index() on NULL List reference\n");
-		exit(EXIT_FAILURE);
-	}
-	return(L->index);
+    if (L == NULL){
+        printf("index() called on NULL list\n");
+        exit(EXIT_FAILURE);
+    }
+    if (L->cursor == NULL){
+        return -1;
+    }
+    return L->index;
 }
 
-void* front(List L){
-	if(L == NULL){
-		printf("List Error: calling front() on NULL List reference\n");
-		exit(EXIT_FAILURE);
-	}
+ListElement front(List L){
+    if( L == NULL ){
+        printf("front() called on NULL List\n");
+        exit(EXIT_FAILURE);
+    }
+    if(length(L) <= 0){
+        printf("front() called on an empty List\n");
+        exit(EXIT_FAILURE);
+    }
+    return(L->front->val);
+} 
 
-	if(L->length == 0){
-		printf("List Error: calling front() on empty List\n");
-		exit(EXIT_FAILURE);
-	}
-	return(L->front->data);
+ListElement back(List L){
+    if( L == NULL ){
+        printf("back() called on NULL List\n");
+        exit(EXIT_FAILURE);
+    }
+    if(length(L) <= 0){
+        printf("back() called on an empty List\n");
+        exit(EXIT_FAILURE);
+    }
+    return(L->back->val);
 }
 
-void* back(List L){
-	if(L == NULL){
-		printf("List Error: calling back() on NULL List reference\n");
-		exit(EXIT_FAILURE);
-	}
-
-	if(L->length == 0){
-		printf("List Error: calling back() on empty List\n");
-		exit(EXIT_FAILURE);
-	}
-	return(L->back->data);
+ListElement get(List L){
+    if( L == NULL ){
+        printf("get() called on NULL List\n");
+        exit(EXIT_FAILURE);
+    }
+    if (L->index < 0){
+        printf("get() called on index < 0\n");
+        exit(EXIT_FAILURE);
+    }
+    if(length(L) <= 0){
+        printf("get() called on an empty List\n");
+        exit(EXIT_FAILURE);
+    }
+    return(L->cursor->val);
 }
 
-void* get(List L){
-	if(L == NULL){
-		printf("List Error: calling get() on NULL List reference\n");
-		exit(EXIT_FAILURE);
-	}
-	if(!(length(L) > 0)){
-		printf("List Error: calling get() on an empty List reference\n");
-		exit(EXIT_FAILURE);
-	}
-	if(index(L) < 0){
-		printf("List Error: calling get() on a list with an undefined index reference\n");
-		exit(EXIT_FAILURE);
-	}
-	//printf("%d\n", L->front->data);
-	//printf("%d\n", L->curser->data);
-	return(L->curser->data);
-}
-
-
-//Manipulation procedures
-
+// Manipulation procedures ----------------------------------------------------
 void clear(List L){
-	if(L == NULL){
-		printf("List Error: calling clear() on NULL List reference\n");
-		exit(EXIT_FAILURE);
-	}
-	while(length(L) != 0){
-		deleteFront(L);
-	}
+    if (L == NULL){
+        printf("clear() called on NULL list\n");
+        exit(EXIT_FAILURE);
+    }
+    // delete the front of the list until the list is empty
+    while (length(L) != 0){
+        deleteFront(L);
+    }
 }
 
-void set(List L, void* x){
-	if(L == NULL){
-		printf("List Error: calling set() on NULL List reference\n");
-		exit(EXIT_FAILURE);
-	}
-	if(!(L->length > 0)) {
-		printf("List Error: calling set() on empty List reference\n");
-		exit(EXIT_FAILURE);
-	}
-	if(!(index(L) >=0)){
-		printf("List Error: calling set() with invalid  List reference\n");
-		exit(EXIT_FAILURE);
-	}
-	L->curser->data = x;
-}
+void set(List L, ListElement x){
+    if( L == NULL ){
+        printf("set() called on NULL List\n");
+        exit(EXIT_FAILURE);
+    }
+    if (L->index < 0){
+        printf("set() called on index < 0\n");
+    }
+    if(length(L) <= 0){
+        printf("set() called on an empty List\n");
+        exit(EXIT_FAILURE);
+    }
+    L->cursor->val = x;
+} 
 
 void moveFront(List L){
-	if(L == NULL){
-		printf("List Error: calling moveFront() on NULL List reference\n");
-		exit(EXIT_FAILURE);
-	}
-	if(length(L) > 0){
-		L->index = 0;
-		L->curser = L->front;
-	}
+    if( L == NULL ){
+        printf("moveFront() called on NULL List\n");
+        exit(EXIT_FAILURE);
+    }
+    if (L->length > 0){
+        L->cursor = L->front;
+        L->index = 0;
+    }
 }
 
 void moveBack(List L){
-	if(L == NULL){
-		printf("List Error: calling moveBack() on NULL List reference\n");
-		exit(EXIT_FAILURE);
-	}
-	if(length(L) > 0){
-		L->index = L->length - 1;
-		L->curser = L->back;
-	}
+    if( L == NULL ){
+        printf("moveBack() called on NULL List\n");
+        exit(EXIT_FAILURE);
+    }
+    if (L->length > 0){
+        L->cursor = L->back;
+        L->index = L->length - 1;
+    }
 }
 
 void movePrev(List L){
-	if(L == NULL){
-		printf("List Error: calling movePrev() on NULL List reference\n");
-		exit(EXIT_FAILURE);
-	}
-	if(index(L) == 0){
-		L->curser = NULL;
-		L->index = -1;
-	}
-	else if(length(L)> 0){
-		L->index--;
-		L->curser = L->curser->prev;
-	}
+    if( L == NULL ){
+        printf("movePrev() called on NULL List\n");
+        exit(EXIT_FAILURE);
+    }
+    //set cursor to the element before it if it isnt the front
+    if (L->cursor != NULL && L->cursor != L->front){
+        L->cursor = L->cursor->previous;
+        L->index --;
+    }
+    // set cursor to null if it is at the front already
+    else if (L->cursor != NULL && L->cursor == L->front){
+        L->cursor = NULL;
+        L->index = -1;
+    } 
 }
 
 void moveNext(List L){
-	if(L == NULL){
-		printf("List Error: calling moveNext() on NULL List reference\n");
-		exit(EXIT_FAILURE);
-	}
-	if(index(L) == length(L) - 1){
-		L->curser = NULL;
-		L->index = -1;
-	}
-	else if(length(L) > 0){
-		L->index++;
-		L->curser = L->curser->next;
-	}
+    if( L == NULL ){
+        printf("moveNext() called on NULL List\n");
+        exit(EXIT_FAILURE);
+    }
+    // if cursor isnt at the back, move it next
+    if (L->cursor != NULL && L->cursor != L->back){
+        L->cursor = L->cursor->next;
+        L->index ++;
+    }
+    // if the cursor is already at the back, set it to null
+    else if (L->cursor != NULL && L->cursor == L->back){
+        L->cursor = NULL;
+        L->index = -1;
+    } 
 }
 
-void prepend(List L, void* x){
-	if(L == NULL){
-		printf("List Error: calling prepend() on NULL List reference\n");
-		exit(EXIT_FAILURE);
-	}
-
-	Node new = malloc(sizeof(NodeObj));
-	new->data = x;
-	if(length(L) == 0){
-		L->front = L->back = new;
-		new->prev = new->next = NULL;
-
-	}
-	else{
-		new->next = L->front;
-		L->front->prev = new;
-		new->prev = NULL;
-		L->front = new;
-	}
-	if(index(L) != -1){
-		L->index ++;
-	}
-	L->length++;
+void prepend(List L, ListElement x){
+    if( L == NULL ){
+        printf("prepend() called on NULL List\n");
+        exit(EXIT_FAILURE);
+    }
+    Node newNode = calloc(1, sizeof(NodeObj));
+    newNode->val = x;
+    newNode->previous = NULL;
+    newNode->next = NULL;
+    // set front and back to the new node if the list is empty
+    if (length(L) == 0){
+        L->front = L->back = newNode;
+        L->length ++;
+    }
+    // add it before the front if it is not
+    else{
+        L->front->previous = newNode;
+        newNode->next = L->front;
+        L->front = newNode;
+        L->length ++;
+        if (L->index >= 0){
+            L->index ++;
+        }
+    }
 }
 
-
-void append(List L, void* x){
-	if(L == NULL){
-		printf("List Error: calling append() on NULL List reference\n");
-		exit(EXIT_FAILURE);
-	}
-
-	Node new = malloc(sizeof(NodeObj));
-	new->data = x;
-
-	if(length(L) == 0){
-		L->front = L->back = new;
-		new->prev = NULL;
-		new->next = NULL;
-	}
-	else{
-		new->prev = L->back;
-		L->back->next = new;
-		L->back = new;
-		new->next = NULL;
-	}
-	L->length++;
+void append(List L, ListElement x){
+    if( L == NULL ){
+        printf("append() called on NULL List\n");
+        exit(EXIT_FAILURE);
+    }
+    Node newNode = calloc(1, sizeof(NodeObj));
+    newNode->val = x;
+    newNode->previous = NULL;
+    newNode->next = NULL;
+    // set front and back to the new node if the list is empty
+    if (length(L) == 0){
+        L->front = L->back = newNode;
+        L->length ++;
+    }
+    // add it after the back if it is not
+    else{
+        L->back->next = newNode;
+        newNode->previous = L->back;
+        L->back = newNode;
+        L->length ++;
+    }
 }
 
-void insertBefore(List L, void* x){
-	if(L == NULL){
-		printf("List Error: calling insertBefore() on NULL List reference\n");
-		exit(EXIT_FAILURE);
-	}
-	if(L->length == 0){
-		printf("List Error: calling insertBefore() on empty List\n");
-		exit(EXIT_FAILURE);
-	}
-	if(index(L) < 0){
-		printf("List Error: calling insertBefore() on undefined index\n");
-		exit(EXIT_FAILURE);
-	}
-	if(L->curser == L->front){
-		Node new = malloc(sizeof(NodeObj));
-		new->data = x;
-		L->curser->prev = new;
-		new->next = L->front;
-		L->front = new;
-		new->prev = NULL;
-	}
+void insertBefore(List L, ListElement x){
+    if( L == NULL ){
+        printf("insertBefore() called on NULL List\n");
+        exit(EXIT_FAILURE);
+    }
+    if (length(L) <= 0){
+        printf("insertBefore() called on an empty List\n");
+        exit(EXIT_FAILURE);
+    }
+    if (index(L) < 0){
+        printf("insertBefore() called on missing cursor\n");
+        exit(EXIT_FAILURE);
+    }
+    Node newNode = calloc(1, sizeof(NodeObj));
+    newNode->val = x;
+    newNode->previous = NULL;
+    newNode->next = NULL;
+    // if the cursor is at the front
+    if (L->cursor == L->front){
+        newNode->next = L->front;
+        L->front->previous = newNode;
+        L->front = newNode;
+    }
+    // if cursor is between 2 nodes or at the back
+    else{
+        L->cursor->previous->next = newNode;
+        newNode->previous = L->cursor->previous;
+        L->cursor->previous = newNode;
+        newNode->next = L->cursor;
+    }
+    L->index ++;
+    L->length ++;
+} 
 
-	else if(length(L) > 0 && index(L) > 0){
-		Node new = malloc(sizeof(NodeObj));
-		new->data = x;
-		new->prev = L->curser->prev;
-		L->curser->prev->next = new;
-		L->curser->prev = new;
-		new->next = L->curser;
-
-	}
-	L->index ++;
-	L->length ++;
-}
-
-void insertAfter(List L, void* x){
-	if(L == NULL){
-		printf("List Error: calling insertAfter() on NULL List reference\n");
-		exit(EXIT_FAILURE);
-	}
-
-	if(L->length == 0){
-		printf("List Error: calling insertAfter() on empty List\n");
-		exit(EXIT_FAILURE);
-	}
-	if(index(L) < 0){
-		printf("List Error: calling insertAfter() on undefined index\n");
-		exit(EXIT_FAILURE);
-	}
-
-	if(length(L) > 0 && L->curser == L->back){
-		Node new = malloc(sizeof(NodeObj));
-		new->data = x;
-		L->back->next = new;
-		new->prev = L->back;
-		L->back = new;
-		new->next = NULL;
-	}
-	else{
-		Node new = malloc(sizeof(NodeObj));
-		new->data = x;
-		new->next = L->curser->next;
-		L->curser->next->prev = new;
-		L->curser->next = new;
-		new->prev = L->curser;
-	}
-	//L->curser->next->prev = new;
-	//L->curser->next = new;
-	//L->index --;
-	L->length++;
-
+void insertAfter(List L, ListElement x){
+    if( L == NULL ){
+        printf("insertAfter() called on NULL List\n");
+        exit(EXIT_FAILURE);
+    }
+    if (length(L) <= 0){
+        printf("insertAFter() called on an empty List\n");
+        exit(EXIT_FAILURE);
+    }
+    if (index(L) < 0){
+        printf("insertAFter() called on missing cursor\n");
+        exit(EXIT_FAILURE);
+    }
+    Node newNode = calloc(1, sizeof(NodeObj));
+    newNode->val = x;
+    newNode->previous = NULL;
+    newNode->next = NULL;
+    // if the cursor is at the back
+    if (L->cursor == L->back){
+        newNode->previous = L->back;
+        L->back->next = newNode;
+        L->back = newNode;
+    }
+    // if cursor is between 2 nodes or at the front
+    else{
+        L->cursor->next->previous = newNode;
+        newNode->next = L->cursor->next;
+        L->cursor->next = newNode;
+        newNode->previous = L->cursor;
+    }
+    L->length ++;
 }
 
 void deleteFront(List L){
-	if(L == NULL){
-		printf("List Error: calling deleteFront() on NULL List reference\n");
-		exit(EXIT_FAILURE);
-	}
-	if(L->length == 0){
-		printf("List Error: calling deleteFront() on empty List\n");
-		exit(EXIT_FAILURE);
-	}
-	Node del = L->front;
-
-	if(length(L) > 1){
-		if(L->curser == L->front){
-			L->curser = NULL;
-			L->index = -1;
-		}
-		else{
-			L->index --;
-		}
-		L->front = L->front->next;
-		L->front->prev = NULL;
-		//L->index --;
-
-	}
-	else if(length(L) == 1){
-		L->front = L->back = L->curser = NULL;
-		L->index = -1;
-	}
-	L->length--;
-	free(del);
-	del = NULL;
+    if( L == NULL ){
+        printf("deleteFront() called on NULL List\n");
+        exit(EXIT_FAILURE);
+    }
+    if (length(L) <= 0){
+        printf("deleteFront() called on an empty List\n");
+        exit(EXIT_FAILURE);
+    }
+    Node delete = L->front;
+    //set cursor to null if theres only one thing to delete
+    if (length(L) == 1){
+        L->front = L->back = NULL;
+        L->cursor = NULL;
+        L->index = -1;
+    }
+    else{
+        //check if the cursor is at the front, set cursor to null if it is
+        if (L->cursor == L->front){
+            L->cursor = NULL;
+            L->index = -1;
+        }
+        L->front->next->previous = NULL;
+        L->front = L->front->next;
+        L->index --;
+    }
+    free(delete);
+    delete = NULL;
+    L->length --;
 }
 
 void deleteBack(List L){
-	if(L == NULL){
-		printf("List Error: calling deleteBack() on NULL List reference\n");
-		exit(EXIT_FAILURE);
-	}
-	if(L->length == 0){
-		printf("List Error: calling deleteBack() on empty List\n");
-		exit(EXIT_FAILURE);
-	}
-	Node del = L->back;
-	if(length(L) > 1){
-		if(L->curser == L->back){
-			L->curser = NULL;
-			L->index = -1;
-		}
-		L->back = L->back->prev;
-		L->back->next = NULL;
-	}
-	else{
-		L->front = L->back = L->curser = NULL;
-		L->index = -1;
-	}
-
-	L->length--;
-	free(del);
-	del = NULL;
+    if( L == NULL ){
+        printf("deleteBack() called on NULL List\n");
+        exit(EXIT_FAILURE);
+    }
+    if (length(L) <= 0){
+        printf("deleteBack() called on an empty List\n");
+        exit(EXIT_FAILURE);
+    }
+    Node delete = L->back;
+    //set cursor to null if theres only one thing to delete
+    if (length(L) == 1){
+        L->front = L->back = NULL;
+        L->cursor = NULL;
+        L->index = -1;
+    }
+    else{
+        //check if the cursor is at the back, set cursor to null if it is
+        if (L->cursor == L->back){
+            L->cursor = NULL;
+            L->index = -1;
+        }
+        L->back->previous->next = NULL;
+        L->back = L->back->previous;
+    }
+    free(delete);
+    delete = NULL;
+    L->length --;
 }
 
-
 void delete(List L){
-	if(L == NULL){
-		printf("List Error: calling delete() on NULL List reference\n");
-		exit(EXIT_FAILURE);
-	}
-	if(L->length == 0){
-		printf("List Error: calling delete() on empty List\n");
-		exit(EXIT_FAILURE);
-	}
-	if(L->curser == L->front){
-		deleteFront(L);
-	}
-	else if(L->curser ==  L->back){
-		deleteBack(L);
-	}
-	else{
-		Node left = L->curser->prev;
-		Node right = L->curser->next;
-
-		free(L->curser);
-		left->next = right;
-		right->prev = left;
-	}
-	L->length --;
-	L->curser = NULL;
-	L->index = -1;
-
+    if( L == NULL ){
+        printf("delete() called on NULL List\n");
+        exit(EXIT_FAILURE);
+    }
+    if (length(L) <= 0){
+        printf("delete() called on an empty List\n");
+        exit(EXIT_FAILURE);
+    }
+    if (index(L) < 0){
+        printf("delete() called on missing cursor\n");
+        exit(EXIT_FAILURE);
+    }
+    //call deletefront instead if we want to delete front
+    if (L->cursor == L->front){
+        deleteFront(L);
+    }
+    //call deleteback instead if we want to delete back
+    else if (L->cursor == L->back){
+        deleteBack(L);
+    }
+    else{
+        L->cursor->previous->next = L->cursor->next;
+        L->cursor->next->previous = L->cursor->previous;
+        free(L->cursor);
+        L->cursor = NULL;
+        L->index = -1;
+        L->length --;
+    }
 }
