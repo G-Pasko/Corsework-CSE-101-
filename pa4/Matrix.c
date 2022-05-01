@@ -25,7 +25,7 @@ typedef struct EntryObj{
 Matrix newMatrix(int n){
 	Matrix new = calloc(1, sizeof(MatrixObj));
 	new->size = n;
-	new->rows = calloc(n + 1, sizeof(List));
+	new->rows = calloc(n, sizeof(List));
 	for(int i = 1; i <= n; i++){
 		new->rows[i] = newList();
 	}
@@ -43,7 +43,7 @@ void freeMatrix(Matrix* pM){
 	for(int i = 1; i <= size(*pM); i++){
 		freeList(&((*pM)->rows[i]));
 	}
-	free((*pM)->rows);
+	free(&((*pM)->rows));
 	(*pM)->rows = NULL;
 	free(*pM);
 	*pM = NULL;
@@ -354,7 +354,7 @@ Matrix diff(Matrix A, Matrix B){
 // Returns a reference to a new Matrix object representing AB
 // pre: size(A)==size(B)
 double dotProd(List A, List B){
-	int total = 0;
+	double total = 0;
 	moveFront(A);
 	moveFront(B);
 	while(index(A) != -1 && index(B) != -1){
@@ -384,17 +384,20 @@ Matrix product(Matrix A, Matrix B){
 		exit(EXIT_FAILURE);
 	}
 
-	Matrix prod = newMatrix(sizeof(A));
-	return prod;
+	Matrix prod = newMatrix(size(A));
+	Matrix BT = transpose(B);
 	for(int i = 1; i <= size(A); i++){
-		for(int j = 1; i <=size(B); j++){
-			Entry new = malloc(sizeof(EntryObj));
-			new->col = j;
-			new->val = dotProd(A->rows[i], B->rows[i]);
-			append(prod->rows[i], new);
+		if(length(A->rows[i]) > 0){
+			for(int j = 1; j <= size(BT); j++){
+				if(length(BT->rows[j]) > 0){
+					double x = dotProd(A->rows[i], BT->rows[j]);
+					//printf("%.1f\n", x);
+					changeEntry(prod, i, j, x);
+				}
+			}
 		}
 	}
-
+	//freeMatrix(&BT);
 	return prod;
 }
 

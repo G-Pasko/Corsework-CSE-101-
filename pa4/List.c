@@ -56,7 +56,7 @@ void freeList(List* pL){
 //Access Functions
 int length(List L){
 	if(L == NULL){
-		printf("List Error: calling length() on NULL List reference");
+		printf("List Error: calling length() on NULL List reference\n");
 		exit(EXIT_FAILURE);
 	}
 	return(L->length);
