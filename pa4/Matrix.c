@@ -249,7 +249,17 @@ Matrix sum(Matrix A, Matrix B){
 		printf("Matrix Error: calling sum() with matrices of different sizes\n");
 		exit(EXIT_FAILURE);
 	}
-	Matrix sum = newMatrix(size(A));
+	int maxSize;
+	if(size(A) == size(B)){
+		maxSize = size(A);
+	}
+	else if(size(A) > size(B)){
+		maxSize = size(A);
+	}
+	else{
+		maxSize = size(B);
+	}
+	Matrix sum = newMatrix(maxSize);
 	for(int i = 1; i <= size(A); i++){
 		moveFront(A->rows[i]);
 		moveFront(B->rows[i]);
