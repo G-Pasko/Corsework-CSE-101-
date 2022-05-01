@@ -389,16 +389,10 @@ void delete(List L){
 		exit(EXIT_FAILURE);
 	}
 	if(L->curser == L->front){
-		Node temp = L->front->next;
-		free(L->front);
-		L->front = temp;
-		L->front->prev = NULL;
+		deleteFront(L);
 	}
 	else if(L->curser ==  L->back){
-		Node temp = L->back->prev;
-		free(L->back);
-		L->back = temp;
-		L->back->next = NULL;
+		deleteBack(L);
 	}
 	else{
 		Node left = L->curser->prev;
