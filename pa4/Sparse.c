@@ -22,6 +22,7 @@ int main(int argc, char* argv[]){
 	FILE *input = fopen(argv[1], "r");
 	FILE *output = fopen(argv[2], "w");
 	fgets(buff, 512, input);
+	int size, NNZ1, NNZ2;
 	sscanf(buff, "%d %d %d", &size, &NNZ1, &NNZ2);
 	Matrix A = newMatrix(size);
 	int row, col;
