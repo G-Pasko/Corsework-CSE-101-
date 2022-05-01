@@ -157,6 +157,7 @@ void changeEntry(Matrix M, int i, int j, double x){
 		if(((Entry)get(M->rows[i]))->col == j){
 			if(x == 0.0){
 				free(get(M->rows[i]));
+				delete(M->rows[i]);
 				return;
 			}
 			Entry new = malloc(sizeof(EntryObj));
@@ -164,6 +165,7 @@ void changeEntry(Matrix M, int i, int j, double x){
 			new->val = x;
 			insertAfter(M->rows[i], new);
 			free(get(M->rows[i]));
+			delete(M->rows[i]);
 			return;
 		}
 		if(((Entry)get(M->rows[i]))->col > j && x != 0.0){
@@ -249,17 +251,7 @@ Matrix sum(Matrix A, Matrix B){
 		printf("Matrix Error: calling sum() with matrices of different sizes\n");
 		exit(EXIT_FAILURE);
 	}
-	int maxSize;
-	if(size(A) == size(B)){
-		maxSize = size(A);
-	}
-	else if(size(A) > size(B)){
-		maxSize = size(A);
-	}
-	else{
-		maxSize = size(B);
-	}
-	Matrix sum = newMatrix(maxSize);
+	Matrix sum = newMatrix(size(A));
 	for(int i = 1; i <= size(A); i++){
 		moveFront(A->rows[i]);
 		moveFront(B->rows[i]);
