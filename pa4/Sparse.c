@@ -12,7 +12,7 @@ extern char *strdup(const char *);
 
 
 int main(int argc, char* argv[]){
-	/*
+	
 	if(argc != 3){
 		fprintf(stderr, "Incorrect number of files provided\n");
 		return 0;
@@ -24,6 +24,8 @@ int main(int argc, char* argv[]){
 	fgets(buff, 512, input);
 	sscanf(buff, "%d %d %d", &size, &NNZ1, &NNZ2);
 	Matrix A = newMatrix(size);
+	int row, col;
+	double val;
 	while((fgets(buff, 512, input) != NULL) && strcmp(buff, "\n") != 0){
 		sscanf(buff, "%d %d %f",&row, &col, &val);
 		changeEntry(A, row, col, val);
@@ -44,6 +46,6 @@ int main(int argc, char* argv[]){
 	fclose(output);
 	freeMatrix(&A);
 	freeMatrix(&B);
-	*/
+	
 	return 0;
 }
