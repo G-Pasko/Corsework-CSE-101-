@@ -156,7 +156,6 @@ void changeEntry(Matrix M, int i, int j, double x){
 	while(index(M->rows[i]) != -1){
 		if(((Entry)get(M->rows[i]))->col == j){
 			if(x == 0.0){
-				free(get(M->rows[i]));
 				delete(M->rows[i]);
 				return;
 			}
@@ -164,7 +163,6 @@ void changeEntry(Matrix M, int i, int j, double x){
 			new->col = j;
 			new->val = x;
 			insertAfter(M->rows[i], new);
-			free(get(M->rows[i]));
 			delete(M->rows[i]);
 			return;
 		}
@@ -176,7 +174,7 @@ void changeEntry(Matrix M, int i, int j, double x){
 			return;
 		}
 		if(((Entry)get(M->rows[i]))->col > j && x == 0.0){
-			free(get(M->rows[i]));
+			delete(M->rows[i]);
 			return;
 		}	
 		moveNext(M->rows[i]);
