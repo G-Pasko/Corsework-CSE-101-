@@ -12,7 +12,7 @@ extern char *strdup(const char *);
 
 
 int main(int argc, char* argv[]){
-	
+	/*
 	if(argc != 3){
 		fprintf(stderr, "Incorrect number of files provided\n");
 		return 0;
@@ -44,6 +44,6 @@ int main(int argc, char* argv[]){
 	fclose(output);
 	freeMatrix(&A);
 	freeMatrix(&B);
-	
+	*/
 	return 0;
 }
