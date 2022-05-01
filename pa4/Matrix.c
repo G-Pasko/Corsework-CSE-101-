@@ -210,7 +210,7 @@ void changeEntry(Matrix M, int i, int j, double x){
     Entry newEntry = NULL;
     if (length(M->rows[i]) == 0 && x != 0){
         newEntry = calloc(1, sizeof(EntryObj));
-        newEntry->column = j;
+        newEntry->col = j;
         newEntry->val = x;
         append(M->rows[i], newEntry);
         M->NNZ ++;
@@ -220,17 +220,17 @@ void changeEntry(Matrix M, int i, int j, double x){
     }
     else{
         for (moveFront(M->rows[i]); index(M->rows[i])>=0; moveNext(M->rows[i])){
-            if (j < ((Entry)get(M->rows[i]))->column){
+            if (j < ((Entry)get(M->rows[i]))->col){
                 if (x != 0){
                     newEntry = calloc(1, sizeof(EntryObj));
-                    newEntry->column = j;
+                    newEntry->col = j;
                     newEntry->val = x;
                     insertBefore(M->rows[i], newEntry);
                     M->NNZ ++;
                 }
                 return;
             }
-            else if (j == ((Entry)get(M->rows[i]))->column){
+            else if (j == ((Entry)get(M->rows[i]))->col){
                 if (x == 0){
                     free(get(M->rows[i]));
                     delete(M->rows[i]);
@@ -244,7 +244,7 @@ void changeEntry(Matrix M, int i, int j, double x){
         }
        if (index(M->rows[i]) < 0 && x != 0){
            newEntry = calloc(1, sizeof(EntryObj));
-           newEntry->column = j;
+           newEntry->col = j;
            newEntry->val = x;
            append(M->rows[i], newEntry);
            M->NNZ ++;
