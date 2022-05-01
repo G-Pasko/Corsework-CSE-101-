@@ -233,7 +233,7 @@ void changeEntry(Matrix M, int i, int j, double x){
             else if (j == ((Entry)get(M->rows[i]))->col){
                 if (x == 0){
                     free(get(M->rows[i]));
-                    delete(M->rows[i]);
+                    //delete(M->rows[i]);
                     M->NNZ --;
                 }
                 else{
