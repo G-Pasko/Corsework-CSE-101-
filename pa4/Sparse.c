@@ -6,6 +6,7 @@
 #include<stdlib.h>
 #include<stdbool.h>
 #include"List.h"
+#include"Matrix.h"
 
 extern char *strdup(const char *);
 
