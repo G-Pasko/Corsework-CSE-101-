@@ -83,10 +83,20 @@ int equals(Matrix A, Matrix B){
 	if(size(A) != size(B) || NNZ(A) != NNZ(B)){
 		return 0;
 	}
-
+	int lengthA = 0;
+	int lengthB = 0;
 	for(int i = 1; i <= size(A); i++){
-		if(length(A->rows[i]) == length(B->rows[i])){
-			if(length(A->rows[i]) != 0){
+		while(index(A->rows[i]) != -1){
+				lengthA ++;
+				moveNext(A->rows[i]);
+		}
+		while(index(B->rows[i]) != -1){
+				lengthB ++;
+				moveNext(B->rows[i]);
+		}
+		if(lengthA == lengthB){
+			moveFront(A->rows[i]);
+			if(lengthA != 0){
 				moveFront(A->rows[i]);
 				moveFront(B->rows[i]);
 				while(index(B->rows[i]) != -1 && index(A->rows[i]) != -1){
@@ -161,7 +171,7 @@ void changeEntry(Matrix M, int i, int j, double x){
 		if(((Entry)get(M->rows[i]))->col == j){
 			if(x == 0.0){
 				free(get(M->rows[i]));
-				delete(M->rows[i]);
+				//delete(M->rows[i]);
 				M->NNZ --;
 				return;
 			}
