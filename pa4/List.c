@@ -185,7 +185,7 @@ void moveNext(List L){
 		printf("List Error: calling moveNext() on NULL List reference\n");
 		exit(EXIT_FAILURE);
 	}
-	if(index(L) == length(L) - 1){
+	if(L->curser == L->back){
 		L->curser = NULL;
 		L->index = -1;
 	}
