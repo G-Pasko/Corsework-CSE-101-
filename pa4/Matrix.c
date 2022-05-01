@@ -173,6 +173,9 @@ void changeEntry(Matrix M, int i, int j, double x){
 			insertBefore(M->rows[i], new);
 			return;
 		}
+		if(((Entry)get(M->rows[i]))->col > j && x == 0.0){
+			free(get(M->rows[i]));
+		}	
 		moveNext(M->rows[i]);
 	}
 	if(x != 0.0){
