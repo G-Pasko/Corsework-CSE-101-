@@ -100,6 +100,10 @@ int equals(Matrix A, Matrix B){
 					}
 				}
 			}
+			else{
+				moveNext(A->rows[i]);
+				moveNext(B->rows[i]);
+			}
 		}
 		else{
 			return 0;
