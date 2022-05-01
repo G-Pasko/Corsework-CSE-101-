@@ -20,7 +20,6 @@ int main(int argc, char* argv[]){
 		return 0;
 	}
 	char buff[512];
-	int lines = 0;
 	FILE *input = fopen(argv[1], "r");
 	FILE *output = fopen(argv[2], "w");
 	fgets(buff, 512, input);
@@ -30,13 +29,13 @@ int main(int argc, char* argv[]){
 	int row, col;
 	double val;
 	while((fgets(buff, 512, input) != NULL) && strcmp(buff, "\n") != 0){
-		sscanf(buff, "%d %d %f",&row, &col, &val);
+		sscanf(buff, "%d %d %lf",&row, &col, &val);
 		changeEntry(A, row, col, val);
 	}
 	Matrix B = newMatrix(size);
 	while((fgets(buff, 512, input) != NULL)){
-		sscanf(buff, "%d %d %f",&row, &col, &val);
-		changeEntry(B, row, col val);
+		sscanf(buff, "%d %d %lf",&row, &col, &val);
+		changeEntry(B, row, col, val);
 	}
 	printMatrix(output, A);
 	printMatrix(output, B);
@@ -44,7 +43,6 @@ int main(int argc, char* argv[]){
 
 
 
-	free(words);
 	fclose(input);
 	fclose(output);
 	freeMatrix(&A);
