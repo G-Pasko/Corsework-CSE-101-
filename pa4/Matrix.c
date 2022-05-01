@@ -182,7 +182,7 @@ void changeEntry(Matrix M, int i, int j, double x){
 			return;
 		}
 		if(((Entry)get(M->rows[i]))->col > j && x == 0.0){
-			free(get(M->rows[i]));
+			//free(get(M->rows[i]));
 			return;
 		}	
 		moveNext(M->rows[i]);
