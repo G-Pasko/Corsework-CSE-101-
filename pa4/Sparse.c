@@ -45,18 +45,45 @@ int main(int argc, char* argv[]){
 	printMatrix(output, B);
 
 	fprintf(output, "(1.5)*A =\n");
-	printMatrix(output, scalarMult(1.5, A));
+	Matrix C = scalarMult(1.5, A);
+	printMatrix(output, C);
 
-	fprintf(output, "A + B =\n");
-	printMatrix(sum(A, B)); 
+	fprintf(output, "A+B =\n");
+	Matrix D = sum(A, B);
+	printMatrix(output, D);
 
+	fprintf(output, "A+A =\n");
+	Matrix E =sum(A, A);
+	printMatrix(output, E);
 
+	fprintf(output, "B-A =\n");
+	Matrix F = diff(B, A);
+	printMatrix(output, F);
 
+	fprintf(output, "Transpose(A) =\n");
+	Matrix G = transpose(A);
+	printMatrix(output, F);
+
+	fprintf(output, "A*B =\n");
+	Matrix H = product(A,B);
+	printMatrix(output, H);
+
+	fprintf(output, "B*B =\n");
+	Matrix I = product(B,B);
+	printMatrix(output, I);
 
 	fclose(input);
 	fclose(output);
 	freeMatrix(&A);
 	freeMatrix(&B);
+	freeMatrix(&C);
+	freeMatrix(&D);
+	freeMatrix(&E);
+	freeMatrix(&F);
+	freeMatrix(&G);
+	freeMatrix(&H);
+	freeMatrix(&I);
+
 	
 	return 0;
 }
