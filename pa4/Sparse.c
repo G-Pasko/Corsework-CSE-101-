@@ -40,9 +40,15 @@ int main(int argc, char* argv[]){
 	}
 	fprintf(output, "A has %d non-zero entries:\n", NNZ(A));
 	printMatrix(output, A);
+
 	fprintf(output, "B has %d non-zero entries:\n", NNZ(B));
 	printMatrix(output, B);
-	fprintf(output, "")
+
+	fprintf(output, "(1.5)*A =\n");
+	printMatrix(output, scalarMult(1.5, A));
+
+	fprintf(output, "A + B =\n");
+	printMatrix(sum(A, B)); 
 
 
 
