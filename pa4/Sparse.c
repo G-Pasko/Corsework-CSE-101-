@@ -38,8 +38,11 @@ int main(int argc, char* argv[]){
 		sscanf(buff, "%d %d %lf",&row, &col, &val);
 		changeEntry(B, row, col, val);
 	}
+	fprintf(output, "A has %d non-zero entries:\n", NNZ(A));
 	printMatrix(output, A);
+	fprintf(output, "B has %d non-zero entries:\n", NNZ(B));
 	printMatrix(output, B);
+	fprintf(output, "")
 
 
 
