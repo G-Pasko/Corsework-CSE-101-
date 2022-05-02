@@ -62,7 +62,7 @@ int main(int argc, char* argv[]){
 
 	fprintf(output, "Transpose(A) =\n");
 	Matrix G = transpose(A);
-	printMatrix(output, F);
+	printMatrix(output, G);
 
 	fprintf(output, "A*B =\n");
 	Matrix H = product(A,B);
