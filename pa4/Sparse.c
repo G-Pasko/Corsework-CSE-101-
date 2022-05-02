@@ -60,6 +60,10 @@ int main(int argc, char* argv[]){
 	Matrix F = diff(B, A);
 	printMatrix(output, F);
 
+	fprintf(output, "A-A =\n");
+	Matrix J = diff(A, A);
+	printMatrix(output, J);
+
 	fprintf(output, "Transpose(A) =\n");
 	Matrix G = transpose(A);
 	printMatrix(output, G);
@@ -83,6 +87,7 @@ int main(int argc, char* argv[]){
 	freeMatrix(&G);
 	freeMatrix(&H);
 	freeMatrix(&I);
+	freeMatrix(&J);
 
 	
 	return 0;
