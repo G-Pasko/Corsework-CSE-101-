@@ -14,8 +14,8 @@
 //Node constructor
 List::Node::Node(ListElement x){
 	data = x;
-	prev = backDummy;
-	next = frontDummy;
+	prev = nullptr;
+	next = nullptr;
 }
 
 
@@ -23,10 +23,10 @@ List::Node::Node(ListElement x){
 
 //Creates a new list in the empty state
 List::List(){
-	frontDummy = NULL;
-	backDummy = NULL;
-	beforeCursor = NULL;
-	afterCursor = NULL;
+	frontDummy = new Node;
+	backDummy = new Node;
+	beforeCursor = frontDummy;
+	afterCursor = backDummy;
 	num_elements = 0;
 	pos_cursor = 0;
 }
@@ -34,11 +34,11 @@ List::List(){
 // Copy constructor
 List::List(const List& L){
 	// make this an empty List
-	frontDummy = backDummy = afterCursor = beforeCursor = NULL;
+	frontDummy = backDummy = afterCursor = beforeCursor = nullptr;
 	num_elements = pos_cursor = 0;
 
 	Node* N = L.frontDummy;
-	while(N != NULL){
+	while(N != nullptr){
 		this->Enqueue(N->data);
 		N = N->next;
 	}
@@ -114,7 +114,16 @@ ListElement peekPrev() const{
 //Manipulation procedures----------------------------------------------
 
 void clear(){
-	;;
+	if( length == 0){
+		throw std::length_error("List: Clear(): empty List");
+	}
+
+	pos_cursor = length;
+	while(length != 0){
+		this.eraseBefore();
+	}
+
+	
 }
 
 void moveFront(){
