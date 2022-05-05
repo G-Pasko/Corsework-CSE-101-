@@ -8,6 +8,7 @@
 #include<string>
 #include"List.h"
 
+#define DUMMY -69
 
 //private Constructor
 
@@ -23,8 +24,12 @@ List::Node::Node(ListElement x){
 
 //Creates a new list in the empty state
 List::List(){
-	frontDummy = new Node;
-	backDummy = new Node;
+	frontDummy = new Node(DUMMY);
+	frontDummy->next = backDummy;
+	frontDummy->prev = nullptr;
+	backDummy = new Node(DUMMY);
+	backDummy->next = nullptr;
+	backDummy->prev = frontDummy;
 	beforeCursor = frontDummy;
 	afterCursor = backDummy;
 	num_elements = 0;
@@ -34,20 +39,30 @@ List::List(){
 // Copy constructor
 List::List(const List& L){
 	// make this an empty List
-	frontDummy = backDummy = afterCursor = beforeCursor = nullptr;
-	num_elements = pos_cursor = 0;
+	frontDummy = new Node(DUMMY);
+	frontDummy->next = backDummy;
+	frontDummy->prev = nullptr;
+	backDummy = new Node(DUMMY);
+	backDummy->next = nullptr;
+	backDummy->prev = frontDummy;
+	beforeCursor = frontDummy;
+	afterCursor = backDummy;
+	num_elements = 0;
+	pos_cursor = 0;
 
-	Node* N = L.frontDummy;
-	while(N != nullptr){
-		this->Enqueue(N->data);
+	Node* N = L.frontDummy->next;
+	while(N->next != L.backDummy){
+		this->insertAfter(N->data);
+		pos_cursor ++;
 		N = N->next;
 	}
 }
 
 // Destructor
 List::~List(){
+	pos_cursor = length;
 	while(num_elements > 0){
-		Dequeue();
+		eraseBefore();
 	}
 }
 
@@ -104,7 +119,7 @@ ListElement peekNext() const{
 // Returns the element before the cursor.
 // pre: position()>0
 ListElement peekPrev() const{
-	if(position <= 0){
+	if(position() <= 0){
 		throw std::length_error("List: peekPrev(): out of bounds position");
 	}
 	return(beforeCursor);
@@ -114,66 +129,143 @@ ListElement peekPrev() const{
 //Manipulation procedures----------------------------------------------
 
 void clear(){
-	if( length == 0){
+	if(length() == 0){
 		throw std::length_error("List: Clear(): empty List");
 	}
 
-	pos_cursor = length;
-	while(length != 0){
-		this.eraseBefore();
+	pos_cursor = length();
+	afterCursor = backDummy;
+	beforeCursor = backDummy->prev;
+	while(length() != 0){
+		eraseBefore();
 	}
 
 	
 }
 
 void moveFront(){
-	;;
+	pos_cursor = 0;
+	beforeCursor = frontDummy;
+	afterCursor = frontDummy->next;
 }
 
 void moveBack(){
-	;;
+	pos_cursor = length();
+	afterCursor = backDummy;
+	beforeCursor = backDummy->prev;
 }
 
 ListElement moveNext(){
-	;;
+	if(this == nullptr){
+		throw std::length_error("List: movePrev(): NULL list");
+	}
+	if(pos_cursor == length){
+		throw std::length_error("List: movePrev(): curser at back");
+	}
+	if(length == 0){
+		throw std::length_error("List: movePrev(): called on empty list");
+	}
+	Node* N = afterCursor;
+	pos_cursor ++;
+	beforeCursor = afterCursor;
+	afterCursor = N->next;
+	return N;
 }
 
 ListElement movePrev(){
-	;
+	if(this == nullptr){
+		throw std::length_error("List: movePrev(): NULL list");
+	}
+	if(pos_cursor == 0){
+		throw std::length_error("List: movePrev(): curser at front");
+	}
+	if(num_elements == 0){
+		throw std::length_error("List: movePrev(): called on empty list");
+	}
+	Node* N = beforeCursor;
+	pos_cursor --;
+	afterCursor = afterCursor->prev;
+	beforeCursor = N->prev;
+	return N;
 }
 
 void insertAfter(ListElement x){
-	;;
+	Node N = new Node(x);
+	beforeCursor->next = N;
+	afterCursor->prev = N;
+	N->next = afterCursor;
+	N->prev = beforeCursor;
+	afterCursor = N;
+	num_elements++;
 }
 
 void insertBefore(ListElement x){
-	;;
+	Node N = new Node(x);
+	N->prev = beforeCursor;
+	N->next = afterCursor;
+	beforeCursor->next = N;
+	afterCursor->prev = N;
 }
 
 void setAfter(ListElement x){
-	;;
+	afterCursor->data = x;
 }
 
-void setBefore(){
-	;;
+void setBefore(ListElement x){
+	beforeCursor->data = x;
 }
 
 void eraseAfter(){
-	;;
+	if(position() >= length()){
+		throw std::length_error("List: eraseBefore(): called on out of bounds position\n");
+	}
+	if(position() == 0){
+		
+	}
+	Node* newNext = afterCursor->next;
+	newNext->next = afterCursor->next->next;
+	delete(afterCursor);
+	beforeCursor->next = newNext;
+	newNext->prev = beforeCursor;
+	num_elements --;
 }
 
 void eraseBefore(){
-	;;
+	if(position() <= 0){
+		throw std::length_error("List: eraseBefore(): called on out of bounds position\n");
+	}
+	Node* newPrev = beforeCursor->prev;
+	newPrev->next =
+	delete(beforeCursor);
+	afterCursor->prev = newPrev;
+	newPrev->next = afterCursor;
+	num_elements--;
 }
 
 //Other Functions---------------------------------------------------------
 
 int findNext(ListElement x){
-	;;
+	while(position() != length()){
+		if(afterCursor->data != x){
+			pos_cursor++;
+		}
+		else{
+			return pos_cursor;
+		}
+	}
+	return -1;
 }
 
 int findPrev(ListElement x){
-	;;
+	while(position() != 0){
+		if(beforeCursor->data != x){
+			pos_cursor--;
+		}
+		else{
+			return pos_cursor;
+		}
+	}
+	return -1;
 }
 
 void cleanup(){
@@ -181,7 +273,9 @@ void cleanup(){
 }
 
 List concat(const List& L) const{
-	;;
+	List L;
+	Node* N = this->frontDummy;
+	Node* M = L->frontDummy;
 }
 
 std::string to_string() const{
