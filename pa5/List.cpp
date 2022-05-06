@@ -1,14 +1,14 @@
 //-----------------------------------------------------------------------------
 // Granger Pasko, gpasko 
 // Spring CSE101 PA5
-// List.h
+// List.cpp
 // Implementation file for List.h
 //-----------------------------------------------------------------------------
 #include<iostream>
 #include<string>
+#include<stdexcept>
+#include <climits>
 #include"List.h"
-
-#define DUMMY -69
 
 //private Constructor
 
@@ -24,10 +24,10 @@ List::Node::Node(ListElement x){
 
 //Creates a new list in the empty state
 List::List(){
-	frontDummy = new Node(DUMMY);
+	frontDummy = new Node(INT_MIN);
 	frontDummy->next = backDummy;
 	frontDummy->prev = nullptr;
-	backDummy = new Node(DUMMY);
+	backDummy = new Node(INT_MAX);
 	backDummy->next = nullptr;
 	backDummy->prev = frontDummy;
 	beforeCursor = frontDummy;
@@ -52,7 +52,7 @@ List::List(const List& L){
 
 	Node* N = L.frontDummy->next;
 	while(N->next != L.backDummy){
-		this->insertAfter(N->data);
+		this.insertAfter(N->data);
 		pos_cursor ++;
 		N = N->next;
 	}
@@ -61,7 +61,9 @@ List::List(const List& L){
 // Destructor
 List::~List(){
 	pos_cursor = length;
-	while(num_elements > 0){
+	beforeCursor = backDummy->prev;
+	afterCursor = backDummy;
+	while(length() > 0){
 		eraseBefore();
 	}
 }
@@ -81,7 +83,7 @@ int List::length() const{
 //Returns the value at the front of List
 //pre: !isEmpty()
 ListElement List::front() const{
-	if(num_elements == 0){
+	if(length() == 0){
 		throw std::length_error("List: getFront(): empty List");
 	}
 	return(frontDummy->data);
@@ -92,7 +94,7 @@ ListElement List::front() const{
 //Returns the value at the front of List
 //pre: !isEmpty()
 ListElement List::back() const{
-	if(num_elements == 0){
+	if(length() == 0){
 		throw std::length_error("List: getFront(): empty List");
 	}
 	return(backDummy->data);
@@ -129,10 +131,6 @@ ListElement peekPrev() const{
 //Manipulation procedures----------------------------------------------
 
 void clear(){
-	if(length() == 0){
-		throw std::length_error("List: Clear(): empty List");
-	}
-
 	pos_cursor = length();
 	afterCursor = backDummy;
 	beforeCursor = backDummy->prev;
@@ -169,7 +167,7 @@ ListElement moveNext(){
 	pos_cursor ++;
 	beforeCursor = afterCursor;
 	afterCursor = N->next;
-	return N;
+	return N->data;
 }
 
 ListElement movePrev(){
@@ -186,7 +184,7 @@ ListElement movePrev(){
 	pos_cursor --;
 	afterCursor = afterCursor->prev;
 	beforeCursor = N->prev;
-	return N;
+	return N->data;
 }
 
 void insertAfter(ListElement x){
@@ -220,7 +218,7 @@ void eraseAfter(){
 		throw std::length_error("List: eraseBefore(): called on out of bounds position\n");
 	}
 	if(position() == 0){
-		
+
 	}
 	Node* newNext = afterCursor->next;
 	newNext->next = afterCursor->next->next;
@@ -269,35 +267,76 @@ int findPrev(ListElement x){
 }
 
 void cleanup(){
-	;;
+	moveFront();
+	while(position() != length()){
+		if(findNext() != -1){
+			deleteAfter();
+		}
+	}
 }
 
 List concat(const List& L) const{
 	List L;
 	Node* N = this->frontDummy;
 	Node* M = L->frontDummy;
+	while(N != this.backDummy){
+		this.insertAfter(this.moveNext());
+	}
+	while(M != L.backDummy){
+		this.insertAfter(L.moveFront);
+	}
+
 }
 
 std::string to_string() const{
-	;;
+	moveFront();
+	Node* N;
+	std::string s = "";
+	for(N=frontDummy; N!=backDummy; N=N->next){
+      s += std::to_string(N->data)+" ";
+   }
+   
+   return s;
+
 }
 
 bool equals(const List& R) const{
-	;;
+	bool eq = false;
+	moveFront();
+	R.moveFront();
+
+	eq = (length() == R.length());
+	while(eq && N != backDummy){
+		eq = (moveNext() == R.moveNext());
+	}
+	return eq;
 }
 
 //Overriden Operations---------------------------------------------------
 
 friend std::ostream& operator<<( std::ostream& stream, const List& L ){
-	;;
+	return stream << L.List::to_string();
 }
 
 friend bool operator==( const List& A, const List& B){
-	;;
+	return A.List::equals(B);
 }
 
-List& operator=( cosnt List& L){
-	;
+List& operator=( const List& L){
+	if( this != &L ){ // not self assignment
+      // make a copy of Q
+      List temp = L;
+
+      // then swap the copy's fields with fields of this
+      std::swap(front, temp.front);
+      std::swap(back, temp.back);
+      std::swap(length, temp.length);
+   }
+
+   // return this with the new data installed
+   return *this;
+
+   // the copy, if there is one, is deleted upon return
 }
 
 
