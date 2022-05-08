@@ -131,15 +131,11 @@ ListElement List::peekPrev() const{
 //Manipulation procedures----------------------------------------------
 
 void List::clear(){
-	;;
-	/*
-	pos_cursor = length();
-	afterCursor = backDummy;
-	beforeCursor = backDummy->prev;
+	moveFront();
 	while(length() != 0){
-		eraseBefore();
+		eraseAfter();
 	}
-	*/
+
 }
 
 void List::moveFront(){
@@ -205,10 +201,16 @@ void List::insertBefore(ListElement x){
 }
 
 void List::setAfter(ListElement x){
+	if(position() >= length()){
+		throw std::length_error("List: setAfter(): called on out of bounds position\n");
+	}
 	afterCursor->data = x;
 }
 
 void List::setBefore(ListElement x){
+	if(position() <= 0){
+		throw std::length_error("List: setBefore(): called on out of bounds position\n");
+	}
 	beforeCursor->data = x;
 }
 
@@ -217,8 +219,9 @@ void List::eraseAfter(){
 		throw std::length_error("List: eraseBefore(): called on out of bounds position\n");
 	}
 	Node* newNext = afterCursor->next;
-	newNext->next = afterCursor->next->next;
+	newNext->prev = beforeCursor;
 	delete(afterCursor);
+	afterCursor = newNext;
 	beforeCursor->next = newNext;
 	newNext->prev = beforeCursor;
 	num_elements --;
@@ -231,8 +234,10 @@ void List::eraseBefore(){
 	Node* newPrev = beforeCursor->prev;
 	newPrev->next = afterCursor;
 	delete(beforeCursor);
+	beforeCursor = newPrev;
 	afterCursor->prev = newPrev;
 	newPrev->next = afterCursor;
+	pos_cursor --;
 	num_elements--;
 }
 
@@ -240,15 +245,12 @@ void List::eraseBefore(){
 
 int List::findNext(ListElement x){
 	Node* N = afterCursor;
+	if(N->data == x){
+		return pos_cursor;
+	}
 	while(position() != length()){
-		if(N->data != x){
-			afterCursor = N;
-			beforeCursor = beforeCursor->next;
-			N = N->next;
-			pos_cursor++;
-		}
-		else{
-			return pos_cursor + 1;
+		if(moveNext() == x){
+			return pos_cursor;
 		}
 	}
 	return -1;
@@ -256,12 +258,11 @@ int List::findNext(ListElement x){
 
 int List::findPrev(ListElement x){
 	Node* N = beforeCursor;
-	while(position() != 0){
-		if(N->data != x){
-			N = N->prev;
-			pos_cursor--;
-		}
-		else{
+	if(N->data == x){
+		return pos_cursor;
+	}
+	while(position() > 0){
+		if(movePrev() == x){
 			return pos_cursor;
 		}
 	}
@@ -269,30 +270,40 @@ int List::findPrev(ListElement x){
 }
 
 void List::cleanup(){
-	;;
-	/*
-	moveFront();
-	while(position() != length()){
-		if(findNext() != -1){
-			eraseAfter();
+	Node* N = backDummy;
+	Node* M;
+	for(int i = 0; i < length(); i++){
+		N = N->prev;
+		M = N->prev;
+		for(int j = i; j < length(); j++){
+			if(M->data == N->data){
+				N->prev->next = N->next;
+				N->next->prev = N->prev;
+				num_elements--;
+				pos_cursor = num_elements;
+				delete N;
+				break;
+			}
+			else{
+				M = M->prev;
+			}
 		}
 	}
-	*/
 }
 
 List List::concat(const List& L) const{
-	return L;
-	/*
-	List* L;
-	Node* N = frontDummy;
-	Node* M = L.frontDummy;
+	List newList;
+	Node* N = frontDummy->next;
+	Node* M = L.frontDummy->next;
 	while(N != backDummy){
-		this->insertAfter(moveNext());
+		newList.insertAfter(N->data);
+		N = N->next;
 	}
 	while(M != L.backDummy){
-		this->insertAfter(L.moveNext());
+		newList.insertAfter(M->data);
+		M = M->next;
 	}
-	*/
+	return newList;
 }
 
 std::string List::to_string() const{
@@ -307,12 +318,9 @@ std::string List::to_string() const{
 }
 
 bool List::equals(const List& R) const{
-	
-	bool eq = false;
 	Node* N = frontDummy->next;
 	Node* M = R.frontDummy->next;
-
-	eq = (length() == R.length());
+	bool eq = (num_elements == R.num_elements);
 	while(eq && N != backDummy){
 		eq = (N->data == M->data);
 		N = N->next;
@@ -333,8 +341,7 @@ bool operator==( const List& A, const List& B){
 }
 
 List& List::operator=( const List& L){
-	return *this;
-	/*
+
 	if( this != &L ){ // not self assignment
       // make a copy of Q
       List temp = L;
@@ -349,6 +356,5 @@ List& List::operator=( const List& L){
    return *this;
 
    // the copy, if there is one, is deleted upon return
-   */
 }
 
