@@ -51,11 +51,11 @@ List::List(const List& L){
 	pos_cursor = 0;
 
 	Node* N = L.frontDummy->next;
-	while(N->next != L.backDummy){
-		insertAfter(N->data);
-		pos_cursor ++;
+	while(N != L.backDummy){
+		insertBefore(N->data);
 		N = N->next;
 	}
+	moveFront();
 }
 
 // Destructor
@@ -347,9 +347,13 @@ List& List::operator=( const List& L){
       List temp = L;
 
       // then swap the copy's fields with fields of this
-      std::swap(front, temp.front);
-      std::swap(back, temp.back);
-      std::swap(length, temp.length);
+      std::swap(frontDummy, temp.frontDummy);
+      std::swap(backDummy, temp.backDummy);
+      std::swap(num_elements, temp.num_elements);
+      std::swap(afterCursor, temp.afterCursor);
+      std::swap(beforeCursor, temp.beforeCursor);
+      std::swap(pos_cursor, temp.pos_cursor);
+
    }
 
    // return this with the new data installed
