@@ -84,7 +84,7 @@ int List::length() const{
 //pre: !isEmpty()
 ListElement List::front() const{
 	if(length() == 0){
-		throw std::length_error("List: getFront(): empty List\n");
+		throw std::length_error("List: front(): empty List");
 	}
 	return(frontDummy->next->data);
 }
@@ -95,7 +95,7 @@ ListElement List::front() const{
 //pre: !isEmpty()
 ListElement List::back() const{
 	if(length() == 0){
-		throw std::length_error("List: getFront(): empty List\n");
+		throw std::length_error("List: back(): empty List");
 	}
 	return(backDummy->prev->data);
 }
@@ -112,7 +112,7 @@ int List::position() const{
 // pre: position()<length()
 ListElement List::peekNext() const{
 	if(position() >= length()){
-		throw std::length_error("List: peekNext(): out of bounds position\n");
+		throw std::range_error("List: peekNext(): out of bounds position");
 	}
 	return(afterCursor->data);
 }
@@ -122,7 +122,7 @@ ListElement List::peekNext() const{
 // pre: position()>0
 ListElement List::peekPrev() const{
 	if(position() <= 0){
-		throw std::length_error("List: peekPrev(): out of bounds position\n");
+		throw std::range_error("List: peekPrev(): out of bounds position");
 	}
 	return(beforeCursor->data);
 }
@@ -152,10 +152,10 @@ void List::moveBack(){
 
 ListElement List::moveNext(){
 	if(pos_cursor == length()){
-		throw std::length_error("List: movePrev(): curser at back\n");
+		throw std::range_error("List: moveNext(): curser at back");
 	}
 	if(length() == 0){
-		throw std::length_error("List: movePrev(): called on empty list\n");
+		throw std::range_error("List: moveNext(): called on empty list");
 	}
 	Node* N = afterCursor;
 	pos_cursor ++;
@@ -166,10 +166,10 @@ ListElement List::moveNext(){
 
 ListElement List::movePrev(){
 	if(pos_cursor == 0){
-		throw std::length_error("List: movePrev(): curser at front\n");
+		throw std::range_error("List: movePrev(): curser at front");
 	}
 	if(num_elements == 0){
-		throw std::length_error("List: movePrev(): called on empty list\n");
+		throw std::range_error("List: movePrev(): called on empty list");
 	}
 	Node* N = beforeCursor;
 	pos_cursor --;
@@ -202,21 +202,21 @@ void List::insertBefore(ListElement x){
 
 void List::setAfter(ListElement x){
 	if(position() >= length()){
-		throw std::length_error("List: setAfter(): called on out of bounds position\n");
+		throw std::range_error("List: setAfter(): called on out of bounds position");
 	}
 	afterCursor->data = x;
 }
 
 void List::setBefore(ListElement x){
 	if(position() <= 0){
-		throw std::length_error("List: setBefore(): called on out of bounds position\n");
+		throw std::range_error("List: setBefore(): called on out of bounds position");
 	}
 	beforeCursor->data = x;
 }
 
 void List::eraseAfter(){
 	if(position() >= length()){
-		throw std::length_error("List: eraseBefore(): called on out of bounds position\n");
+		throw std::range_error("List: eraseAfter(): called on out of bounds position");
 	}
 	Node* newNext = afterCursor->next;
 	newNext->prev = beforeCursor;
@@ -229,7 +229,7 @@ void List::eraseAfter(){
 
 void List::eraseBefore(){
 	if(position() <= 0){
-		throw std::length_error("List: eraseBefore(): called on out of bounds position\n");
+		throw std::range_error("List: eraseBefore(): called on out of bounds position");
 	}
 	Node* newPrev = beforeCursor->prev;
 	newPrev->next = afterCursor;
@@ -296,13 +296,16 @@ List List::concat(const List& L) const{
 	Node* N = frontDummy->next;
 	Node* M = L.frontDummy->next;
 	while(N != backDummy){
-		newList.insertAfter(N->data);
+		newList.insertBefore(N->data);
 		N = N->next;
 	}
 	while(M != L.backDummy){
-		newList.insertAfter(M->data);
+		newList.insertBefore(M->data);
 		M = M->next;
 	}
+	newList.pos_cursor = 0;
+	newList.beforeCursor = newList.frontDummy;
+	newList.afterCursor = newList.frontDummy->next;
 	return newList;
 }
 
