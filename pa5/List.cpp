@@ -278,7 +278,7 @@ void List::cleanup(){
 				delete(M);
 				num_elements--;
 				i--;
-				M = N->next;
+				Node* M = N->next;
 			}
 			else{
 				M = M->next;
