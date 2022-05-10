@@ -25,9 +25,9 @@ List::Node::Node(ListElement x){
 //Creates a new list in the empty state
 List::List(){
 	frontDummy = new Node(INT_MIN);
+	backDummy = new Node(INT_MAX);
 	frontDummy->next = backDummy;
 	frontDummy->prev = nullptr;
-	backDummy = new Node(INT_MAX);
 	backDummy->next = nullptr;
 	backDummy->prev = frontDummy;
 	beforeCursor = frontDummy;
