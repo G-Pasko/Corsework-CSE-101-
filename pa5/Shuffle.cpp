@@ -51,8 +51,9 @@ int main(int argc, char* argv[]){
 	}
 	List L;
 	int count = 0;
+	printf("deck size\t\tshuffle count\n");
 	for(int i= 0; i < size; i++){
-		printf("deck size\t\tshuffle count\n");
+		//printf("deck size\t\tshuffle count\n");
 		L.insertBefore(i);
 		List C = L;
 		shuffle(L);
