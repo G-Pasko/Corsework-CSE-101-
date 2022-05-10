@@ -24,10 +24,10 @@ List::Node::Node(ListElement x){
 
 //Creates a new list in the empty state
 List::List(){
-	frontDummy = new Node(INT_MIN);
+	Node* frontDummy = new Node(INT_MIN);
 	frontDummy->next = backDummy;
 	frontDummy->prev = nullptr;
-	backDummy = new Node(INT_MAX);
+	Node* backDummy = new Node(INT_MAX);
 	backDummy->next = nullptr;
 	backDummy->prev = frontDummy;
 	beforeCursor = frontDummy;
