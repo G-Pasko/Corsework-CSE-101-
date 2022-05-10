@@ -260,7 +260,6 @@ int List::findPrev(ListElement x){
 void List::cleanup(){
 	Node* N = backDummy;
 	Node* M;
-	Node* temp = afterCursor;
 	for(int i = 0; i < length(); i++){
 		N = N->prev;
 		M = N->prev;
