@@ -180,7 +180,6 @@ ListElement List::movePrev(){
 }
 
 void List::insertAfter(ListElement x){
-	printf("Balls\n");
 	Node* N = new Node(x);
 	beforeCursor->next = N;
 	afterCursor->prev = N;
