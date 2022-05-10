@@ -272,7 +272,7 @@ void List::cleanup(){
 				if(M == afterCursor){
 					afterCursor = M->next;
 				}
-				if(j <= position()){
+				if(j < position()){
 					pos_cursor--;
 				}
 				M->next->prev = M->prev;
@@ -280,6 +280,7 @@ void List::cleanup(){
 				Node* temp = M;
 				delete(temp);
 				num_elements--;
+				break;
 			}
 			else{
 				M = M->next;
