@@ -281,7 +281,6 @@ void List::cleanup(){
 				num_elements--;
 				pos_cursor = num_elements;
 				delete N;
-				break;
 			}
 			else{
 				M = M->prev;
