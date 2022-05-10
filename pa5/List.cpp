@@ -239,11 +239,10 @@ void List::eraseBefore(){
 //Other Functions---------------------------------------------------------
 
 int List::findNext(ListElement x){
-	Node* N = afterCursor;
-	if(N->data == x){
+	if(afterCursor->data == x){
 		return pos_cursor;
 	}
-	while(position() != length()){
+	while(position() < length()){
 		if(moveNext() == x){
 			return pos_cursor;
 		}
@@ -252,8 +251,7 @@ int List::findNext(ListElement x){
 }
 
 int List::findPrev(ListElement x){
-	Node* N = beforeCursor;
-	if(N->data == x){
+	if(beforeCursor->data == x){
 		return pos_cursor;
 	}
 	while(position() > 0){
