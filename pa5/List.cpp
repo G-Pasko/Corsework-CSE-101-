@@ -240,9 +240,6 @@ void List::eraseBefore(){
 //Other Functions---------------------------------------------------------
 
 int List::findNext(ListElement x){
-	if(afterCursor->data == x){
-		return pos_cursor;
-	}
 	while(position() < length()){
 		if(moveNext() == x){
 			return pos_cursor;
