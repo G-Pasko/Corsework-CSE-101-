@@ -280,11 +280,8 @@ void List::cleanup(){
 				Node* temp = M;
 				delete(temp);
 				num_elements--;
-				N=N->prev;
 			}
-			else{
-				M = M->next;
-			}
+			M=M->next;
 		}
 	}
 
