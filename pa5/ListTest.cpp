@@ -100,6 +100,12 @@ int main(){
 
    List E = A;
    cout << "E==A is " << (E==A?"true":"false") << endl;
+   if(B.equals(E)){
+       cout << "B==E is true" << endl;
+   }
+   else{
+      cout << "B==E is false" << endl;
+   }
 
    cout << endl;
 
@@ -116,6 +122,18 @@ int main(){
    }
    cout << "F = " << F << endl;
 
+   cout << endl;
+
+   List G;
+   for(int g = 0; g < B.length(); g++){
+     G.insertBefore(g);
+     G.insertAfter(-1 * g);
+   }
+   G.moveFront();
+   printf("G = ");
+   for(int g = 0; g < G.length(); g++){
+      cout << G.moveNext() << " ";
+   }
    cout << endl;
 
    cout << "test exceptions: " << endl;
@@ -189,55 +207,3 @@ int main(){
 
    return( EXIT_SUCCESS );
 }
-
-/*
-int length() const;
-
-   ListElement front() const;
-
-   ListElement back() const;
-
-   int position() const;
-
-   ListElement peekNext() const;
-
-   ListElement peekPrev() const;
-
-
-   // Manipulation procedures -------------------------------------------------
-
-   void clear();
-
-   void moveFront();
-
-   void moveBack();
-
-   ListElement moveNext();
-
-   ListElement movePrev();
-
-   void insertAfter(ListElement x);
-
-   void insertBefore(ListElement x);
-
-   void setAfter(ListElement x);
-
-   void setBefore(ListElement x);
-
-   void eraseAfter();
-   void eraseBefore();
-
-
-   // Other Functions ---------------------------------------------------------
-   int findNext(ListElement x);
-
-   int findPrev(ListElement x);
-
-   void cleanup();
-
-   List concat(const List& L) const;
-   
-   std::string to_string() const;
-
-   bool equals(const List& R) const;
-*/

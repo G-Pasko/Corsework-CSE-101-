@@ -24,14 +24,19 @@ List::Node::Node(ListElement x){
 
 //Creates a new list in the empty state
 List::List(){
+	//create two new nodes
 	frontDummy = new Node(INT_MIN);
 	backDummy = new Node(INT_MAX);
+	//set prev and next for both dummy's making them the extremes by
+	// setting the outsides to null
 	frontDummy->next = backDummy;
 	frontDummy->prev = nullptr;
 	backDummy->next = nullptr;
 	backDummy->prev = frontDummy;
+	//set the cursor to be between the pointers
 	beforeCursor = frontDummy;
 	afterCursor = backDummy;
+	//set int properties to 0
 	num_elements = 0;
 	pos_cursor = 0;
 }
@@ -49,24 +54,23 @@ List::List(const List& L){
 	afterCursor = backDummy;
 	num_elements = 0;
 	pos_cursor = 0;
-
+	//for each node, append a node w the value
 	Node* N = L.frontDummy->next;
 	while(N != L.backDummy){
 		insertBefore(N->data);
 		N = N->next;
 	}
+	//move to front as default
 	moveFront();
 }
 
 // Destructor
 List::~List(){
+	//clear to remove al but the dummys...
 	clear();
+	//then delete the dummys
 	delete frontDummy;
 	delete backDummy;
-	//pos_cursor = 0;
-	//num_elements = 0;
-	//beforeCursor = nullptr;
-	//afterCursor = nullptr;
 }
 
 
@@ -156,8 +160,11 @@ ListElement List::moveNext(){
 	if(pos_cursor == length()){
 		throw std::range_error("List: moveNext(): curser at back");
 	}
+	//set a pointer to be afterCurser
 	Node* N = afterCursor;
+	//incriment the pos
 	pos_cursor ++;
+	//set before to be the old after curser and set after to be afterCursor's next
 	beforeCursor = N;
 	afterCursor = N->next;
 	return N->data;
@@ -167,15 +174,21 @@ ListElement List::movePrev(){
 	if(pos_cursor <= 0){
 		throw std::range_error("List: movePrev(): curser at front");
 	}
+	//set pointer to beforeCurser
 	Node* N = beforeCursor;
+	//derease pos of curser
 	pos_cursor --;
+	//set before to be two before
 	afterCursor = afterCursor->prev;
+	//set after to be the old before
 	beforeCursor = N->prev;
 	return N->data;
 }
 
 void List::insertAfter(ListElement x){
+	//create a new node
 	Node* N = new Node(x);
+	//set the after prev and before next to be new node
 	beforeCursor->next = N;
 	afterCursor->prev = N;
 	N->next = afterCursor;
@@ -185,6 +198,7 @@ void List::insertAfter(ListElement x){
 }
 
 void List::insertBefore(ListElement x){
+	//same as insert after but everything is one node before instead of after
 	Node* N = new Node(x);
 	N->prev = beforeCursor;
 	N->next = afterCursor;
@@ -214,6 +228,7 @@ void List::eraseAfter(){
 	if(position() >= length()){
 		throw std::range_error("List: eraseAfter(): called on out of bounds position");
 	}
+	//erase node in question and connect the two halfs of the list
 	Node* newNext = afterCursor->next;
 	newNext->prev = beforeCursor;
 	delete(afterCursor);
@@ -240,6 +255,8 @@ void List::eraseBefore(){
 //Other Functions---------------------------------------------------------
 
 int List::findNext(ListElement x){
+	//from the position were at, do moveNext() until we get the same data or reach
+	//the end of the list
 	while(position() < length()){
 		if(moveNext() == x){
 			return pos_cursor;
@@ -249,6 +266,8 @@ int List::findNext(ListElement x){
 }
 
 int List::findPrev(ListElement x){
+	//from the position were at, do movePrev() until we get the same data or reach
+	//the front of the list
 	while(position() > 0){
 		if(movePrev() == x){
 			return pos_cursor;
@@ -259,33 +278,49 @@ int List::findPrev(ListElement x){
 
 void List::cleanup(){
 	//Clean up attempt 2
+	// set N to front dummy
 	Node* N = frontDummy;
 	Node* M;
 	for(int i = 0; i < length(); i++){
+		//set N to the next node and M to the node after that. on first pass,
+		// this sets N to the first node and M to the second
 		N = N->next;
 		M = N->next;
+
 		for(int j = i; j < length(); j++){
+			//for every node, check if the data is equal
 			if(N->data == M->data){
+				//if data is equal...
+				//...if M is also before curser, set before Curser to M's prev
+				// to avoid losing integrety of original list
 				if(M == beforeCursor){
 					beforeCursor = M->prev;
 				}
+				//...if M is also afterCurser, set afterCurser to M's next
+				// to avoid losing integrety of original list
 				if(M == afterCursor){
 					afterCursor = M->next;
 				}
+				//..if we remove a node that lies before the original curser pos,
+				// lower pos_cursor to make up for change in length
 				if(j < position()){
 					pos_cursor--;
 				}
+				//set M's surrounding nodes to be connected to eachother
 				M->next->prev = M->prev;
 				M->prev->next = M->next;
+				//to avoid seg fault, set a temp to M and delete the temp
 				Node* temp = M;
 				delete(temp);
+				//decrease num elements
 				num_elements--;
 			}
+			//set M to be be M->next
 			M=M->next;
 		}
 	}
 
-
+//IGNORE
 	//Clean up attempt 1
 	/*
 	Node* N = backDummy;
@@ -311,20 +346,26 @@ void List::cleanup(){
 }
 
 List List::concat(const List& L) const{
+	//create new list
 	List newList;
+	//set two nodes to be the front of each list
 	Node* N = frontDummy->next;
 	Node* M = L.frontDummy->next;
+	//add all elements of list 1 to the new list
 	while(N != backDummy){
 		newList.insertBefore(N->data);
 		N = N->next;
 	}
+	//add all elements of list 2 to the new list
 	while(M != L.backDummy){
 		newList.insertBefore(M->data);
 		M = M->next;
 	}
+	//move front on the new list
 	newList.pos_cursor = 0;
 	newList.beforeCursor = newList.frontDummy;
 	newList.afterCursor = newList.frontDummy->next;
+	//return new list
 	return newList;
 }
 
