@@ -40,9 +40,9 @@ List::List(){
 List::List(const List& L){
 	// make this an empty List
 	frontDummy = new Node(INT_MIN);
+	backDummy = new Node(INT_MAX);
 	frontDummy->next = backDummy;
 	frontDummy->prev = nullptr;
-	backDummy = new Node(INT_MAX);
 	backDummy->next = nullptr;
 	backDummy->prev = frontDummy;
 	beforeCursor = frontDummy;
@@ -63,10 +63,10 @@ List::~List(){
 	clear();
 	delete frontDummy;
 	delete backDummy;
-	pos_cursor = 0;
-	num_elements = 0;
-	beforeCursor = nullptr;
-	afterCursor = nullptr;
+	//pos_cursor = 0;
+	//num_elements = 0;
+	//beforeCursor = nullptr;
+	//afterCursor = nullptr;
 }
 
 
