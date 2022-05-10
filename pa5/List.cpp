@@ -60,12 +60,13 @@ List::List(const List& L){
 
 // Destructor
 List::~List(){
-	pos_cursor = length();
-	beforeCursor = backDummy->prev;
-	afterCursor = backDummy;
-	while(length() > 0){
-		eraseBefore();
-	}
+	clear();
+	delete frontDummy;
+	delete backDummy;
+	pos_cursor = 0;
+	num_elements = 0;
+	beforeCursor = nullptr;
+	afterCursor = nullptr;
 }
 
 
