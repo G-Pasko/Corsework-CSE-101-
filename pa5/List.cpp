@@ -282,11 +282,13 @@ void List::cleanup(){
 				num_elements--;
 				i--;
 				M = N->prev;
+				break;
 			}
 			else{
 				M = M->next;
 			}
 		}
+		N = N->next;
 	}
 
 
