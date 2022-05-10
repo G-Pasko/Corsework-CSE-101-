@@ -288,7 +288,6 @@ void List::cleanup(){
 				M = M->next;
 			}
 		}
-		N = N->next;
 	}
 
 
