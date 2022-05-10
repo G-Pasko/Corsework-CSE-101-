@@ -282,10 +282,6 @@ void List::cleanup(){
 			}
 		}
 	}
-	moveFront();
-	while(moveNext() != temp->data){
-		;;
-	}
 }
 
 List List::concat(const List& L) const{
