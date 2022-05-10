@@ -278,7 +278,9 @@ void List::cleanup(){
 				N->prev->next = N->next;
 				N->next->prev = N->prev;
 				num_elements--;
-				pos_cursor = num_elements;
+				if(pos_cursor >= j){
+					pos_cursor--;
+				}
 				delete N;
 			}
 			else{
