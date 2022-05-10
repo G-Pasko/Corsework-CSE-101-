@@ -268,10 +268,12 @@ void List::cleanup(){
 			if(N->data == M->data){
 				if(M == beforeCursor){
 					beforeCursor = M->prev;
-					pos_cursor--;
 				}
 				if(M == afterCursor){
 					afterCursor = M->next;
+				}
+				if(j <= position()){
+					pos_cursor--;
 				}
 				M->next->prev = M->prev;
 				M->prev->next = M->next;
