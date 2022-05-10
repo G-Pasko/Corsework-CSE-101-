@@ -84,7 +84,7 @@ int List::length() const{
 //Returns the value at the front of List
 //pre: !isEmpty()
 ListElement List::front() const{
-	if(length() == 0){
+	if(length() <= 0){
 		throw std::length_error("List: front(): empty List");
 	}
 	return(frontDummy->next->data);
@@ -95,7 +95,7 @@ ListElement List::front() const{
 //Returns the value at the front of List
 //pre: !isEmpty()
 ListElement List::back() const{
-	if(length() == 0){
+	if(length() <= 0){
 		throw std::length_error("List: back(): empty List");
 	}
 	return(backDummy->prev->data);
@@ -155,9 +155,6 @@ ListElement List::moveNext(){
 	if(pos_cursor == length()){
 		throw std::range_error("List: moveNext(): curser at back");
 	}
-	if(length() == 0){
-		throw std::range_error("List: moveNext(): called on empty list");
-	}
 	Node* N = afterCursor;
 	pos_cursor ++;
 	beforeCursor = afterCursor;
@@ -166,11 +163,8 @@ ListElement List::moveNext(){
 }
 
 ListElement List::movePrev(){
-	if(pos_cursor == 0){
+	if(pos_cursor <= 0){
 		throw std::range_error("List: movePrev(): curser at front");
-	}
-	if(num_elements == 0){
-		throw std::range_error("List: movePrev(): called on empty list");
 	}
 	Node* N = beforeCursor;
 	pos_cursor --;
