@@ -275,10 +275,11 @@ void List::cleanup(){
 				}
 				M->next->prev = M->prev;
 				M->prev->next = M->next;
-				delete(M);
+				Node* temp = M;
+				delete(temp);
 				num_elements--;
 				i--;
-				Node* M = N->next;
+				M = N->next;
 			}
 			else{
 				M = M->next;
