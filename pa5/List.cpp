@@ -258,10 +258,37 @@ int List::findPrev(ListElement x){
 }
 
 void List::cleanup(){
+	//Clean up attempt 2
+	Node* N = frontDummy;
+	Node* M;
+	for(int i = 0; i < length(); i++){
+		N = N->next;
+		M = N->next;
+		for(int j = i; j < length(); j++){
+			if(N->data == M->data){
+				if(M == beforeCursor){
+					beforeCursor = M->prev;
+					pos_cursor--;
+					beforeCursor->next = afterCursor;
+				}
+				if(M == afterCursor){
+					afterCursor = M->next;
+					afterCursor->prev = beforeCursor;
+				}
+				delete(M);
+				num_elements--;
+			}
+			else{
+				M = M->next;
+			}
+		}
+	}
+
+
+	//Clean up attempt 1
+	/*
 	Node* N = backDummy;
 	Node* M;
-	Node* T1 = afterCursor;
-	Node* T2 = beforeCursor;
 	for(int i = 0; i < length(); i++){
 		N = N->prev;
 		M = N->prev;
@@ -279,10 +306,7 @@ void List::cleanup(){
 				M = M->prev;
 			}
 		}
-	}
-	afterCursor = T1;
-	beforeCursor = T2;
-
+	}*/
 }
 
 List List::concat(const List& L) const{
