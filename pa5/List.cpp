@@ -260,6 +260,8 @@ int List::findPrev(ListElement x){
 void List::cleanup(){
 	Node* N = backDummy;
 	Node* M;
+	Node* T1 = afterCursor;
+	Node* T2 = beforeCursor;
 	for(int i = 0; i < length(); i++){
 		N = N->prev;
 		M = N->prev;
@@ -268,6 +270,9 @@ void List::cleanup(){
 				N->prev->next = N->next;
 				N->next->prev = N->prev;
 				num_elements--;
+				if(pos_cursor >= j){
+					pos_cursor--;
+				}
 				delete N;
 			}
 			else{
@@ -275,6 +280,9 @@ void List::cleanup(){
 			}
 		}
 	}
+	afterCursor = T1;
+	beforeCursor = T2;
+
 }
 
 List List::concat(const List& L) const{
