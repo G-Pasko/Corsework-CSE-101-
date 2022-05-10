@@ -243,10 +243,11 @@ int List::findNext(ListElement x){
 	if(N->data == x){
 		return pos_cursor;
 	}
-	while(position() != length()){
-		if(moveNext() == x){
+	while(N != backDummy){
+		if(N->data == x){
 			return pos_cursor;
 		}
+		N=N->next;
 	}
 	return -1;
 }
