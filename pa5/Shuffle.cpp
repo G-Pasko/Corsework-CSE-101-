@@ -5,87 +5,72 @@
 // A test client for List ADT
 //-----------------------------------------------------------------------------
 #include<iostream>
-#include<string>
-#include<stdexcept>
 #include"List.h"
 
 using namespace std;
 
+void shuffle(List& D){
+	List A;
+	List B;
+	D.moveFront();
+	while(D.position() != D.length() / 2){
+		A.insertBefore(D.moveNext());
+	}
+	while(D.position() != D.length()){
+		B.insertBefore(D.moveNext());
+	}
+	D.clear();
+	A.moveFront();
+	B.moveFront();
+	if(A.length() == B.length()){
+		while(A.position() != A.length()){
+			D.insertBefore(B.moveNext());
+			D.insertBefore(A.moveNext());
+		}
+	}
+	else{
+		D.insertBefore(B.moveNext());
+		while(A.position() != A.length()){
+			D.insertBefore(A.moveNext());
+			D.insertBefore(B.moveNext());
+		}
+	}
 
-int main(void){
-	List L;
-	L.insertAfter(5);
-	L.insertAfter(4);
-	L.insertAfter(3);
-	L.moveFront();
-	std::cout<<"\nL.moveNext() = " <<L.moveNext() <<std::endl;
-	std::cout<<"\nL.moveNext() = " <<L.moveNext() <<std::endl;	
-	std::cout<<"\nL.moveNext() = " <<L.moveNext() <<std::endl;
-	std::cout<<"\nA.movePrev() = " <<L.movePrev() <<std::endl;	
-	L.moveBack();
-	std::cout<<"\nA.movePrev() = " <<L.movePrev() <<std::endl;	
-	std::cout<<"\nA.movePrev() = " <<L.movePrev() <<std::endl;	
-	std::cout<<"\nA.movePrev() = " <<L.movePrev() <<std::endl;
-	L.insertBefore(2);
-	std::cout<<"\nA.movePrev() = " <<L.movePrev() <<std::endl;	
-	L.setAfter(1);
-	std::cout<<"\nL.moveNext() = " <<L.moveNext() <<std::endl;
-	
-	L.moveBack();
-	L.setBefore(29);
-	std::cout<<"\nL.movePrev() = " <<L.movePrev() <<std::endl;
-
-	exit(EXIT_SUCCESS);
 }
 
-/*
-int length() const;
 
-   ListElement front() const;
+int main(int argc, char* argv[]){
+	if(argc != 2){
+		cout << "Invalid number of arguments" << endl;
+		exit(EXIT_FAILURE);
+	}
 
-   ListElement back() const;
+	int size = atoi(argv[1]);
+	if(size <= 0){
+		cout << "Invalid size of list" << endl;
+	}
+	List L;
+	int count = 0;
+	for(int i= 0; i < size; i++){
+		printf("deck size\t\tshuffle count\n");
+		L.insertBefore(i);
+		List C = L;
+		shuffle(L);
+		count++;
+		while(!(C.equals(L))){
+			shuffle(L);
+			count++;
+		}
+		printf("%d\t\t\t%d\n", i + 1, count);
+		count = 0;
+	}
 
-   int position() const;
-
-   ListElement peekNext() const;
-
-   ListElement peekPrev() const;
-
-
-   // Manipulation procedures -------------------------------------------------
-
-   void clear();
-
-   void moveFront();
-
-   void moveBack();
-
-   ListElement moveNext();
-
-   ListElement movePrev();
-
-   void insertAfter(ListElement x);
-
-   void insertBefore(ListElement x);
-
-   void setAfter(ListElement x);
-
-   void setBefore(ListElement x);
-
-   void eraseAfter();
-   void eraseBefore();
+	//add 0 to a new list
+	//run shuffle until the list is the same
+	//add next element 
+	//re shuffle
 
 
-   // Other Functions ---------------------------------------------------------
-   int findNext(ListElement x);
+	return 0;
+}
 
-   int findPrev(ListElement x);
-
-   void cleanup();
-
-   List concat(const List& L) const;
-   
-   std::string to_string() const;
-
-   bool equals(const List& R) const;
-*/

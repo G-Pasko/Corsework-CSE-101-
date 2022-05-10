@@ -189,3 +189,55 @@ int main(){
 
    return( EXIT_SUCCESS );
 }
+
+/*
+int length() const;
+
+   ListElement front() const;
+
+   ListElement back() const;
+
+   int position() const;
+
+   ListElement peekNext() const;
+
+   ListElement peekPrev() const;
+
+
+   // Manipulation procedures -------------------------------------------------
+
+   void clear();
+
+   void moveFront();
+
+   void moveBack();
+
+   ListElement moveNext();
+
+   ListElement movePrev();
+
+   void insertAfter(ListElement x);
+
+   void insertBefore(ListElement x);
+
+   void setAfter(ListElement x);
+
+   void setBefore(ListElement x);
+
+   void eraseAfter();
+   void eraseBefore();
+
+
+   // Other Functions ---------------------------------------------------------
+   int findNext(ListElement x);
+
+   int findPrev(ListElement x);
+
+   void cleanup();
+
+   List concat(const List& L) const;
+   
+   std::string to_string() const;
+
+   bool equals(const List& R) const;
+*/
