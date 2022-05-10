@@ -263,8 +263,6 @@ int List::findPrev(ListElement x){
 void List::cleanup(){
 	Node* N = backDummy;
 	Node* M;
-	Node* T1 = afterCursor;
-	Node* T2 = beforeCursor;
 	int temp_pos = pos_cursor;
 
 	for(int i = 0; i < length(); i++){
@@ -285,13 +283,8 @@ void List::cleanup(){
 			}
 		}
 	}
-	afterCursor = T1;
-	beforeCursor = T2;
-	if(temp_pos > length()){
+	if(temp_pos >= length()){
 		moveBack();
-	}
-	else{
-		pos_cursor = temp_pos;
 	}
 }
 
