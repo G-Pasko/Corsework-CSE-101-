@@ -264,11 +264,10 @@ void List::cleanup(){
 	Node* N = backDummy;
 	Node* M;
 	int temp_pos = pos_cursor;
-
 	for(int i = 0; i < length(); i++){
 		N = N->prev;
 		M = N->prev;
-		for(int j = i+1; j <= length(); j++){
+		for(int j = i; j < length(); j++){
 			if(M->data == N->data){
 				N->prev->next = N->next;
 				N->next->prev = N->prev;
