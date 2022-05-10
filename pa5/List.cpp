@@ -257,7 +257,8 @@ int List::findPrev(ListElement x){
 	}
 	while(position() > 0){
 		if(movePrev() == x){
-			return ++pos_cursor;
+			movePrev();
+			return pos_cursor;
 		}
 	}
 	return -1;
