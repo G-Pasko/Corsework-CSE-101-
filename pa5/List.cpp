@@ -273,7 +273,7 @@ void List::cleanup(){
 	for(int i = 0; i < length(); i++){
 		N = N->prev;
 		M = N->prev;
-		for(int j = i; j < length(); j++){
+		for(int j = i+1; j <= length(); j++){
 			if(M->data == N->data){
 				N->prev->next = N->next;
 				N->next->prev = N->prev;
