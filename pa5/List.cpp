@@ -240,13 +240,13 @@ void List::eraseBefore(){
 
 int List::findNext(ListElement x){
 	Node* N = afterCursor;
-	int pos = pos_cursor;
-	while(N != backDummy){
-		if(N->data == x){
-			return pos;
+	if(N->data == x){
+		return pos_cursor;
+	}
+	while(position() != length()){
+		if(moveNext() == x){
+			return pos_cursor;
 		}
-		N=N->next;
-		pos++;
 	}
 	return -1;
 }
@@ -281,6 +281,7 @@ void List::cleanup(){
 				num_elements--;
 				pos_cursor = num_elements;
 				delete N;
+				break;
 			}
 			else{
 				M = M->prev;
