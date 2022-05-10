@@ -136,6 +136,7 @@ void List::clear(){
 	while(length() != 0){
 		eraseAfter();
 	}
+	moveFront();
 
 }
 
@@ -157,7 +158,7 @@ ListElement List::moveNext(){
 	}
 	Node* N = afterCursor;
 	pos_cursor ++;
-	beforeCursor = afterCursor;
+	beforeCursor = N;
 	afterCursor = N->next;
 	return N->data;
 }
@@ -244,7 +245,7 @@ int List::findNext(ListElement x){
 	}
 	while(position() < length()){
 		if(moveNext() == x){
-			return --pos_cursor;
+			return pos_cursor;
 		}
 	}
 	return -1;
@@ -256,7 +257,7 @@ int List::findPrev(ListElement x){
 	}
 	while(position() > 0){
 		if(movePrev() == x){
-			return --pos_cursor;
+			return pos_cursor;
 		}
 	}
 	return -1;
