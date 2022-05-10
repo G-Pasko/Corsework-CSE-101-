@@ -288,7 +288,12 @@ void List::cleanup(){
 	}
 	afterCursor = T1;
 	beforeCursor = T2;
-	pos_cursor = temp_pos;
+	if(temp_pos > length()){
+		pos_cursor = length();
+	}
+	else{
+		pos_cursor = temp_pos;
+	}
 }
 
 List List::concat(const List& L) const{
