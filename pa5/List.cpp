@@ -270,10 +270,12 @@ void List::cleanup(){
 					beforeCursor = M->prev;
 					pos_cursor--;
 					beforeCursor->next = afterCursor;
+					beforeCursor->prev = M->prev->prev;
 				}
 				if(M == afterCursor){
 					afterCursor = M->next;
 					afterCursor->prev = beforeCursor;
+					afterCursor->next = M->next->next;
 				}
 				delete(M);
 				num_elements--;
