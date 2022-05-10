@@ -289,7 +289,7 @@ void List::cleanup(){
 	afterCursor = T1;
 	beforeCursor = T2;
 	if(temp_pos > length()){
-		pos_cursor = length();
+		moveFront;
 	}
 	else{
 		pos_cursor = temp_pos;
