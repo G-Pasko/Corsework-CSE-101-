@@ -9,12 +9,17 @@
 #include<string>
 #include<cstdio>
 #include<stdexcept>
+#include<cmath>
 #include<cctype>
 #include"List.h"
 #include"BigInteger.h"
 
-// Exported type  -------------------------------------------------------------
+const int power = 1;
+const ListElement base = 10;
 
+//Use stol
+
+// Exported type  -------------------------------------------------------------
 
    // BigInteger Fields 
    //int signum;    // +1 (positive), -1 (negative), 0 (zero)
@@ -36,7 +41,7 @@
    // {0,1,2,3,4,5,6,7,8,9}, and an optional sign {+,-} prefix.
 	BigInteger::BigInteger(std::string s){
 		if(s.empty()){
-			throw std::invalid_argument("null input detected in constructor");
+			throw std::invalid_argument("BigInteger: Constructor: empty string");
 		}
 		int j = 0;
 		int i;
@@ -52,27 +57,26 @@
 		
 		for(i = j; i < s.length(); i++){
 			if(!isalnum(s[i])){
-				throw std::invalid_argument("invalid input detected in constructor");
+				throw std::invalid_argument("BigInteger: Constructor: empty string");
 			}
 		}
-		List num;
-		if((s.length() - j) % 2 == 0){
-			for(i =	j+1; i < s.length(); i+=2){
-				num.insertBefore(10*s[i-1] + s[i]);
-			}
+		printf("%lu\n", s.length());
+		for(i = s.length(); i >= power; i = i - power){
+			digits.insertAfter(stol(s.substr(i - power, power)));
+			printf("%ld\n", stol(s.substr(i - power, power)));
 		}
-		else{
-			num.insertBefore(s[j]);
-			for(i =	j+2; i < s.length(); i+=2){
-				num.insertBefore(10*s[i-1] + s[i]);
-			}
+		if(i > 0){
+			digits.insertAfter(stol(s.substr(0, i)));
 		}
+
 	}
 
    // BigInteger()
    // Constructor that creates a copy of N.
 	
-	BigInteger::BigInteger(const BigInteger& N);
+	BigInteger::BigInteger(const BigInteger& N){
+		;;
+	}
 
    // Optional Destuctor
    // ~BigInteger()
@@ -91,7 +95,9 @@
    // compare()
    // Returns -1, 1 or 0 according to whether this BigInteger is less than N,
    // greater than N or equal to N, respectively.
-   int BigInteger::compare(const BigInteger& N) const;
+	int BigInteger::compare(const BigInteger& N) const{
+		return 0;
+	}
 
 
    // Manipulation procedures -------------------------------------------------
@@ -100,28 +106,36 @@
    // Re-sets this BigInteger to the zero state.
 	void BigInteger::makeZero(){
 		signum = 0;
-		num.cleanup();
+		digits.cleanup();
 	}
 
    // negate()
    // If this BigInteger is zero, does nothing, otherwise reverses the sign of 
    // this BigInteger positive <--> negative. 
-   void BigInteger::negate();
+	void BigInteger::negate(){
+		return;
+	}
 
 
    // BigInteger Arithmetic operations ----------------------------------------
 
    // add()
-   // Returns a BigInteger representing the sum of this and N.
-   BigInteger BigInteger::add(const BigInteger& N) const;
+   // Returns a BigInteger representing the sum of this and N
+	BigInteger BigInteger::add(const BigInteger& N) const{
+		return N;
+	}
 
    // sub()
    // Returns a BigInteger representing the difference of this and N.
-   BigInteger BigInteger::sub(const BigInteger& N) const;
+	BigInteger BigInteger::sub(const BigInteger& N) const{
+		return N;
+	}
 
    // mult()
    // Returns a BigInteger representing the product of this and N. 
-   BigInteger BigInteger::mult(const BigInteger& N) const;
+	BigInteger BigInteger::mult(const BigInteger& N) const{
+		return N;
+	}
 
 
    // Other Functions ---------------------------------------------------------
@@ -131,7 +145,9 @@
    // base 10 digits. If this BigInteger is negative, the returned string 
    // will begin with a negative sign '-'. If this BigInteger is zero, the
    // returned string will consist of the character '0' only.
-   std::string BigInteger::to_string();
+	std::string BigInteger::to_string(){
+		return "hey";
+	}
 
 
    // Overriden Operators -----------------------------------------------------
@@ -162,25 +178,25 @@
 
    // operator+()
    // Returns the sum A+B. 
-   BigInteger BigInteger::operator+( const BigInteger& A, const BigInteger& B );
+   BigInteger operator+( const BigInteger& A, const BigInteger& B );
 
    // operator+=()
    // Overwrites A with the sum A+B. 
-   BigInteger BigInteger::operator+=( BigInteger& A, const BigInteger& B );
+   BigInteger operator+=( BigInteger& A, const BigInteger& B );
 
    // operator-()
    // Returns the difference A-B. 
-   BigInteger BigInteger::operator-( const BigInteger& A, const BigInteger& B );
+   BigInteger operator-( const BigInteger& A, const BigInteger& B );
 
    // operator-=()
    // Overwrites A with the difference A-B. 
-   BigInteger BigInteger::operator-=( BigInteger& A, const BigInteger& B );
+   BigInteger operator-=( BigInteger& A, const BigInteger& B );
 
    // operator*()
    // Returns the product A*B. 
-   BigInteger BigInteger::operator*( const BigInteger& A, const BigInteger& B );
+   BigInteger operator*( const BigInteger& A, const BigInteger& B );
 
    // operator*=()
    // Overwrites A with the product A*B. 
-   BigInteger BigInteger::operator*=( BigInteger& A, const BigInteger& B );
+   BigInteger operator*=( BigInteger& A, const BigInteger& B );
    
