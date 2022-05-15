@@ -63,7 +63,6 @@ const ListElement base = 10;
 		printf("%lu\n", s.length());
 		for(i = s.length(); i >= power; i = i - power){
 			digits.insertAfter(stol(s.substr(i - power, power)));
-			printf("%ld\n", stol(s.substr(i - power, power)));
 		}
 		if(i > 0){
 			digits.insertAfter(stol(s.substr(0, i)));
@@ -146,7 +145,7 @@ const ListElement base = 10;
    // will begin with a negative sign '-'. If this BigInteger is zero, the
    // returned string will consist of the character '0' only.
 	std::string BigInteger::to_string(){
-		return "hey";
+		return digits.to_string();
 	}
 
 
