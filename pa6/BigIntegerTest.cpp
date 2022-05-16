@@ -23,8 +23,14 @@ int main(){
    BigInteger B = BigInteger(s3);
    
 
-   cout << "A = " << A.to_string() << endl;
-   cout << "B = " << B.to_string() << endl;
+   cout << "A = " << A << endl;
+   cout << "B = " << B << endl;
+
+   BigInteger C = A+B;
+   BigInteger D = B+A;
+   cout << "C = " << C << endl;
+   cout << "D = " << D << endl;
+
    return EXIT_SUCCESS;
 }
 /*
