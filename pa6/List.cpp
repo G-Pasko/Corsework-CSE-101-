@@ -370,10 +370,10 @@ List List::concat(const List& L) const{
 }
 
 std::string List::to_string() const{
-	Node* N = backDummy->prev;
+	Node* N = frontDummy->next;
 	std::string s = std::to_string(N->data);
-	for(N=N->prev; N!=frontDummy; N=N->prev){
-      s += std::to_string(N->data);
+	for(N=N->next; N!=backDummy; N=N->next){
+      s += " "  + std::to_string(N->data);
    }
    
    return s;

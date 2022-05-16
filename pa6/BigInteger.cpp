@@ -33,6 +33,7 @@ const ListElement base = pow(10, power);
    // signum=0, digits=().
 	BigInteger::BigInteger(){
 		signum = 0;
+		List digits;
 	}
 
    // BigInteger()
@@ -76,13 +77,8 @@ const ListElement base = pow(10, power);
    // Constructor that creates a copy of N.
 	
 	BigInteger::BigInteger(const BigInteger& N){
-		BigInteger M;
-		List A = N.digits;
-		A.moveBack();
-		while(A.position() != 0){
-			digits.insertBefore(A.movePrev());
-		}
 		signum = N.signum;
+		digits = N.digits;
 	}
 
    // Optional Destuctor
@@ -141,7 +137,11 @@ const ListElement base = pow(10, power);
 		List M;
 		A.moveBack();
 		B.moveBack();
-		
+			
+		printf("%ld\n", A.back());
+		printf("%ld\n", B.back());
+
+
 		if(sign < 0){
 			negateList(B);
 		}
@@ -175,11 +175,10 @@ const ListElement base = pow(10, power);
 
 	
 	//Normalize
-	int normalize(List& L){
+	int normalizeList(List& L){
 		List M; 
 		L.moveBack();
-
-		for(int i = 0; i < L.length(); i++){
+		for(int i = 0; i < L.length() -1; i++){
 			if(L.peekPrev() >= base){
 				long prev_val = L.movePrev(); 
 				M.insertAfter(prev_val - base);
@@ -202,6 +201,14 @@ const ListElement base = pow(10, power);
 			return 1;
 		}
 		return 0;
+	}
+
+	void shiftList(){
+		return;
+	}
+
+	void scalarMultList(List& L, ListElement m){
+		return;
 	}
 
    // makeZero()
@@ -262,7 +269,7 @@ const ListElement base = pow(10, power);
 			}
 		}
 		*/
-		normalize(sum.digits);
+		normalizeList(sum.digits);
 		return sum;
 	}
 
@@ -305,7 +312,7 @@ const ListElement base = pow(10, power);
 			}
 		}
 		*/
-		normalize(diff.digits);
+		normalizeList(diff.digits);
 		return diff;
 	}
 
@@ -370,9 +377,8 @@ const ListElement base = pow(10, power);
    // Returns the sum A+B. 
 	BigInteger operator+( const BigInteger& A, const BigInteger& B ){
 		BigInteger S = A.add(B);
-		//normalize(S.digits);
+		//normalizeList(S.digits);
 		return S;
-
 	}
 
    // operator+=()
