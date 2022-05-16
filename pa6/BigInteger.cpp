@@ -50,6 +50,9 @@ const ListElement base = 10;
 				j = 1;
 				signum = -1;
 			}
+			else{
+				signum = 1;
+			}
 		}
 		else{
 			signum = 1;
@@ -110,6 +113,26 @@ const ListElement base = 10;
 
    // Manipulation procedures -------------------------------------------------
 
+	//Normalize
+	void BigInteger::normalize(){
+		digits.moveBack();
+		for(int i = 0; i < digits.length(); i++){
+			if(digits.peekPrev() >= pow(base, power)){
+				int prev_val = digits.movePrev(); 
+				digits.setAfter(prev_val - pow(base, power));
+				digits.setBefore(digits.peekPrev() + 1);
+			}
+			else if(digits.peekPrev() < 0){
+				int prev_val = digits.movePrev(); 
+				digits.setAfter(prev_val + pow(base, power));
+				digits.setBefore(digits.peekPrev() + 1);
+			}
+			else{
+				digits.movePrev();
+			}
+		}
+	}
+
    // makeZero()
    // Re-sets this BigInteger to the zero state.
 	void BigInteger::makeZero(){
@@ -121,7 +144,10 @@ const ListElement base = 10;
    // If this BigInteger is zero, does nothing, otherwise reverses the sign of 
    // this BigInteger positive <--> negative. 
 	void BigInteger::negate(){
-		return;
+		if(signum == 0){
+			return;
+		}
+		signum *= -1;
 	}
 
 
@@ -130,13 +156,68 @@ const ListElement base = 10;
    // add()
    // Returns a BigInteger representing the sum of this and N
 	BigInteger BigInteger::add(const BigInteger& N) const{
-		return N;
+		BigInteger sum;
+
+		digits.moveBack();
+		N.digits.moveBack();
+		
+		int large = 0;
+		
+		if(digits.length() < N.digits.length()){
+			large = 1;
+		}
+		else if(digits.length() > N.digits.length()){
+			large = 2;
+		}
+		
+		for(int i = 0; i < fmin(digits.length(), N.digits.length()); i++){
+			sum.digits.insertBefore(digits.movePrev() + N.digits.movePrev());
+		}
+		
+		if(large == 1){							//if original number is larger
+			for(i = i; i < digits.length(); i++){
+				sum.digits.insertBefore(digits.movePrev());
+			}
+		}
+		else if(large == 2){					//if number being added is larger
+			for(i = i; i < N.digits.length(); i++){
+				sum.digits.insertBefore(N.digits.movePrev());
+			}
+		}
+		return sum;
 	}
 
    // sub()
    // Returns a BigInteger representing the difference of this and N.
 	BigInteger BigInteger::sub(const BigInteger& N) const{
-		return N;
+		BigInteger diff;
+
+		digits.moveBack();
+		N.digits.moveBack();
+		
+		int large = 0;
+		
+		if(digits.length() < N.digits.length()){
+			large = 1;
+		}
+		else if(digits.length() > N.digits.length()){
+			large = 2;
+		}
+		
+		for(int i = 0; i < fmin(digits.length(), N.digits.length()); i++){
+			diff.digits.insertBefore(digits.movePrev() - N.digits.movePrev());
+		}
+		
+		if(large == 1){							//if original number is larger
+			for(i = i; i < digits.length(); i++){
+				diff.digits.insertBefore(digits.movePrev());
+			}
+		}
+		else if(large == 2){					//if number being added is larger
+			for(i = i; i < N.digits.length(); i++){
+				diff.digits.insertBefore(-1 * N.digits.movePrev());
+			}
+		}
 	}
 
    // mult()
@@ -191,7 +272,10 @@ const ListElement base = 10;
 
    // operator+()
    // Returns the sum A+B. 
-   BigInteger operator+( const BigInteger& A, const BigInteger& B );
+	BigInteger operator+( const BigInteger& A, const BigInteger& B ){
+		A.sum(B);
+
+	}
 
    // operator+=()
    // Overwrites A with the sum A+B. 

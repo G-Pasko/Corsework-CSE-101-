@@ -59,6 +59,8 @@ public:
 
    // Manipulation procedures -------------------------------------------------
 
+
+   void normalize();
    // makeZero()
    // Re-sets this BigInteger to the zero state.
    void makeZero();
