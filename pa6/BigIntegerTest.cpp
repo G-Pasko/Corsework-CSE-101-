@@ -25,28 +25,22 @@ int main(){
 
    cout << "A = " << A << endl;
    cout << "B = " << B << endl;
+   cout << endl;
 
    BigInteger C = A+B;
-   BigInteger D = B+A;
    cout << "C = " << C << endl;
-   cout << "D = " << D << endl;
-
-   return EXIT_SUCCESS;
-}
-/*
-   cout << endl;
-
-   cout << "A = " << A << endl;
-   cout << "B = " << B << endl;
-   cout << endl;
-
-   BigInteger C = A+B;
    BigInteger D = B+A;
+   cout << "D = " << D << endl;
    BigInteger E = A-A;
+   cout << "E = " << E << endl;
    BigInteger F = B-A;
+   cout << "F = " << F << endl;
    BigInteger G = A*B;
+   cout << "G = " << G << endl;
    BigInteger H = B*A;
+   cout << "H = " << H << endl;
    BigInteger I = C*E;
+   cout << "I = " << I << endl;
 
    cout << "(A==B) = " << ((A==B)?"True":"False") << endl;
    cout << "(A<B)  = " << ((A<B)? "True":"False") << endl;
@@ -54,8 +48,8 @@ int main(){
    cout << "(A>B)  = " << ((A>B)? "True":"False") << endl;
    cout << "(A>=B) = " << ((A>=B)?"True":"False") << endl << endl;
 
-   cout << "C = " << C << endl;
-   cout << "D = " << D << endl;
+   
+   
    cout << "(C==D) = " << ((C==D)?"True":"False") << endl;
    cout << "E = " << E << endl;
    cout << "F = " << F << endl;
@@ -108,4 +102,3 @@ int main(){
 
    return EXIT_SUCCESS;
 }
-*/

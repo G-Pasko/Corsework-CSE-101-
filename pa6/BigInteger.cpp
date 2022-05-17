@@ -187,27 +187,44 @@ const ListElement base = pow(10, power);
 		List M; 
 		L.moveBack();
 		for(int i = 0; i < L.length(); i++){
-			if(L.peekPrev() >= base){
-				long new_val = L.movePrev(); 
-				while(L.peekNext() >= base){ 
-					L.setAfter(new_val - base);
-					L.setBefore(L.peekPrev() + 1);
-					new_val = L.peekNext();
+			if(L.position() != 0){
+				if(L.peekPrev() >= base){
+					long new_val = L.movePrev(); 
+					while(L.peekNext() >= base){ 
+						L.setAfter(new_val - base);
+						L.setBefore(L.peekPrev() + 1);
+						new_val = L.peekNext();
+					}
+					M.insertAfter(new_val);
 				}
-				M.insertAfter(new_val);
-			}
-			else if(L.peekPrev() < 0){
-				long new_val = L.movePrev(); 
-				while(L.peekNext() < 0){ 
-					L.setAfter(new_val + base);
-					L.setBefore(L.peekPrev() - 1);
-					new_val = L.peekNext();
+				else if(L.peekPrev() < 0){
+					long new_val = L.movePrev(); 
+					while(L.peekNext() < 0){ 
+						L.setAfter(new_val + base);
+						L.setBefore(L.peekPrev() - 1);
+						new_val = L.peekNext();
+					}
+					M.insertAfter(new_val);
 				}
-				M.insertAfter(new_val);
+				else{
+					M.insertAfter(L.movePrev());
+				}
 			}
 			else{
-				M.insertAfter(L.movePrev());
+				if(L.peekNext() >= base){
+					int front = 1;
+					L.setAfter(L.peekNext() - base);
+					int new_val = L.peekNext();
+					while(L.peekNext() >= base){
+						front++;
+						L.setAfter(L.peekNext() - base);
+						new_val = L.peekNext();
+					}
+					M.insertAfter(new_val);
+					M.insertBefore(front);
+				}
 			}
+			
 		}
 		L = M;
 		if(L.front() < 0){
@@ -219,12 +236,23 @@ const ListElement base = pow(10, power);
 		return 0;
 	}
 
-	void shiftList(){
-		return;
+	void shiftList(List& L, int p){
+		List A = L;
+		A.moveBack();
+		for(int i = 0; i < p; i++){
+			A.insertAfter(0);
+		}
+		L = A;
 	}
 
 	void scalarMultList(List& L, ListElement m){
-		return;
+		List A = L;
+		A.moveFront();
+		for(int i = 0; i < A.length(); i++){
+			A.setAfter(A.peekNext() * m);
+			A.moveNext();
+		}
+		L = A;
 	}
 
    // makeZero()
@@ -274,7 +302,25 @@ const ListElement base = pow(10, power);
    // mult()
    // Returns a BigInteger representing the product of this and N. 
 	BigInteger BigInteger::mult(const BigInteger& N) const{
-		return N;
+		BigInteger sum;
+		if(signum == 0 || N.signum == 0){
+			return sum;
+		}
+		List N_digits = N.digits;
+		if(N.signum < 0){
+			negateList(N_digits);
+		}
+		N_digits.moveBack();
+		for(int i = 0; i < N_digits.length(); i++){
+			long num = N_digits.movePrev();
+			List scaled = digits;
+			scalarMultList(scaled, num);
+			shiftList(scaled, i);
+			sumList(sum.digits, N_digits, scaled, 1);
+			sum.signum = normalizeList(sum.digits);
+		}
+		return sum;
+
 	}
 
 
