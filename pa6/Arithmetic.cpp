@@ -57,7 +57,7 @@ int main(int argc, char* argv[]){
 	C1 = BigInteger(c1);
 	c2 = "16";
 	C2 = BigInteger(c2);
-	std::cout  C1*A*A*A*A + C2*B*B*B*B*B << std::endl;
+	std::cout << C1*A*A*A*A + C2*B*B*B*B*B << std::endl;
 	std::cout << std::endl;
 
 
