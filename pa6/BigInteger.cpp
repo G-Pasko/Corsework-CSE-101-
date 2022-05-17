@@ -99,8 +99,8 @@ const ListElement base = pow(10, power);
    // Returns -1, 1 or 0 according to whether this BigInteger is less than N,
    // greater than N or equal to N, respectively.
 	int BigInteger::compare(const BigInteger& N) const{
-		if(signum != N.signum){
-			if(signum < N.signum){
+		if(this->signum != N.signum){
+			if(this->signum < N.signum){
 				return -1;
 			}
 			else{
@@ -108,29 +108,39 @@ const ListElement base = pow(10, power);
 			}
 		}
 		else{
-			if(digits.length() > N.digits.length()){
-				return 1;
-			}
-			else if(digits.length() < N.digits.length()){
-				return -1;
+			List A = digits;
+			List B = N.digits;
+			if(signum == -1){
+				if(A.length() < B.length()){
+					return 1;
+				}
+				else if(A.length() > B.length()){
+					return -1;
+				}
 			}
 			else{
-				List A = digits;
-				List B = N.digits;
-				A.moveFront();
-				B.moveFront();
-				for(int i = 0; i < digits.length(); i++){
-					if(A.moveNext() > B.moveNext()){
-						return 1;
-					}
-					if(A.moveNext() > B.moveNext()){
-						return -1;
-					} 
+				if(A.length() > B.length()){
+					return 1;
 				}
-				return 0;
+				else if(A.length() < B.length()){
+					return -1;
+				}
 			}
+			
+			A.moveFront();
+			B.moveFront();
+			for(int i = 0; i < A.length(); i++){
+				int x = A.moveNext();
+				int y = B.moveNext();
+				if(x > y){
+					return 1;
+				}
+				if(x < y){
+					return -1;
+				} 
+			}
+			return 0;
 		}
-
 	}
 
 
@@ -187,7 +197,7 @@ const ListElement base = pow(10, power);
 		List M; 
 		L.moveBack();
 		for(int i = 0; i < L.length(); i++){
-			if(L.position() != 0){
+			if(L.position() > 1){
 				if(L.peekPrev() >= base){
 					long new_val = L.movePrev(); 
 					while(L.peekNext() >= base){ 
@@ -211,7 +221,7 @@ const ListElement base = pow(10, power);
 				}
 			}
 			else{
-				if(L.peekNext() >= base){
+				if(L.movePrev() >= base){
 					int front = 1;
 					L.setAfter(L.peekNext() - base);
 					int new_val = L.peekNext();
@@ -222,6 +232,9 @@ const ListElement base = pow(10, power);
 					}
 					M.insertAfter(new_val);
 					M.insertBefore(front);
+				}
+				else{
+					M.insertAfter(L.peekNext());
 				}
 			}
 			
@@ -246,14 +259,13 @@ const ListElement base = pow(10, power);
 	}
 
 	void scalarMultList(List& L, ListElement m){
-		List A = L;
-		A.moveFront();
+		List A;
+		L.moveFront();
 		for(int i = 0; i < A.length(); i++){
-			A.setAfter(A.peekNext() * m);
-			A.moveNext();
+			A.insertBefore(L.moveNext() * m);
 		}
 		L = A;
-	}
+	}	
 
    // makeZero()
    // Re-sets this BigInteger to the zero state.
@@ -279,11 +291,11 @@ const ListElement base = pow(10, power);
    // Returns a BigInteger representing the sum of this and N
 	BigInteger BigInteger::add(const BigInteger& N) const{
 		BigInteger sum;
-
 		List A = digits;
 		List B = N.digits;
 		sumList(sum.digits, A, B, 1);
 		normalizeList(sum.digits);
+
 		return sum;
 	}
 
@@ -291,9 +303,9 @@ const ListElement base = pow(10, power);
    // Returns a BigInteger representing the difference of this and N.
 	BigInteger BigInteger::sub(const BigInteger& N) const{
 		BigInteger diff;
-
 		List A = digits;
 		List B = N.digits;
+		
 		sumList(diff.digits, A, B, -1);
 		normalizeList(diff.digits);
 		return diff;
