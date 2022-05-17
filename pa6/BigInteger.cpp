@@ -115,6 +115,18 @@ const ListElement base = pow(10, power);
 				return -1;
 			}
 			else{
+				List A = digits;
+				List B = N.digits;
+				A.moveFront();
+				B.moveFront();
+				for(int i = 0; i < digits.length(); i++){
+					if(A.moveNext() > B.moveNext()){
+						return 1;
+					}
+					if(A.moveNext() > B.moveNext()){
+						return -1;
+					} 
+				}
 				return 0;
 			}
 		}
@@ -137,10 +149,6 @@ const ListElement base = pow(10, power);
 		List M;
 		A.moveBack();
 		B.moveBack();
-			
-		printf("%ld\n", A.back());
-		printf("%ld\n", B.back());
-
 
 		if(sign < 0){
 			negateList(B);
@@ -178,16 +186,24 @@ const ListElement base = pow(10, power);
 	int normalizeList(List& L){
 		List M; 
 		L.moveBack();
-		for(int i = 0; i < L.length() -1; i++){
+		for(int i = 0; i < L.length(); i++){
 			if(L.peekPrev() >= base){
-				long prev_val = L.movePrev(); 
-				M.insertAfter(prev_val - base);
-				L.setBefore(L.peekPrev() + 1);
+				long new_val = L.movePrev(); 
+				while(L.peekNext() >= base){ 
+					L.setAfter(new_val - base);
+					L.setBefore(L.peekPrev() + 1);
+					new_val = L.peekNext();
+				}
+				M.insertAfter(new_val);
 			}
 			else if(L.peekPrev() < 0){
-				long prev_val = L.movePrev(); 
-				M.insertAfter(prev_val + base);
-				L.setBefore(L.peekPrev() - 1);
+				long new_val = L.movePrev(); 
+				while(L.peekNext() < 0){ 
+					L.setAfter(new_val + base);
+					L.setBefore(L.peekPrev() - 1);
+					new_val = L.peekNext();
+				}
+				M.insertAfter(new_val);
 			}
 			else{
 				M.insertAfter(L.movePrev());
@@ -239,36 +255,6 @@ const ListElement base = pow(10, power);
 		List A = digits;
 		List B = N.digits;
 		sumList(sum.digits, A, B, 1);
-		/*
-		A.moveBack();
-		B.moveBack();
-		
-		int large = 0;
-		int j = 0;
-		
-		if(A.length() < B.length()){
-			large = 1;
-		}
-		else if(A.length() > B.length()){
-			large = 2;
-		}
-		
-		for(int i = 0; i < fmin(A.length(), B.length()); i++){
-			sum.digits.insertAfter(A.movePrev() + B.movePrev());
-			j = i;
-		}
-		
-		if(large == 1){							//if original number is larger
-			for(int i = j + 1; i < B.length(); i++){
-				sum.digits.insertAfter(B.movePrev());
-			}
-		}
-		else if(large == 2){					//if number being added is larger
-			for(int i = j + 1; i < A.length(); i++){
-				sum.digits.insertAfter(A.movePrev());
-			}
-		}
-		*/
 		normalizeList(sum.digits);
 		return sum;
 	}
@@ -281,37 +267,6 @@ const ListElement base = pow(10, power);
 		List A = digits;
 		List B = N.digits;
 		sumList(diff.digits, A, B, -1);
-		/*
-
-		A.moveBack();
-		B.moveBack();
-		int j = 0;
-		int large = 0;
-		
-		if(A.length() < B.length()){
-			large = 1;
-		}
-		else if(A.length() > B.length()){
-			large = 2;
-		}
-		
-		for(int i = 0; i < fmin(A.length(), B.length()); i++){
-			diff.digits.insertAfter(A.movePrev() - B.movePrev());
-			j = i;
-
-		}
-		
-		if(large == 1){							//if original number is larger
-			for(int i = j; i < B.length(); i++){
-				diff.digits.insertAfter(B.movePrev());
-			}
-		}
-		else if(large == 2){					//if number being added is larger
-			for(int i = j; i < A.length(); i++){
-				diff.digits.insertAfter(-1 * A.movePrev());
-			}
-		}
-		*/
 		normalizeList(diff.digits);
 		return diff;
 	}
@@ -351,27 +306,47 @@ const ListElement base = pow(10, power);
    // operator==()
    // Returns true if and only if A equals B. 
 	bool operator==( const BigInteger& A, const BigInteger& B ){
-		if(A.compare(B) != 0){
-			return false;
+		if(A.compare(B) == 0){
+			return true;
 		}
-		return true;
+		return false;
 	}
 
    // operator<()
    // Returns true if and only if A is less than B. 
-   bool operator<( const BigInteger& A, const BigInteger& B );
+	bool operator<( const BigInteger& A, const BigInteger& B ){
+		if(A.compare(B) < 0){
+			return true;
+		}
+		return false;
+	}
 
    // operator<=()
    // Returns true if and only if A is less than or equal to B. 
-   bool operator<=( const BigInteger& A, const BigInteger& B );
+	bool operator<=( const BigInteger& A, const BigInteger& B ){
+		if(A.compare(B) <= 0){
+			return true;
+		}
+		return false;
+	}
 
    // operator>()
    // Returns true if and only if A is greater than B. 
-   bool operator>( const BigInteger& A, const BigInteger& B );
+	bool operator>( const BigInteger& A, const BigInteger& B ){
+		if(A.compare(B) > 0){
+			return true;
+		}
+		return false;
+	}
 
    // operator>=()
    // Returns true if and only if A is greater than or equal to B. 
-   bool operator>=( const BigInteger& A, const BigInteger& B );
+	bool operator>=( const BigInteger& A, const BigInteger& B ){
+		if(A.compare(B) >= 0){
+			return true;
+		}
+		return false;
+	}
 
    // operator+()
    // Returns the sum A+B. 
@@ -383,7 +358,12 @@ const ListElement base = pow(10, power);
 
    // operator+=()
    // Overwrites A with the sum A+B. 
-   BigInteger operator+=( BigInteger& A, const BigInteger& B );
+	BigInteger operator+=( BigInteger& A, const BigInteger& B ){
+		BigInteger S = A.add(B);
+		std::swap(A.digits, S.digits);
+		std::swap(A.signum, S.signum);
+		return A;
+	}
 
    // operator-()
    // Returns the difference A-B. 
@@ -394,13 +374,26 @@ const ListElement base = pow(10, power);
 
    // operator-=()
    // Overwrites A with the difference A-B. 
-   BigInteger operator-=( BigInteger& A, const BigInteger& B );
+	BigInteger operator-=( BigInteger& A, const BigInteger& B ){
+		BigInteger D = A.sub(B);
+		std::swap(A.digits, D.digits);
+		std::swap(A.signum, D.signum);
+		return A;
+	}
 
    // operator*()
    // Returns the product A*B. 
-   BigInteger operator*( const BigInteger& A, const BigInteger& B );
+	BigInteger operator*( const BigInteger& A, const BigInteger& B ){
+		BigInteger M = A.mult(B);
+		return M;
+	}
 
    // operator*=()
    // Overwrites A with the product A*B. 
-   BigInteger operator*=( BigInteger& A, const BigInteger& B );
+	BigInteger operator*=( BigInteger& A, const BigInteger& B ){
+		BigInteger M = A.mult(B);
+		std::swap(A.digits, M.digits);
+		std::swap(A.signum, M.signum);
+		return A;
+	}
    

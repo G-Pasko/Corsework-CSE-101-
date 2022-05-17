@@ -373,7 +373,7 @@ std::string List::to_string() const{
 	Node* N = frontDummy->next;
 	std::string s = std::to_string(N->data);
 	for(N=N->next; N!=backDummy; N=N->next){
-      s += " "  + std::to_string(N->data);
+      s += std::to_string(N->data);
    }
    
    return s;
