@@ -196,7 +196,7 @@ const ListElement base = pow(10, power);
 			if(L.position() > 1){
 				if(L.peekPrev() >= base){
 					long new_val = L.movePrev(); 
-					while(L.peekNext() >= base){ 
+					while(new_val >= base){ 
 						L.setAfter(new_val - base);
 						L.setBefore(L.peekPrev() + 1);
 						new_val = L.peekNext();
@@ -205,7 +205,7 @@ const ListElement base = pow(10, power);
 				}
 				else if(L.peekPrev() < 0){
 					long new_val = L.movePrev(); 
-					while(L.peekNext() < 0){ 
+					while(new_val < 0){ 
 						L.setAfter(new_val + base);
 						L.setBefore(L.peekPrev() - 1);
 						new_val = L.peekNext();
@@ -243,8 +243,9 @@ const ListElement base = pow(10, power);
 					M.insertAfter(new_val);
 					M.insertBefore(front);
 				}
+				
 				else{
-					M.insertAfter(L.peekNext());
+					M.insertAfter(L.movePrev());
 				}
 			}
 			
@@ -335,7 +336,7 @@ const ListElement base = pow(10, power);
    // Returns a BigInteger representing the product of this and N. 
 	BigInteger BigInteger::mult(const BigInteger& N) const{
 		BigInteger sum;
-		if(signum == 0 || N.signum == 0){
+		if(sign() == 0 || N.sign() == 0 || N.digits.to_string() == "0"){
 			return sum;
 		}
 		List N_digits = N.digits;
@@ -368,13 +369,13 @@ const ListElement base = pow(10, power);
    // returned string will consist of the character '0' only.
 	std::string BigInteger::to_string(){
 		std::string s;
-		if(signum == -1){
+		if(sign() == -1){
 			s += "-";
-		}
-		if(signum == 0){
+		}/*
+		if(sign() == 0){
 			s += "0";
 			return s;
-		}
+		}*/
 		s += digits.to_string();
 		return s;
 	}

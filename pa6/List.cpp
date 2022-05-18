@@ -371,6 +371,11 @@ List List::concat(const List& L) const{
 
 std::string List::to_string() const{
 	Node* N = frontDummy->next;
+	
+	if(N->data == backDummy->data){
+		std::string s = "0";
+		return s;
+	}
 	std::string s = std::to_string(N->data);
 	for(N=N->next; N!=backDummy; N=N->next){
       s += std::to_string(N->data);
