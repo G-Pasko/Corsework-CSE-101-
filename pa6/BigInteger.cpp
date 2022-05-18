@@ -59,7 +59,7 @@ const ListElement base = pow(10, power);
 			signum = 1;
 		}
 		
-		for(i = 0; i < s.length(); i++){
+		for(i = abs(signum); i < s.length(); i++){
 			if(!isalnum(s[i])){
 				throw std::invalid_argument("BigInteger: Constructor: non_numeric string");
 			}
