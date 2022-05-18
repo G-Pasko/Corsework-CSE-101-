@@ -45,22 +45,23 @@ const ListElement base = pow(10, power);
 			throw std::invalid_argument("BigInteger: Constructor: empty string");
 		}
 		int i;
-		//int j = 0;
+		signum = 1;
 		if(!isalnum(s[0])){
-			if(int(s[0])  == 45){			//45 is ascii value of "-"
+			if(s[0]  == '-'){			//45 is ascii value of "-"
 				signum = -1;
 			}
-			//j = 1;
+			if(s[0]  == '+'){
+				signum = 1;
+			}
+			s.erase(0, 1);
 		}
-		signum = 1;
-		
-		for(i = abs(signum); i < s.length(); i++){
+		for(i = 0; i < s.length(); i++){
 			if(!isalnum(s[i])){
 				throw std::invalid_argument("BigInteger: Constructor: non_numeric string");
 			}
 		}
 		//std::string zero = "0";
-		while(s.length() % 9 != 0){
+		while(s.length()% power != 0){
 			s.insert(0, "0");
 		}
 		for(i = s.length(); i >= power; i = i - power){
@@ -379,12 +380,29 @@ const ListElement base = pow(10, power);
 		std::string s;
 		if(sign() == -1){
 			s += "-";
-		}/*
-		if(sign() == 0){
-			s += "0";
+		}
+		else if(digits.length() == 0){
+			s = "0";
 			return s;
-		}*/
-		s += digits.to_string();
+		}
+		digits.moveFront();
+		while(digits.position() != digits.length()){
+			std::string val = std::to_string(digits.moveNext());
+			while(val.length() < power){
+				val = "0" + val;
+			}
+			s += val;
+		}
+		if(s[0] == '-' || s[0] == '+'){
+			while(s[1] == '0'){
+				s.erase(1,1);
+			}
+		}
+		else{
+			while(s[0] == '0'){
+				s.erase(0,1);
+			}
+		}
 		return s;
 	}
 
