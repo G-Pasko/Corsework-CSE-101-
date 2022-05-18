@@ -191,30 +191,25 @@ const ListElement base = pow(10, power);
 	//Normalize
 	int normalizeList(List& L){
 		List M; 
-		int val = 1;
+		int signum = 1;
 		L.moveBack();
+		long carry = 0;
 		for(int i = 0; i < L.length(); i++){
-			if(L.position() > 1){
-				if(L.peekPrev() >= base){
+			if(L.position() >= 1){
+				if(L.peekPrev() + carry >= base){
 					long new_val = L.movePrev(); 
-					while(new_val >= base){ 
-						L.setAfter(new_val - base);
-						L.setBefore(L.peekPrev() + 1);
-						new_val = L.peekNext();
-					}
-					M.insertAfter(new_val);
+					M.insertAfter((new_val + carry) % base);
+					carry = (new_val + carry) / base;
 				}
-				else if(L.peekPrev() < 0){
+				else if(L.peekPrev() + carry < 0){
 					long new_val = L.movePrev(); 
-					while(new_val < 0){ 
-						L.setAfter(new_val + base);
-						L.setBefore(L.peekPrev() - 1);
-						new_val = L.peekNext();
-					}
-					M.insertAfter(new_val);
+					M.insertAfter(((new_val + carry) % base + base) % base);
+					carry = ((new_val + carry) - (((new_val + carry) % base + base) % base)) / base;
+					carry *= -1;
 				}
 				else{
-					M.insertAfter(L.movePrev());
+					M.insertAfter(L.movePrev() + carry);
+					carry = 0;
 				}
 			}
 			else{
@@ -232,7 +227,7 @@ const ListElement base = pow(10, power);
 					M.insertBefore(front);
 				}
 				else if(L.peekPrev() < 0){
-					val = -1;
+					signum = -1;
 					negateList(L);
 					normalizeList(L);
 				}
@@ -248,9 +243,9 @@ const ListElement base = pow(10, power);
 		}
 		L = M;
 		if(L.length() == 0){
-			val = 0;
+			signum = 0;
 		}
-		return val;
+		return signum;
 	}
 
 	void shiftList(List& L, int p){
