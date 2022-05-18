@@ -241,7 +241,7 @@ const ListElement base = pow(10, power);
 			
 		}
 		M.moveFront();
-		while(M.moveNext() 0= 0){
+		while(M.moveNext() == 0){
 			M.eraseBefore();
 		}
 		L = M;
