@@ -170,13 +170,13 @@ const ListElement base = pow(10, power);
 		}
 		
 		for(int i = 0; i < fmin(A.length(), B.length()); i++){
-			M.insertAfter(A.movePrev() + B.movePrev());
+			M.insertAfter(A.movePrev() + (sign * B.movePrev()));
 			j = i;
 		}
 		
 		if(large == 1){							//if original number is larger
 			for(int i = j + 1; i < B.length(); i++){
-				M.insertAfter(B.movePrev());
+				M.insertAfter(sign * B.movePrev());
 			}
 		}
 		else if(large == 2){					//if number being added is larger
