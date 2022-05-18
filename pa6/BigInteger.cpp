@@ -324,7 +324,18 @@ const ListElement base = pow(10, power);
 		List A = digits;
 		List B = N.digits;
 		
-		sumList(diff.digits, A, B, -1);
+		if(signum == 1 && N.signum == 1){
+			sumList(diff.digits, A, B, -1);
+		}
+		else{
+			if(signum == -1){
+				negateList(A);
+			}
+			if(N.signum == -1){
+				negateList(B);
+			}
+			sumList(diff.digits, A, B, -1);
+		}
 		normalizeList(diff.digits);
 		if(diff.digits.length() == 0){
 			diff.makeZero();
