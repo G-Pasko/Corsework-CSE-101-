@@ -206,7 +206,6 @@ const ListElement base = pow(10, power);
 					long new_val = L.movePrev(); 
 					M.insertAfter(((new_val + carry) % base + base) % base);
 					carry = ((new_val + carry) - (((new_val + carry) % base + base) % base)) / base;
-					carry *= -1;
 				}
 				else{
 					M.insertAfter(L.movePrev() + carry);
