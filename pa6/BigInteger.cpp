@@ -240,6 +240,10 @@ const ListElement base = pow(10, power);
 			}
 			
 		}
+		M.moveFront();
+		while(M.moveNext() 0= 0){
+			M.eraseBefore();
+		}
 		L = M;
 		if(L.front() < 0){
 			return -1;
