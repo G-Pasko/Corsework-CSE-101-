@@ -347,13 +347,11 @@ const ListElement base = pow(10, power);
    // Returns a BigInteger representing the product of this and N. 
 	BigInteger BigInteger::mult(const BigInteger& N) const{
 		BigInteger sum;
-		if(sign() == 0 || N.sign() == 0 || N.digits.to_string() == "0"){
+		if(sign() == 0 || N.sign() == 0){
 			return sum;
 		}
 		List N_digits = N.digits;
-		if(N.signum < 0){
-			negateList(N_digits);
-		}
+
 		N_digits.moveBack();
 		for(int i = 0; i < N_digits.length(); i++){
 			long num = N_digits.movePrev();
@@ -361,11 +359,15 @@ const ListElement base = pow(10, power);
 			scalarMultList(scaled, num);
 			shiftList(scaled, i);
 			sumList(sum.digits, N_digits, scaled, 1);
-			sum.signum = normalizeList(sum.digits);
+			normalizeList(sum.digits);
 		}
-		if(sum.digits.length() == 0){
-			sum.makeZero();
+		if((signum < 0 && N.signum >0) || (signum > 0 && N.signum < 0)){
+			sum.signum = -1;
 		}
+		else{
+			sum.signum = 1;
+		}
+
 		return sum;
 
 	}
