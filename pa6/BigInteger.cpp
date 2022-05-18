@@ -297,7 +297,18 @@ const ListElement base = pow(10, power);
 		BigInteger sum;
 		List A = digits;
 		List B = N.digits;
-		sumList(sum.digits, A, B, 1);
+		if(signum == 1 && N.signum == 1){
+			sumList(sum.digits, A, B, 1);
+		}
+		else{
+			if(signum == -1){
+				negateList(A);
+			}
+			if(N.signum == -1){
+				negateList(B);
+			}
+			sumList(sum.digits, A, B, 1);
+		}
 		normalizeList(sum.digits);
 		if(sum.digits.length() == 0){
 			sum.makeZero();
