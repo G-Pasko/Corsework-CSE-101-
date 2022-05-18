@@ -53,7 +53,7 @@ const ListElement base = pow(10, power);
 			if(s[0]  == '+'){
 				signum = 1;
 			}
-			s.erase(0, 1);
+			s = s.substr(1);
 		}
 		for(i = 0; i < s.length(); i++){
 			if(!isalnum(s[i])){
