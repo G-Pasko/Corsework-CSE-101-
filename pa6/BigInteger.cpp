@@ -50,14 +50,9 @@ const ListElement base = pow(10, power);
 			if(int(s[0])  == 45){			//45 is ascii value of "-"
 				signum = -1;
 			}
-			else{
-				signum = 1;
-			}
 			//j = 1;
 		}
-		else{
-			signum = 1;
-		}
+		signum = 1;
 		
 		for(i = abs(signum); i < s.length(); i++){
 			if(!isalnum(s[i])){
@@ -65,7 +60,7 @@ const ListElement base = pow(10, power);
 			}
 		}
 		//std::string zero = "0";
-		while(s.length()  % 9 != 0){
+		while(s.length() % 9 != 0){
 			s.insert(0, "0");
 		}
 		for(i = s.length(); i >= power; i = i - power){
@@ -300,6 +295,9 @@ const ListElement base = pow(10, power);
 		List B = N.digits;
 		sumList(sum.digits, A, B, 1);
 		normalizeList(sum.digits);
+		if(sum.digits.length() == 0){
+			sum.signum = 0;
+		}
 
 		return sum;
 	}
@@ -313,6 +311,9 @@ const ListElement base = pow(10, power);
 		
 		sumList(diff.digits, A, B, -1);
 		normalizeList(diff.digits);
+		if(diff.digits.length() == 0){
+			diff.signum = 0;
+		}
 		return diff;
 	}
 
@@ -336,6 +337,9 @@ const ListElement base = pow(10, power);
 			sumList(sum.digits, N_digits, scaled, 1);
 			sum.signum = normalizeList(sum.digits);
 		}
+		if(sum.digits.length() == 0){
+			sum.signum = 0;
+		}
 		return sum;
 
 	}
@@ -352,6 +356,10 @@ const ListElement base = pow(10, power);
 		std::string s;
 		if(signum == -1){
 			s += "-";
+		}
+		if(signum == 0){
+			s += "0";
+			return s;
 		}
 		s += digits.to_string();
 		return s;
