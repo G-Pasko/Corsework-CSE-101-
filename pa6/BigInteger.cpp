@@ -286,7 +286,7 @@ const ListElement base = pow(10, power);
    // Re-sets this BigInteger to the zero state.
 	void BigInteger::makeZero(){
 		signum = 0;
-		digits.cleanup();
+		digits.clear();
 	}
 
    // negate()
