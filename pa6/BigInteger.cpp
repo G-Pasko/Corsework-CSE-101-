@@ -296,7 +296,7 @@ const ListElement base = pow(10, power);
 		sumList(sum.digits, A, B, 1);
 		normalizeList(sum.digits);
 		if(sum.digits.length() == 0){
-			sum.signum = 0;
+			sum.makeZero();
 		}
 
 		return sum;
@@ -312,7 +312,7 @@ const ListElement base = pow(10, power);
 		sumList(diff.digits, A, B, -1);
 		normalizeList(diff.digits);
 		if(diff.digits.length() == 0){
-			diff.signum = 0;
+			diff.makeZero();
 		}
 		return diff;
 	}
@@ -338,7 +338,7 @@ const ListElement base = pow(10, power);
 			sum.signum = normalizeList(sum.digits);
 		}
 		if(sum.digits.length() == 0){
-			sum.signum = 0;
+			sum.makeZero();
 		}
 		return sum;
 
