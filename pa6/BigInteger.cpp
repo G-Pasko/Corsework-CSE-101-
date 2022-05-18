@@ -191,6 +191,7 @@ const ListElement base = pow(10, power);
 	//Normalize
 	int normalizeList(List& L){
 		List M; 
+		int val = 1;
 		L.moveBack();
 		for(int i = 0; i < L.length(); i++){
 			if(L.position() > 1){
@@ -231,6 +232,7 @@ const ListElement base = pow(10, power);
 					M.insertBefore(front);
 				}
 				else if(L.peekPrev() < 0){
+					val = -1;
 					negateList(L);
 					normalizeList(L);
 				}
@@ -239,20 +241,16 @@ const ListElement base = pow(10, power);
 					M.insertAfter(L.movePrev());
 				}
 			}
-			
 		}
 		M.moveFront();
 		while(M.moveNext() == 0 && (M.position() != M.length())){
 			M.eraseBefore();
 		}
 		L = M;
-		if(L.front() < 0){
-			return -1;
+		if(L.length() == 0){
+			val = 0;
 		}
-		if(L.front() > 0){
-			return 1;
-		}
-		return 0;
+		return val;
 	}
 
 	void shiftList(List& L, int p){
