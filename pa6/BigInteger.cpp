@@ -241,6 +241,9 @@ const ListElement base = pow(10, power);
 			
 		}
 		M.moveFront();
+		if(!isalnum(M.peekNext())){
+			M.moveNext();
+		}
 		while(M.moveNext() == 0 && M.position() != M.length()){
 			M.eraseBefore();
 		}
