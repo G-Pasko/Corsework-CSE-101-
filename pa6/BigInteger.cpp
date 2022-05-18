@@ -217,13 +217,27 @@ const ListElement base = pow(10, power);
 				}
 			}
 			else{
-				if(L.movePrev() >= base){
+				if(L.peekPrev() >= base){
+					L.movePrev();
 					int front = 1;
 					L.setAfter(L.peekNext() - base);
 					int new_val = L.peekNext();
 					while(L.peekNext() >= base){
 						front++;
 						L.setAfter(L.peekNext() - base);
+						new_val = L.peekNext();
+					}
+					M.insertAfter(new_val);
+					M.insertBefore(front);
+				}
+				else if(L.peekPrev() < 0){
+					L.movePrev();
+					int front = -1;
+					L.setAfter(L.peekNext() + base);
+					int new_val = L.peekNext();
+					while(L.peekNext() < base){
+						front--;
+						L.setAfter(L.peekNext() + base);
 						new_val = L.peekNext();
 					}
 					M.insertAfter(new_val);
