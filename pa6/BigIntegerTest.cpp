@@ -21,7 +21,6 @@ int main(){
    //BigInteger N;
    BigInteger A = BigInteger(s1);
    BigInteger B = BigInteger(s3);
-   
 
    cout << "A = " << A << endl;
    cout << "B = " << B << endl;

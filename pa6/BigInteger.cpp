@@ -14,7 +14,7 @@
 #include"List.h"
 #include"BigInteger.h"
 
-const int power = 1;
+const int power = 9;
 const ListElement base = pow(10, power);
 
 //Use stol
@@ -44,31 +44,32 @@ const ListElement base = pow(10, power);
 		if(s.empty()){
 			throw std::invalid_argument("BigInteger: Constructor: empty string");
 		}
-		int j = 0;
 		int i;
+		//int j = 0;
 		if(!isalnum(s[0])){
 			if(int(s[0])  == 45){			//45 is ascii value of "-"
-				j = 1;
 				signum = -1;
 			}
 			else{
 				signum = 1;
 			}
+			//j = 1;
 		}
 		else{
 			signum = 1;
 		}
 		
-		for(i = j; i < s.length(); i++){
+		for(i = 0; i < s.length(); i++){
 			if(!isalnum(s[i])){
 				throw std::invalid_argument("BigInteger: Constructor: non_numeric string");
 			}
 		}
-		for(i = s.length(); i >= power + j; i = i - power){
-			digits.insertAfter(stol(s.substr(i - power, power)));
+		//std::string zero = "0";
+		while(s.length()  % 9 != 0){
+			s.insert(0, "0");
 		}
-		if(i > j){
-			digits.insertAfter(stol(s.substr(j, i-power)));
+		for(i = s.length(); i >= power; i = i - power){
+			digits.insertAfter(stol(s.substr(i - power, power)));
 		}
 
 	}
