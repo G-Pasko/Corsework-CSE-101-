@@ -42,6 +42,9 @@
 
    // Helper Functions (Optional) ---------------------------------------------
 
+   void Transplant(Node* N, Node* M){
+      ;;
+   }
    // inOrderString()
    // Appends a string representation of the tree rooted at R to string s. The
    // string appended consists of: "key : value \n" for each key-value pair in
@@ -221,6 +224,32 @@
    // If a pair with key==k exists, overwrites the corresponding value with v, 
    // otherwise inserts the new pair (k, v).
    void setValue(keyType k, valType v){
+      if(root == nil){
+         root = new Node(k, v);
+         num_pairs ++;
+         return;
+      }
+      Node* N = root;
+      Node* M = nil;
+      while(N != nil){
+         M = N;
+         if(k < N->key){
+            N = N->left;
+         }
+         else{
+            N = N->right;
+         }
+      }
+      Node O = new Node(k, v);
+      if(k < M->key){
+         M->left = O;
+         O->parent = M;
+      }
+      else{
+         M->right = O;
+         O->parent = M;
+      }
+      /*
       if(root->key == null){
          root = new Node(k, v);
          num_pairs ++;
@@ -255,7 +284,7 @@
          N->right = new Node(k, v);
          num_pairs ++;
          return;
-      }
+      }*/
    }
 
    // remove()
@@ -276,26 +305,34 @@
    // begin()
    // If non-empty, places current iterator at the first (key, value) pair
    // (as defined by the order operator < on keys), otherwise does nothing. 
-   void begin();
+   void begin(){
+      ;;
+   }
 
    // end()
    // If non-empty, places current iterator at the last (key, value) pair
    // (as defined by the order operator < on keys), otherwise does nothing. 
-   void end();
+   void end(){
+      ;;
+   }
 
    // next()
    // If the current iterator is not at the last pair, advances current 
    // to the next pair (as defined by the order operator < on keys). If 
    // the current iterator is at the last pair, makes current undefined.
    // Pre: hasCurrent()
-   void next();
+   void next(){
+      ;;
+   }
 
    // prev()
    // If the current iterator is not at the first pair, moves current to  
    // the previous pair (as defined by the order operator < on keys). If 
    // the current iterator is at the first pair, makes current undefined.
    // Pre: hasCurrent()
-   void prev();
+   void prev(){
+      ;;
+   }
 
 
    // Other Functions ---------------------------------------------------------
