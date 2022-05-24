@@ -24,15 +24,15 @@ int main(){
    for(int i=0; i<8; i++){
       A.setValue(S[i], i+1);
 
-   }/*
+   }
    for(int i = 0; i < 8; i++){
       cout << A.getValue(S[i]) << endl;
-   }*/
-   //printf("Values were set\n");
+   }
+   printf("Values were set\n");
    
    // call operator=()
    B = A;
-   //printf("B was set to be equal to A\n");
+   printf("B was set to be equal to A\n");
 
    cout << "A.size() = " << A.size() << endl  << A << endl;
    cout << "B.size() = " << B.size() << endl  << B << endl;

@@ -243,7 +243,7 @@
    // Pre: contains(k)
    valType& Dictionary::getValue(keyType k) const{
       if(search(root, k) == nil){
-         throw std::out_of_range("Dictionary: getValue(): key not in dictionary\n");
+         throw std::out_of_range("Dictionary: getValue(): key \"" + k + "\" does not exist");
       }
       Node* N = search(root, k);
       //printf("N was found\n");
@@ -266,7 +266,7 @@
    // Pre: hasCurrent() 
    keyType Dictionary::currentKey() const{
       if(!hasCurrent()){
-         throw std::out_of_range("Dictionary: currentKey(): current has not been initialized\n");
+         throw std::out_of_range("Dictionary: currentKey(): current undefined");
       }
       return current->key;
    }
@@ -276,7 +276,7 @@
    // Pre: hasCurrent()
    valType& Dictionary::currentVal() const{
       if(!hasCurrent()){
-         throw std::out_of_range("Dictionary: currentKey(): current has not been initialized\n");
+         throw std::out_of_range("Dictionary: currentKey(): current undefined");
       }
       return current->val;
    }
@@ -339,7 +339,7 @@
    // Pre: contains(k).
    void Dictionary::remove(keyType k){
       if(search(root, k) == nil){
-         throw std::out_of_range("Dictionary: getValue(): key not in dictionary\n");
+         throw std::out_of_range("Dictionary: getValue(): key \"" + k + "\" does not exist");
       }
       Node* N = search(root, k);
       if(N == current){
@@ -394,7 +394,7 @@
    // Pre: hasCurrent()
    void Dictionary::next(){
       if(!hasCurrent()){
-         throw std::out_of_range("Dictionary: next(): currnet has not been set\n");
+         throw std::out_of_range("Dictionary: next(): currnet not defined");
       }
       if(current == findMax(root)){
          current = nil;
@@ -410,7 +410,7 @@
    // Pre: hasCurrent()
    void Dictionary::prev(){
       if(!hasCurrent()){
-         throw std::out_of_range("Dictionary: prev(): currnet has not been set\n");
+         throw std::out_of_range("Dictionary: prev(): currnet not defined");
       }
       if(current == findMin(root)){
          current = nil;
