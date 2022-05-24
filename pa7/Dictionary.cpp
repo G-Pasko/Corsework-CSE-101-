@@ -56,7 +56,7 @@
    Dictionary::~Dictionary(){
       clear();
       num_pairs = 0;
-      current = nil;
+      delete nil;
 
    }
 
@@ -106,7 +106,7 @@
    // by a pre-order tree walk.
    void Dictionary::preOrderString(std::string& s, Node* R) const{
       if(R != nil){
-         s += R->key;
+         s += R->key + "\n";
          preOrderString(s, R->left);
          preOrderString(s, R->right);
       }
@@ -133,6 +133,7 @@
          postOrderDelete(R->left);
          postOrderDelete(R->left);
          delete R;
+         R = nil;
          num_pairs --;
       }
    }
@@ -183,8 +184,11 @@
    // Node after N in an in-order tree walk.  If N points to the rightmost 
    // Node, or is nil, returns nil. 
    Dictionary::Node* Dictionary::findNext(Dictionary::Node* N){
-      if(N == nil || N->right != nil){
+      /*if(N == nil || N == findMax(root)){
          return nil;
+      }*/
+      if(N->right != nil){
+         return findMin(N->right);
       }
       Node* M = N->parent;
       while(M != nil && N == M->right){
@@ -199,11 +203,14 @@
    // Node before N in an in-order tree walk.  If N points to the leftmost 
    // Node, or is nil, returns nil.
    Dictionary::Node* Dictionary::findPrev(Dictionary::Node* N){
-      if(N == nil || N->left != nil){
+      /*if(N == nil || N->left == nil){
          return nil;
+      }*/
+      if(N->left != nil){
+         return findMax(N->left);
       }
       Node* M = N->parent;
-      while(M != nil && N == M->right){
+      while(M != nil && N == M->left){
          N = M;
          M = M->parent;
       }
@@ -279,6 +286,8 @@
    // Resets this Dictionary to the empty state, containing no pairs.
    void Dictionary::clear(){
       postOrderDelete(root);
+      num_pairs = 0;
+      root = current = nil;
    }
 
    // setValue()
@@ -307,19 +316,16 @@
          root = O;
          O->left = nil;
          O->right = nil;
-         O->parent = nil;
       }
       else if(O->key < M->key){
          M->left = O;
          O->left = nil;
          O->right = nil;
-         O->parent = M;
       }
       else{
          M->right = O;
          O->left = nil;
          O->right = nil;
-         O->parent = M;
       }
       num_pairs++;
 
@@ -330,7 +336,7 @@
    // becomes undefined.
    // Pre: contains(k).
    void Dictionary::remove(keyType k){
-      if(!contains(k)){
+      if(search(root, k) == nil){
          throw std::out_of_range("Dictionary: getValue(): key not in dictionary\n");
       }
       Node* N = search(root, k);
@@ -346,7 +352,7 @@
       else{
          Node* M = findMin(N->right);
          if(M->parent != N){
-            transplant(M, M->parent);
+            transplant(M, M->right);
             M->right = N->right;
             M->right->parent = M;
          }
@@ -354,6 +360,7 @@
          M->left = N->left;
          N->left->parent = M;
       }
+      delete N;
       num_pairs--;
    }
 
@@ -364,8 +371,7 @@
       if(num_pairs == 0){
          return;
       }
-      current = root;
-
+      current = findMin(root);
    }
 
    // end()
@@ -373,6 +379,7 @@
    // (as defined by the order operator < on keys), otherwise does nothing. 
    void Dictionary::end(){
       if(num_pairs == 0){
+         current = nil;
          return;
       }
       current = findMax(root);

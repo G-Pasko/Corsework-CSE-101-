@@ -66,6 +66,9 @@ int main(){
    cout << "A.size() = " << A.size() << endl  << A << endl;
    cout << A.pre_string() << endl;
 
+   B.begin();
+   cout << B.currentKey() << B.currentVal() << endl;
+   cout << B << endl;
    // do forward iteration on B
    for(B.begin(); B.hasCurrent(); B.next()){
       s = B.currentKey();
