@@ -24,14 +24,15 @@
    // Dictionary fields
    Dictionary::Dictionary(){
       nil = new Node(null, -69);
-      nil->parent = nil;
-      nil->left = nil;
-      nil->right = nil;
+      //nil->parent = nil;
+      //nil->left = nil;
+      //nil->right = nil;
       root = nil;
       root->right = nil;
       root->left = nil;
+      root->parent = nil;
       current = nil;
-      current->parent = nil;
+      //current->parent = nil;
       current->left = nil;
       current->right = nil;
       num_pairs = 0;
@@ -45,10 +46,11 @@
       root = nil;
       root->right = nil;
       root->left = nil;
+      root->parent = nil;
       current = nil;
-      current->parent = nil;
-      current->left = nil;
-      current->right = nil;
+      //current->parent = nil;
+      //current->left = nil;
+      //current->right = nil;
       num_pairs = 0;
       preOrderCopy(D.root, D.nil);
    }
