@@ -23,7 +23,7 @@
 
    // Dictionary fields
    Dictionary::Dictionary(){
-      nil = new Node(null , INT_MAX);
+      nil = new Node(null, INT_MAX);
       root = nil;
       root->right = nil;
       root->left = nil;
@@ -36,9 +36,15 @@
 
    Dictionary::Dictionary(const Dictionary& D){
       nil = new Node(null, INT_MAX);
-      root = D.root;
-      current = D.current;
-      num_pairs = D.num_pairs;
+      root = nil;
+      root->right = nil;
+      root->left = nil;
+      current = nil;
+      current->parent = nil;
+      current->left = nil;
+      current->right = nil;
+      num_pairs = 0;
+      preOrderCopy(D.root, D.nil);
    }
 
    Dictionary::~Dictionary(){
@@ -258,11 +264,6 @@
    // If a pair with key==k exists, overwrites the corresponding value with v, 
    // otherwise inserts the new pair (k, v).
    void Dictionary::setValue(keyType k, valType v){
-      if(root == nil){
-         root = new Node(k, v);
-         num_pairs ++;
-         return;
-      }
       Node* N = root;
       Node* M = nil;
       while(N != nil){
@@ -275,14 +276,26 @@
          }
       }
       Node* O = new Node(k, v);
-      if(k < M->key){
+      if(M == nil){
+         root = O;
+         O->left = nil;
+         O->right = nil;
+         O->parent = nil;
+      }
+      else if(O->key < M->key){
          M->left = O;
+         O->left = nil;
+         O->right = nil;
          O->parent = M;
       }
       else{
          M->right = O;
+         O->left = nil;
+         O->right = nil;
          O->parent = M;
       }
+      num_pairs++;
+
    }
 
    // remove()
@@ -398,9 +411,7 @@
    // pairs as Dictionary D.
    bool Dictionary::equals(const Dictionary& D) const{
       if(num_pairs != D.num_pairs){
-         return false;
-      }
-      if(root != D.root){
+         //printf("Uneven number of pairs\n");
          return false;
       }
       std::string a = "";
@@ -408,6 +419,7 @@
       preOrderString(a, root);
       D.preOrderString(b, D.root);
       if(a != b){
+         //printf("Different pre order string\n");
          return false;
       }
       return true;
@@ -438,12 +450,7 @@
          Dictionary temp = D;
          std::swap(num_pairs, temp.num_pairs);
          std::swap(root, temp.root);
-         std::swap(current, temp.current);
-         temp.begin();
-         while(temp.current != nil){
-            setValue(temp.current->key, temp.current->val);
-            temp.next();
-         }
+         std::swap(nil, temp.nil);
       }
 
       return *this;
