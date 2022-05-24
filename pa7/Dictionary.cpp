@@ -6,7 +6,7 @@
 //-----------------------------------------------------------------------------
 #include<iostream>
 #include<string>
-#include<climits>
+//#include<climits>
 #include<stdexcept>
 #include"Dictionary.h"
 
@@ -23,7 +23,10 @@
 
    // Dictionary fields
    Dictionary::Dictionary(){
-      nil = new Node(null, INT_MAX);
+      nil = new Node(null, -69);
+      nil->parent = nil;
+      nil->left = nil;
+      nil->right = nil;
       root = nil;
       root->right = nil;
       root->left = nil;
@@ -35,7 +38,10 @@
    }
 
    Dictionary::Dictionary(const Dictionary& D){
-      nil = new Node(null, INT_MAX);
+      nil = new Node(null, -69);
+      nil->parent = nil;
+      nil->left = nil;
+      nil->right = nil;
       root = nil;
       root->right = nil;
       root->left = nil;
@@ -70,6 +76,15 @@
          M->parent = N->parent;
       }
    }
+   /*
+   void Dictionary::preOrderVal(std::string& s, Node* R) const{
+      if(R != nil){
+         s += std::to_string(R->val);
+         preOrderVal(s, R->left);
+         preOrderVal(s, R->right);
+      }
+   }
+   */
    // inOrderString()
    // Appends a string representation of the tree rooted at R to string s. The
    // string appended consists of: "key : value \n" for each key-value pair in
@@ -78,6 +93,9 @@
       if(R != nil){
          inOrderString(s, R->left);
          s += R->key;
+         s += " : ";
+         s += std::to_string(R->val);
+         s += "\n";
          inOrderString(s, R->right);
       }
    }
@@ -93,6 +111,7 @@
          preOrderString(s, R->right);
       }
    }
+
 
    // preOrderCopy()
    // Recursively inserts a deep copy of the subtree rooted at R into this 
@@ -126,10 +145,10 @@
          return R;
       }
       else if(k < R->key){
-         search(R->left, k);
+         return search(R->left, k);
       }
       else{
-         search(R->right, k);
+         return search(R->right, k);
       }
    }
 
@@ -214,10 +233,12 @@
    // Returns a reference to the value corresponding to key k.
    // Pre: contains(k)
    valType& Dictionary::getValue(keyType k) const{
-      if(!contains(k)){
+      if(search(root, k) == nil){
          throw std::out_of_range("Dictionary: getValue(): key not in dictionary\n");
       }
       Node* N = search(root, k);
+      //printf("N was found\n");
+      //printf("%d\n", N->val);
       return N->val;
    }
 
@@ -264,10 +285,15 @@
    // If a pair with key==k exists, overwrites the corresponding value with v, 
    // otherwise inserts the new pair (k, v).
    void Dictionary::setValue(keyType k, valType v){
-      Node* N = root;
       Node* M = nil;
+      Node* N = root;
       while(N != nil){
          M = N;
+         if(k == N->key){
+            N->val = v;
+            return;
+         }
+         
          if(k < N->key){
             N = N->left;
          }
@@ -276,6 +302,7 @@
          }
       }
       Node* O = new Node(k, v);
+      O->parent = M;
       if(M == nil){
          root = O;
          O->left = nil;
@@ -321,7 +348,7 @@
          if(M->parent != N){
             transplant(M, M->parent);
             M->right = N->right;
-            M->right->parent = N;
+            M->right->parent = M;
          }
          transplant(N, M);
          M->left = N->left;
@@ -337,7 +364,7 @@
       if(num_pairs == 0){
          return;
       }
-      current = findMin(root);
+      current = root;
 
    }
 
@@ -393,6 +420,7 @@
    // in order, as defined by the order operator <.
    std::string Dictionary::to_string() const{
       std::string s = "";
+      inOrderString(s, root);
       return s;
    }
 
@@ -416,8 +444,12 @@
       }
       std::string a = "";
       std::string b = "";
-      preOrderString(a, root);
-      D.preOrderString(b, D.root);
+      //std::string c = "";
+      //std::string d = "";
+      inOrderString(a, root);
+      D.inOrderString(b, D.root);
+      //preOrderVal(c, root);
+      //D.preOrderVal(d, D.root);
       if(a != b){
          //printf("Different pre order string\n");
          return false;

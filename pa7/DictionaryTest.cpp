@@ -23,12 +23,16 @@ int main(){
    // insert some pairs into A
    for(int i=0; i<8; i++){
       A.setValue(S[i], i+1);
-   }
-   printf("Values were set\n");
+
+   }/*
+   for(int i = 0; i < 8; i++){
+      cout << A.getValue(S[i]) << endl;
+   }*/
+   //printf("Values were set\n");
    
    // call operator=()
    B = A;
-   printf("B was set to be equal to A\n");
+   //printf("B was set to be equal to A\n");
 
    cout << "A.size() = " << A.size() << endl  << A << endl;
    cout << "B.size() = " << B.size() << endl  << B << endl;
@@ -48,10 +52,15 @@ int main(){
 
    // perform alterations on A
    cout << A.getValue("happy") << endl;
+   //printf("Happy was found\n");
    A.getValue("happy") *= 10; // change the value associated with "happy"
+   //printf("value of happy was changed\n");
    cout << A.getValue("happy") << endl << endl;
+   //printf("Value of happy was printed\n");
    A.remove("one");
+   //printf("One was removed\n");
    A.remove("two");
+   //printf("Two was removed\n");
 
    // check state of A
    cout << "A.size() = " << A.size() << endl  << A << endl;
