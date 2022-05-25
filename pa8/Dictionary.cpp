@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------
 // Granger Pasko, gpasko
-// Spring CSE101 PA7
+// Spring CSE101 PA8
 // Dictionary.cpp
 // Header file for Dictionary ADT based on a Binary Search Tree. Includes a
 // built in iterator called current that can perform a smallest-to-largest
@@ -14,10 +14,11 @@
 
    const std::string null = "";
    // private Node struct
-   Dictionary::Node::Node(keyType k, valType v){
+   Dictionary::Node::Node(keyType k, valType v, int c){
       // Node fields
       key = k;
       val = v;
+      color = c,
       parent = nullptr;
       left = nullptr;
       right = nullptr;

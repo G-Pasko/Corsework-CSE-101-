@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------
 // Granger Pasko, gpasko
-// Spring CSE101 PA7
+// Spring CSE101 PA8
 // DictionaryClient.cpp
 // A test client for the Dictionary ADT
 //-----------------------------------------------------------------------------

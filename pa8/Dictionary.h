@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------
 // Granger Pasko, gpasko
-// Spring CSE101 PA7
+// Spring CSE101 PA8
 // Dictionary.h
 // Header file for Dictionary ADT based on a Binary Search Tree. Includes a
 // built in iterator called current that can perform a smallest-to-largest
@@ -26,6 +26,7 @@ private:
       // Node fields
       keyType key;
       valType val;
+      int color
       Node* parent;
       Node* left;
       Node* right;
