@@ -2,7 +2,7 @@
 // Granger Pasko, gpasko
 // Spring CSE101 PA8
 // Dictionary.h
-// Header file for Dictionary ADT based on a Binary Search Tree. Includes a
+// Header file for Dictionary ADT based on a Red-Black Tree. Includes a
 // built in iterator called current that can perform a smallest-to-largest
 // (forward) or a largest-to-smallest (reverse) iteration over all keys.
 //-----------------------------------------------------------------------------
@@ -26,10 +26,10 @@ private:
       // Node fields
       keyType key;
       valType val;
-      int color
       Node* parent;
       Node* left;
       Node* right;
+      int color;
       // Node constructor
       Node(keyType k, valType v);
    };
@@ -41,8 +41,8 @@ private:
    int   num_pairs;
 
    // Helper Functions (Optional) ---------------------------------------------
-   void transplant(Node* N, Node* M);
-   void preOrderVal(std::string& s, Node* R) const;
+
+   void trasplant(Node* N, Node* M);
    // inOrderString()
    // Appends a string representation of the tree rooted at R to string s. The
    // string appended consists of: "key : value \n" for each key-value pair in
@@ -90,6 +90,27 @@ private:
    // Node before N in an in-order tree walk.  If N points to the leftmost 
    // Node, or is nil, returns nil.
    Node* findPrev(Node* N);
+
+   // RBT Helper Functions (Optional) -----------------------------------------
+   
+   // LeftRotate()
+   void LeftRotate(Node* N);
+
+   // RightRotate()
+   void RightRotate(Node* N);
+
+   // RB_InsertFixUP()
+   void RB_InsertFixUp(Node* N);
+
+   // RB_Transplant()
+   void RB_Transplant(Node* u, Node* v);
+
+   // RB_DeleteFixUp()
+   void RB_DeleteFixUp(Node* N);
+
+   // RB_Delete()
+   void RB_Delete(Node* N);
+
 
 public:
 
