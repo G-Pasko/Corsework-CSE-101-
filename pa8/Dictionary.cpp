@@ -14,15 +14,16 @@
 
 
    //colors:
-   // Red = 3;
-   // Black = 2
+   // Red = 0;
+   // Black = 1
+
    const std::string null = "";
    // private Node struct
-   Dictionary::Node::Node(keyType k, valType v, int c){
+   Dictionary::Node::Node(keyType k, valType v){
       // Node fields
       key = k;
       val = v;
-      color = c,
+      color =  0;
       parent = nullptr;
       left = nullptr;
       right = nullptr;
@@ -31,6 +32,7 @@
    // Dictionary fields
    Dictionary::Dictionary(){
       nil = new Node(null, -69);
+      nil->color = 1;
       //nil->parent = nil;
       //nil->left = nil;
       //nil->right = nil;
@@ -47,6 +49,7 @@
 
    Dictionary::Dictionary(const Dictionary& D){
       nil = new Node(null, -69);
+      nil->color = 1;
       nil->parent = nil;
       nil->left = nil;
       nil->right = nil;
@@ -70,7 +73,7 @@
    }
 
    // Helper Functions (Optional) ---------------------------------------------
-
+   //Done
    void Dictionary::transplant(Node* N, Node* M){
       if(N->parent == nil){
          root = M;
@@ -84,15 +87,18 @@
       if(M != nil){
          M->parent = N->parent;
       }
+      
    }
 
+//Done
+   void Dictionary::LeftRotate(Node* N){
+      Node* M = N->right;
 
-   void LeftRotate(Node* N){
-      Node* M = R->right;
       N->right = M->left;
       if(M->left != nil){
          M->left->parent = N;
       }
+      
       M->parent = N->parent;
       if(N->parent == nil){
          root = M;
@@ -108,14 +114,17 @@
    }
 
    // RightRotate()
-   void RightRotate(Node* N){
-      M = N->left;
+   //Done
+   void Dictionary::RightRotate(Node* N){
+      Node* M = N->left;
+
       N->left = M->right;
       if(M->right != nil){
          M->right->parent = N;
       }
+      
       M->parent = N->parent;
-      if(N->parent != nil){
+      if(N->parent == nil){
          root = M;
       }
       else if(N == N->parent->right){
@@ -129,15 +138,16 @@
    }
 
    // RB_InsertFixUP()
-   void RB_InsertFixUp(Node* N){
+   //Done
+   void Dictionary::RB_InsertFixUp(Node* N){
       Node* Y;
-      while(N->parent->current == 3){
+      while(N->parent->color == 0){
          if(N->parent == N->parent->parent->left){
             Y = N->parent->parent->right;
-            if(Y->color == 3){
-               N->parent->current = 2;
-               Y->color = 3;
-               N->parent->current = 3;
+            if(Y->color == 0){
+               N->parent->color = 1;
+               Y->color = 1;
+               N->parent->parent->color = 0;
                N = N->parent->parent;
             }
             else{
@@ -145,17 +155,17 @@
                   N = N->parent;
                   LeftRotate(N);
                }
-               N->parent->current = 2;
-               N->parent->parent->current = 3;
+               N->parent->color = 1;
+               N->parent->parent->color = 0;
                RightRotate(N->parent->parent);
             }
          }
          else{
             Y = N->parent->parent->left;
-            if(Y->color == 3){
-               N->parent->color = 2;
-               Y->color = 2;
-               N->parent->parent->current = 3;
+            if(Y->color == 0){
+               N->parent->color = 1;
+               Y->color = 1;
+               N->parent->parent->color = 0;
                N = N->parent->parent;
             }
             else{
@@ -163,92 +173,96 @@
                   N = N->parent;
                   RightRotate(N);
                }
-               N->parent->parent = 2;
-               N->parent->parent->color = 3;
+               N->parent->color = 1;
+               N->parent->parent->color = 0;
                LeftRotate(N->parent->parent);
             }
          }
       }
-      root->color = 2;
+      root->color = 1;
    }
 
    // RB_Transplant()
-   void RB_Transplant(Node* u, Node* v){
+   //Done
+   void Dictionary::RB_Transplant(Node* u, Node* v){
       if(u->parent == nil){
          root = v;
       }
-      else if(u = u->parent->left){
+      else if(u == u->parent->left){
          u->parent->left = v;
       }
       else{
          u->parent->right = v;
       }
-      v->parent = r->parent;
+      v->parent = u->parent;
    }
 
    // RB_DeleteFixUp()
-   void RB_DeleteFixUp(Node* N){
+   //Done
+   void Dictionary::RB_DeleteFixUp(Node* N){
       Node* M;
-      while(N != right && N->color == 2){
+      while(N != root && N->color == 1){
          if(N == N->parent->left){
             M = N->parent->right;
-            if(M->current == 3){
-               M->color = 2;
-               N->parent->color = 3;
+            if(M->color == 0){
+               M->color = 1;
+               N->parent->color = 0;
                LeftRotate(N->parent);
                M = N->parent->right;
             }
-            if(M->left->color == 2 && M->right->color == 2){
-               M->color = 3;
+            if(M->left->color == 1 && M->right->color == 1){
+               M->color = 0;
                N = N->parent;
             }
             else{
-               if(M->right->color == 2){
-                  M->left->color = 2;
-                  M->color = 3;
-                  RightRotate(m);
+               if(M->right->color == 1){
+                  M->left->color = 1;
+                  M->color = 0;
+                  RightRotate(M);
                   M = N->parent->right;
                }
                M->color = N->parent->color;
-               N->parent->olor = 2;
-               M->parent->color = 2;
+               N->parent->color = 1;
+               M->right->color = 1;
                LeftRotate(N->parent);
                N = root;
             }
          }
          else{
             M = N->parent->left;
-            if(M->color == 3){
-               M->color = 2;
-               RightRotate(M);
+            if(M->color == 0){
+               M->color = 1;
+               N->parent->color = 0;
+               RightRotate(N->parent);
                M = N->parent->left;
             }
-            if(M->right->color == 2 && M->left->color == 2){
-               M->color = 3;
+            if(M->right->color == 1 && M->left->color == 1){
+               M->color = 0;
                N = N->parent;
             }
             else{
-               if(M->left->color == 2){
-                  M->right->color = 2;
-                  M->color = 3;
+               if(M->left->color == 1){
+                  M->right->color = 1;
+                  M->color = 0;
                   LeftRotate(M);
                   M = N->parent->left;
                }
                M->color = N->parent->color;
-               N->parent->color = 2;
-               M->left->color = 2;
+               N->parent->color = 1;
+               M->left->color = 1;
                RightRotate(N->parent);
                N = root;
             }
          }
       }
-      N->color = 2;
+      N->color = 1;
    }
 
    // RB_Delete()
-   void RB_Delete(Node* N){
+   //Done
+   void Dictionary::RB_Delete(Node* N){
       Node* Y = N;
-      Node* X;
+      Node* X = nil;
       int YOC = Y->color;
       if(N->left == nil){
          X = N->right;
@@ -261,7 +275,7 @@
       else{
          Y = findMin(N->right);
          YOC = Y->color;
-         N == Y->right;
+         X = Y->right;
          if(Y->parent == N){
             X->parent = Y;
          }
@@ -275,9 +289,10 @@
          Y->left->parent = Y;
          Y->color = N->color;
      }
-     if(YOC == 2){
+     if(YOC == 1){
       RB_DeleteFixUp(X);
      }
+     num_pairs --;
    }
 
 
@@ -490,38 +505,38 @@
    // If a pair with key==k exists, overwrites the corresponding value with v, 
    // otherwise inserts the new pair (k, v).
    void Dictionary::setValue(keyType k, valType v){
-      Node* Y = nil;
-      Node* X = root;
-      Node* N = new Node(k, v);
-      while(X != nil){
-         Y = X;
-         if(N->key == X->key){
-            X->key = k;
-            delete N;
+      Node* M = nil;
+      Node* N = root;
+      while(N != nil){
+         M = N;
+         if(k == N->key){
+            N->val = v;
             return;
          }
-         if(N->key < X->key){
-            X = X->left;
+         
+         else if(k < N->key){
+            N = N->left;
          }
          else{
-            X = X->right;
+            N = N->right;
          }
       }
-      N->parent = Y;
-      if(Y == nil){
-         root = N;
+      Node* Z = new Node(k, v);
+      Z->parent = M;
+      if(M == nil){
+         root = Z;
       }
-      else if(N->key < Y->key){
-         Y->left = N;
+      else if(Z->key < M->key){
+         M->left = Z;
       }
       else{
-         Y->right = N;
+         M->right = Z;
       }
-      N->left = nil;
-      N->right = nil;
-      N->color = 3;
+      Z->left = nil;
+      Z->right = nil;
+      Z->color = 0;
       num_pairs++;
-      RB_InsertFixUp(N);
+      RB_InsertFixUp(Z);
    }
 
    // remove()
@@ -532,29 +547,7 @@
       if(search(root, k) == nil){
          throw std::out_of_range("Dictionary: getValue(): key \"" + k + "\" does not exist");
       }
-      Node* N = search(root, k);
-      if(N == current){
-         current = nil;
-      }
-      if(N->left == nil){
-         transplant(N, N->right);
-      }
-      else if(N->right == nil){
-         transplant(N, N->left);
-      }
-      else{
-         Node* M = findMin(N->right);
-         if(M->parent != N){
-            transplant(M, M->right);
-            M->right = N->right;
-            M->right->parent = M;
-         }
-         transplant(N, M);
-         M->left = N->left;
-         N->left->parent = M;
-      }
-      delete N;
-      num_pairs--;
+      RB_Delete(search(root, k));
    }
 
    // begin()

@@ -42,7 +42,7 @@ private:
 
    // Helper Functions (Optional) ---------------------------------------------
 
-   void trasplant(Node* N, Node* M);
+   void transplant(Node* N, Node* M);
    // inOrderString()
    // Appends a string representation of the tree rooted at R to string s. The
    // string appended consists of: "key : value \n" for each key-value pair in

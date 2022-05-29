@@ -13,9 +13,49 @@ using namespace std;
 
 int main(){
 
-   string s;
-   int x;
-   string S[] = {"one", "two", "foo", "bar", "happy", "is", "three", "par"};
+   string S[] =   { // words to insert
+                     "plaices",
+                     "ambusher",
+                     "crosby",
+                     "wattles",
+                     "pardoner",
+                     "pythons",
+                     "second",
+                     "forms",
+                     "impales",
+                     "pic",
+                     "verticals",
+                     "recriminator",
+                     "depressants",
+                     "cul",
+                     "potables",
+                     "norm",
+                     "reinsurer",
+                     "deschooler",
+                     "recoining",
+                     "dissocialised",
+                     "cohabit",
+                     "hemiolia",
+                     "cantling",
+                     "glamorized",
+                     "millesimal",
+                     "glagolitic"
+                  };
+   string T[] =   { // words to delete
+                     "second",
+                     "forms",
+                     "impales",
+                     "pic",
+                     "verticals",
+                     "recriminator",
+                     "depressants",
+                     "cul",
+                     "potables",
+                     "norm",
+                     "reinsurer",
+                     "deschooler",
+                     "recoining",      
+                  };
 
    Dictionary A;
    Dictionary B;
@@ -23,23 +63,21 @@ int main(){
    cout << endl;
 
    // insert some pairs into A
-   for(int i=0; i<8; i++){
+   for(int i=0; i<26; i++){
       A.setValue(S[i], i+1);
-
    }
-   for(int i = 0; i < 8; i++){
-      cout << A.getValue(S[i]) << endl;
-   }
-   printf("Values were set\n");
    
    // call operator=()
    B = A;
-   printf("B was set to be equal to A\n");
 
    cout << "A.size() = " << A.size() << endl  << A << endl;
    cout << "B.size() = " << B.size() << endl  << B << endl;
 
-   B.setValue("bar", 9);
+   B.setValue("deschooler", 101);
+   B.setValue("reinsurer", 102);
+   B.setValue("glagolitic", 103);
+   B.setValue("cul", 104);
+   B.setValue("ambusher", 105);
 
    // call copy constructor
    Dictionary C = B;
@@ -53,41 +91,43 @@ int main(){
    cout << "C==A is " << (C==A?"true":"false") << endl << endl;
 
    // perform alterations on A
-   cout << A.getValue("happy") << endl;
-   //printf("Happy was found\n");
-   A.getValue("happy") *= 10; // change the value associated with "happy"
-   //printf("value of happy was changed\n");
-   cout << A.getValue("happy") << endl << endl;
-   //printf("Value of happy was printed\n");
-   A.remove("one");
-   //printf("One was removed\n");
-   A.remove("two");
-   //printf("Two was removed\n");
+   cout << A.getValue("hemiolia") << endl;
+   A.getValue("hemiolia") *= 10; // change the value associated with "hemiolia"
+   cout << A.getValue("hemiolia") << endl << endl;
 
    // check state of A
    cout << "A.size() = " << A.size() << endl  << A << endl;
-   cout << A.pre_string() << endl;
+   cout << "A pre-order: " << endl << A.pre_string() << endl;
 
-   B.begin();
-   cout << B.currentKey() << B.currentVal() << endl;
-   cout << B << endl;
-   // do forward iteration on B
-   for(B.begin(); B.hasCurrent(); B.next()){
-      s = B.currentKey();
-      x = B.currentVal();
-      cout << "("+s+", " << x << ") ";
+   // remove some pairs from A
+   for(int i=0; i<13; i++){ 
+      A.remove(T[i]);
    }
-   cout << endl << endl;
+
+   // check state of A
+   cout << "A.size() = " << A.size() << endl  << A << endl;
+   cout << "A pre-order: " << endl << A.pre_string() << endl;
+
+   // do forward iteration on B
+   cout << "forward iteration on B, changing values:" << endl;
+   for(B.begin(); B.hasCurrent(); B.next()){
+      cout << "("+B.currentKey()+", " << B.currentVal() << ") ";
+      B.currentVal()++;  // change value
+      cout << "("+B.currentKey()+", " << B.currentVal() << ")\n";
+   }
+   cout << endl;
 
    // do reverse iteration on C
+   cout << "reverse iteration on C, changing values" << endl;
    for(C.end(); C.hasCurrent(); C.prev()){
-      s = C.currentKey();
-      x = C.currentVal();
-      cout << "("+s+", " << x << ") ";
+      cout << "("+C.currentKey()+", " << C.currentVal() << ") ";
+      C.currentVal()++;  // change value
+      cout << "("+C.currentKey()+", " << C.currentVal() << ")\n";
    }
-   cout << endl << endl;
+   cout << endl;
    
    // check exceptions
+   cout << "test pre-condition errors:" << endl;
    try{
       A.getValue("blah");
    }catch(logic_error& e){
@@ -124,7 +164,6 @@ int main(){
       cout << e.what() << endl;
       cout << "   continuing without interruption" << endl;
    }
-
    cout << endl;  
 
    return( EXIT_SUCCESS );
