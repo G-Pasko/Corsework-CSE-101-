@@ -547,7 +547,8 @@
       if(search(root, k) == nil){
          throw std::out_of_range("Dictionary: getValue(): key \"" + k + "\" does not exist");
       }
-      RB_Delete(search(root, k));
+      Node* N = search(root, k);
+      RB_Delete(N);
    }
 
    // begin()
