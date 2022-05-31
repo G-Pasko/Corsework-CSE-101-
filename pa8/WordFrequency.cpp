@@ -18,7 +18,6 @@ int main(int argc, char * argv[]){
    ifstream in;
    ofstream out;
    string line;
-   string tokenBuffer;
    string token;
    string delim = " \t\"',<.>/?;:[{]}|`~!@#$%^&*()-_=+0123456789"; 
    //string delim = " \t\\\"\',<.>/?;:[{]}|`~!@#$^&*()-_=+0123456789";
@@ -43,14 +42,11 @@ int main(int argc, char * argv[]){
    }
 
    // read each line of input file, then count and print tokens 
-   line_count = 0;
    Dictionary D;
    while( getline(in, line) )  {
-      line_count++;
       len = line.length();
       
       // get tokens in this line
-      token_count = 0;
       //tokenBuffer = "";
 
       // get first token
@@ -89,7 +85,7 @@ int main(int argc, char * argv[]){
       
    }
    
-   out << D.to_string() << endl;
+   out << D << endl;
    //out << D.pre_string() << endl;
 
 
