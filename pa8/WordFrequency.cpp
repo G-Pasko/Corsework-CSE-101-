@@ -51,7 +51,7 @@ int main(int argc, char * argv[]){
       
       // get tokens in this line
       token_count = 0;
-      tokenBuffer = "";
+      //tokenBuffer = "";
 
       // get first token
       begin = min(line.find_first_not_of(delim, 0), len);
@@ -60,26 +60,27 @@ int main(int argc, char * argv[]){
       
       while( token!="" ){  // we have a token
          // update token buffer
-         tokenBuffer += "   "+token+"\n";
+         if(D.contains(token)){
+         	D.getValue(token)++;
+         }
+     	 else{
+    	  	D.setValue(token, 1);
+    	  	token_count++;
+    	 }
          
 
          // get next token
          begin = min(line.find_first_not_of(delim, end+1), len);
          end   = min(line.find_first_of(delim, begin), len);
          token = line.substr(begin, end-begin);
+
       }
 
       // print tokens in this line
       //out << "line " << line_count << " contains " << token_count;
       //out << " token" << (token_count==1?"":"s") << endl;
       //out << tokenBuffer << endl;
-      if(D.contains(token)){
-         	D.getValue(token)++;
-         }
-      else{
-      	D.setValue(token, 1);
-      	token_count++;
-      }
+      
    }
    
    out << D.to_string() << endl;
