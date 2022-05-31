@@ -67,12 +67,13 @@ int main(int argc, char * argv[]){
          begin = min(line.find_first_not_of(delim, end+1), len);
          end   = min(line.find_first_of(delim, begin), len);
          token = line.substr(begin, end-begin);
+         std::transform(token.begin(), token.end(), ::tolower);
          if(D.contains(token)){
          	D.getValue(token)++;
          }
       	 else{
     	 	D.setValue(token, 1);
-    	 	token_count++;
+    	 	//token_count++;
          }
 
       }
