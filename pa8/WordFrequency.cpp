@@ -60,7 +60,7 @@ int main(int argc, char * argv[]){
       
       while( token!="" ){  // we have a token
          // update token buffer
-      	for(int i = 0; i < token.size(); i++){
+      	for(int i = 0; i < sizeof(token); i++){
       		tolower(token[i]);
       	}
         if(D.contains(token)){
