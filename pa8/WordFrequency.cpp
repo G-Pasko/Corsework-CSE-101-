@@ -61,7 +61,7 @@ int main(int argc, char * argv[]){
       
       while( token!="" ){  // we have a token
          // update token buffer
-      	std::transform(token.begin(), token.end(), ::tolower);
+      	transform(token.begin(), token.end(), tolower);
         if(D.contains(token)){
         	D.getValue(token)++;
         }
