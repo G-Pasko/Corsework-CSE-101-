@@ -5,6 +5,7 @@
 #include<iostream>
 #include<fstream>
 #include<string>
+#include<bits/stdc++.h>
 #include"Dictionary.h"
 
 using namespace std;
