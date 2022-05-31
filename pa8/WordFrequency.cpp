@@ -60,13 +60,7 @@ int main(int argc, char * argv[]){
       
       while( token!="" ){  // we have a token
          // update token buffer
-         if(D.contains(token)){
-         	D.getValue(token)++;
-         }
-     	 else{
-    	  	D.setValue(token, 1);
-    	  	token_count++;
-    	 }
+         
          
 
          // get next token
@@ -74,6 +68,13 @@ int main(int argc, char * argv[]){
          end   = min(line.find_first_of(delim, begin), len);
          token = line.substr(begin, end-begin);
 
+      }
+      if(D.contains(token)){
+         	D.getValue(token)++;
+         }
+      else{
+    	 D.setValue(token, 1);
+    	 token_count++;
       }
 
       // print tokens in this line
