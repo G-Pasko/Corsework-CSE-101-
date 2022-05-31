@@ -80,12 +80,9 @@ int main(int argc, char * argv[]){
       //out << " token" << (token_count==1?"":"s") << endl;
       out << tokenBuffer << endl;
    }
-   string s;
-   D.inOrderString(s, D.root);
-   out << s << endl;
-   s = "";
-   D.preOrderString(s, D.root);
-   out << s << endl;
+   
+   out << D.to_string() << endl;
+   out << D.pre_string() << endl;
 
 
 
