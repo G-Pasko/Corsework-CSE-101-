@@ -78,7 +78,7 @@ int main(int argc, char * argv[]){
       // print tokens in this line
       //out << "line " << line_count << " contains " << token_count;
       //out << " token" << (token_count==1?"":"s") << endl;
-      out << tokenBuffer << endl;
+      //out << tokenBuffer << endl;
    }
    
    out << D.to_string() << endl;
