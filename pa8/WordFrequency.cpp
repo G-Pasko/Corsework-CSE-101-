@@ -5,7 +5,6 @@
 #include<iostream>
 #include<fstream>
 #include<string>
-#include<bits/stdc++.h>
 #include"Dictionary.h"
 
 using namespace std;
@@ -61,7 +60,9 @@ int main(int argc, char * argv[]){
       
       while( token!="" ){  // we have a token
          // update token buffer
-      	transform(token.begin(), token.end(), tolower);
+      	for(int i = 0; i < token.size(); i++){
+      		tolower(token[i]);
+      	}
         if(D.contains(token)){
         	D.getValue(token)++;
         }
