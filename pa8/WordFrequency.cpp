@@ -13,7 +13,6 @@ using namespace std;
 
 int main(int argc, char * argv[]){
 
-   int token_count, line_count;
    size_t begin, end, len;
    ifstream in;
    ofstream out;
@@ -60,7 +59,7 @@ int main(int argc, char * argv[]){
       		tolower(token[i]);
       	}
         if(D.contains(token)){
-        	D.getValue(token)++;
+        	D.getValue(token) += 1;
         }
       	else{
     		D.setValue(token, 1);
