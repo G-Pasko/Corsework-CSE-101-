@@ -9,9 +9,12 @@
 #------------------------------------------------------------------------------
 
 MAIN           = WordFrequency
+MAIN2 		   = Order
 ADT            = Dictionary
 SOURCE         = $(MAIN).cpp
+SOURCE2		   = $(MAIN2).cpp
 OBJECT         = $(MAIN).o
+OBJECT2		   = $(MAIN2).o
 ADT_TEST       = $(ADT)Test
 ADT_SOURCE     = $(ADT).cpp
 ADT_OBJECT     = $(ADT).o
@@ -23,6 +26,9 @@ MEMCHECK       = valgrind --leak-check=full
 
 $(MAIN): $(OBJECT) $(ADT_OBJECT)
 	$(LINK) $(MAIN) $(OBJECT) $(ADT_OBJECT)
+
+$(MAIN2): $(OBJECT2) $(ADT_OBJECT)
+	$(LINK) $(MAIN2) $(OBJECT2) $(ADT_OBJECT)
 
 $(ADT_TEST): $(ADT_TEST).o $(ADT_OBJECT)
 	$(LINK) $(ADT_TEST) $(ADT_TEST).o $(ADT_OBJECT)
