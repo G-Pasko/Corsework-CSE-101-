@@ -81,9 +81,11 @@ int main(int argc, char * argv[]){
       out << tokenBuffer << endl;
    }
    string s;
-   out << D.inOrderString(s, D.root) << endl;
+   D.inOrderString(s, D.root);
+   out << s << endl;
    s = "";
-   out << D.preOrderString(s, D.root) << endl;
+   D.preOrderString(s, D.root);
+   out << s << endl;
 
 
 
