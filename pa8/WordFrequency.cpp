@@ -84,7 +84,7 @@ int main(int argc, char * argv[]){
    }
    
    out << D.to_string() << endl;
-   out << D.pre_string() << endl;
+   //out << D.pre_string() << endl;
 
 
 
