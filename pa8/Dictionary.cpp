@@ -289,6 +289,9 @@
          Y->left->parent = Y;
          Y->color = N->color;
      }
+     if(N == current){
+      current = nil;
+     }
      if(YOC == 1){
       RB_DeleteFixUp(X);
      }
