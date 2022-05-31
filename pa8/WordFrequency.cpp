@@ -67,15 +67,16 @@ int main(int argc, char * argv[]){
          begin = min(line.find_first_not_of(delim, end+1), len);
          end   = min(line.find_first_of(delim, begin), len);
          token = line.substr(begin, end-begin);
-
-      }
-      if(D.contains(token)){
+         if(D.contains(token)){
          	D.getValue(token)++;
          }
-      else{
-    	 D.setValue(token, 1);
-    	 token_count++;
+      	 else{
+    	 	D.setValue(token, 1);
+    	 	token_count++;
+         }
+
       }
+      
 
       // print tokens in this line
       //out << "line " << line_count << " contains " << token_count;
