@@ -3,6 +3,11 @@ Order.cpp:
 	in alphabetical order with the corresponding value number printed next to it.
 	Next, it will print the keys corresponding to a pre order tree walk.
 
+Word Frequency:
+	Another top level client for this lab that will sort and count the
+	frequency of different words used in an input file. It will print the 
+	words in alphabetical order with the number of times they were used.
+
 DictionaryTest.cpp:
 	This file tests all of the functions that are created in Dictionary.cpp.
 
