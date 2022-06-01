@@ -5,59 +5,58 @@
 #include<iostream>
 #include<fstream>
 #include<string>
+#include<algorithm>
 #include"Dictionary.h"
-
-using namespace std;
 
 #define MAX_LEN 300
 
 int main(int argc, char * argv[]){
 
    size_t begin, end, len;
-   ifstream in;
-   ofstream out;
-   string line;
-   string token;
-   string delim = " \t\\\"\',<.>/?;:[{]}|`~!@#$%^&*()-_=+0123456789";
+   std::ifstream in;
+   std::ofstream out;
+   std::string line;
+   std::string token;
+   std::string delim = " \t\\\"\',<.>/?;:[{]}|`~!@#$%^&*()-_=+0123456789";
    //string delim = " \t\\\"\',<.>/?;:[{]}|`~!@#$^&*()-_=+0123456789";
 
    // check command line for correct number of arguments
    if( argc != 3 ){
-      cerr << "Usage: " << argv[0] << " <input file> <output file>" << endl;
+      std::cerr << "Usage: " << argv[0] << " <input file> <output file>" << std::endl;
       return(EXIT_FAILURE);
    }
 
    // open files for reading and writing 
    in.open(argv[1]);
    if( !in.is_open() ){
-      cerr << "Unable to open file " << argv[1] << " for reading" << endl;
+      std::cerr << "Unable to open file " << argv[1] << " for reading" << std::endl;
       return(EXIT_FAILURE);
    }
 
    out.open(argv[2]);
-   if( !out.is_open() ){
-      cerr << "Unable to open file " << argv[2] << " for writing" << endl;
+   if(!out.is_open()){
+      std::cerr << "Unable to open file " << argv[2] << " for writing" << std::endl;
       return(EXIT_FAILURE);
    }
 
    // read each line of input file, then count and print tokens 
    Dictionary D;
-   while( getline(in, line) )  {
+   while(getline(in, line)){
       len = line.length();
       
       // get tokens in this line
       //tokenBuffer = "";
 
       // get first token
-      begin = min(line.find_first_not_of(delim, 0), len);
-      end   = min(line.find_first_of(delim, begin), len);
+      begin = std::min(line.find_first_not_of(delim, 0), len);
+      end   = std::min(line.find_first_of(delim, begin), len);
       token = line.substr(begin, end-begin);
       
       while( token!="" ){  // we have a token
          // update token buffer
-      	for(int i = 0; i < sizeof(token); i++){
-      		tolower(token[i]);
-      	}
+      	std::for_each(token.begin(), token.end(), [](char &c){
+      		c = ::tolower(c);
+      	});
         if(D.contains(token)){
         	D.getValue(token) += 1;
         }
@@ -69,8 +68,8 @@ int main(int argc, char * argv[]){
          
 
          // get next token
-         begin = min(line.find_first_not_of(delim, end+1), len);
-         end   = min(line.find_first_of(delim, begin), len);
+         begin = std::min(line.find_first_not_of(delim, end+1), len);
+         end   = std::min(line.find_first_of(delim, begin), len);
          token = line.substr(begin, end-begin);
          
 
@@ -84,7 +83,7 @@ int main(int argc, char * argv[]){
       
    }
    
-   out << D << endl;
+   out << D << std::endl;
    //out << D.pre_string() << endl;
 
 
