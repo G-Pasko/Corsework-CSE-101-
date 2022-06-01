@@ -18,7 +18,7 @@ int main(int argc, char * argv[]){
    ofstream out;
    string line;
    string token;
-   string delim = " \t\"',<.>/?;:[{]}|`~!@#$%^&*()-_=+0123456789"; 
+   string delim = " \t\\\"\',<.>/?;:[{]}|`~!@#$%^&*()-_=+0123456789";
    //string delim = " \t\\\"\',<.>/?;:[{]}|`~!@#$^&*()-_=+0123456789";
 
    // check command line for correct number of arguments
